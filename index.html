@@ -252,6 +252,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-bitx" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/22/bitx/" class="article-date">
+      <time datetime="2018-09-22T11:33:03.000Z" itemprop="datePublished">2018-09-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/22/bitx/">bitx</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://sus.njnet6.edu.cn/challenges#bitx" target="_blank" rel="noopener">题目地址</a></p>
+<p>拖进ida，主函数一目了然，直接进入验证函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for ( i = 0; *(_BYTE *)(i + a1) &amp;&amp; *(_BYTE *)(i + 0x804A040); ++i )</span><br><span class="line">&#123;</span><br><span class="line">  if ( *(_BYTE *)(i + a1) + 9 != ((unsigned __int8)((*(_BYTE *)(i + 0x804A040) &amp; 0xAA) &gt;&gt; 1) | (unsigned __int8)(2 * (*(_BYTE *)(i + 0x804A040) &amp; 0x55))) )</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">return 1;</span><br></pre></td></tr></table></figure>
+<p>将输入与0x804a040处的值经过一系列运算后比较<br>若不相等则gg，直接写脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final=[0x8F,0x0AA,0x85,0x0A0,0x48,0x0AC,0x40,0x95,0x0B6,0x16,0x0BE,0x40,0x0B4,0x16,0x97,0x0B1,0x0BE,0x0BC,0x16,0x0B1,0x0BC,0x16,0x9D,0x95,0x0BC,0x41,0x16,0x36,0x42,0x95,0x95,0x16,0x40,0x0B1,0x0BE,0x0B2,0x16,0x36,0x42,0x3D,0x3D,0x49]</span><br><span class="line">flag=final</span><br><span class="line">for i in range(len(final)):</span><br><span class="line">	flag[i]=((final[i]&amp;0xaa)&gt;&gt;1|2*(final[i]&amp;0x55) )-9</span><br><span class="line">out=&apos;&apos;.join([chr(i) for i in flag])</span><br><span class="line">print out</span><br></pre></td></tr></table></figure>
+<p><strong><em>flag get</em></strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-base64" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
