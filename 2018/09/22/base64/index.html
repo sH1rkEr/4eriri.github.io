@@ -14,17 +14,18 @@
 <meta name="author" content="4eriri" />
 
 
-    
-    
 
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="4eriri&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="百度了一会base64，在吾爱破解上发现了一篇讲解很详细的文章，于是尝试自己实现base64加密 12345678910111213141516171819202122232425262728293031323334353637383940letters=[&amp;apos;A&amp;apos;, &amp;apos;B&amp;apos;, &amp;apos;C&amp;apos;, &amp;apos;D&amp;apos;,&amp;apos;E&amp;apos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="base64">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/base64/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
+<meta property="og:description" content="百度了一会base64，在吾爱破解上发现了一篇讲解很详细的文章，于是尝试自己实现base64加密 12345678910111213141516171819202122232425262728293031323334353637383940letters=[&amp;apos;A&amp;apos;, &amp;apos;B&amp;apos;, &amp;apos;C&amp;apos;, &amp;apos;D&amp;apos;,&amp;apos;E&amp;apos">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-22T07:05:24.117Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4eriri&#39;s blog">
+<meta name="twitter:title" content="base64">
+<meta name="twitter:description" content="百度了一会base64，在吾爱破解上发现了一篇讲解很详细的文章，于是尝试自己实现base64加密 12345678910111213141516171819202122232425262728293031323334353637383940letters=[&amp;apos;A&amp;apos;, &amp;apos;B&amp;apos;, &amp;apos;C&amp;apos;, &amp;apos;D&amp;apos;,&amp;apos;E&amp;apos">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,13 +53,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>4eriri&#39;s blog</title>
+<title>base64 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,8 +66,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -250,9 +249,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-base64" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-base64" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2018/09/22/base64/" class="article-date">
@@ -270,12 +267,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/22/base64/">base64</a>
+    <h1 class="article-title" itemprop="name">
+      base64
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -290,161 +294,85 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-acdES" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/22/acdES/" class="article-date">
-      <time datetime="2018-09-22T01:21:17.000Z" itemprop="datePublished">2018-09-22</time>
-</a>
-
-
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/09/22/base64/">base64</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
+        <p><span>发布时间:</span>2018-09-22, 14:58:58</p>
+        <p><span>最后更新:</span>2018-09-22, 15:05:24</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/22/base64/" title="base64">http://yoursite.com/2018/09/22/base64/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/22/base64/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+
+
+
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/22/acdES/">acdES</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>f5大法好，main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">v18 = __readfsqword(0x28u);</span><br><span class="line">  s = (char *)malloc(0x80uLL);</span><br><span class="line">  v9 = (char *)malloc(0xC0uLL);</span><br><span class="line">  v10 = &apos;uijizieM&apos;;</span><br><span class="line">  v11 = &apos;goD dna &apos;;</span><br><span class="line">  v12 = &apos; era yob&apos;;</span><br><span class="line">  v13 = &apos;cus yrev&apos;;</span><br><span class="line">  v14 = &apos;lufssec&apos;;</span><br><span class="line">  v15 = 0LL;</span><br><span class="line">  v16 = 0LL;</span><br><span class="line">  v17 = 0LL;</span><br><span class="line">  v3 = sub_400B64((__int64)&amp;v10, 64);</span><br><span class="line">  srand(v3);</span><br><span class="line">  v7 = 0LL;</span><br><span class="line">  for ( i = 0; i &lt;= 7; ++i )</span><br><span class="line">    v7 = (unsigned __int8)rand() + (v7 &lt;&lt; 8);</span><br><span class="line">  puts(&quot;Input your text:&quot;);</span><br><span class="line">  scanf(&quot;%96s&quot;, s);</span><br><span class="line">  v4 = strlen(s);</span><br><span class="line">  sub_400E48((__int64)v9, (__int64)s, v4, v7);</span><br><span class="line">  puts(v9);</span><br><span class="line">  return 0LL;</span><br></pre></td></tr></table></figure>
-<p>Meizijiu and Dogboy are very successful</p>
-<p>sub_400b64循环60次，v3为v10中所有字符异或结果，写脚本得到v7=-1006576376。v4=96,随后进入sub_400e48函数:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">v6 = a3;</span><br><span class="line"> v5 = a4;</span><br><span class="line"> v8 = (char *)malloc(0x80uLL);</span><br><span class="line"> if ( v6 &amp; 7 )</span><br><span class="line"> &#123;</span><br><span class="line">   sub_400BA5(a2, v6, 8 - v6 % 8);</span><br><span class="line">   v6 += 8 - v6 % 8;</span><br><span class="line"> &#125;</span><br><span class="line"> v9 = malloc(0x80uLL);</span><br><span class="line"> sub_4009B9(v5, 32, (__int64)v9);</span><br><span class="line"> for ( i = 0; i &lt; v6; i += 8 )</span><br><span class="line">   *(_QWORD *)&amp;v8[i] = sub_400AC3(*(_QWORD *)(i + a2), 32, (__int64)v9);</span><br><span class="line"> return sub_400C02(a1, (__int64)v8, v6);</span><br></pre></td></tr></table></figure>
-<p>v6=v4,v5=v7,v6&amp;7=0 if不执行</p>
-<hr>
-<p>进入sub_4009B9：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">v5 = a1;</span><br><span class="line">  v4 = a3;</span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v6 = 0;</span><br><span class="line">  dest = malloc(0x40uLL);</span><br><span class="line">  src = malloc(0x40uLL);</span><br><span class="line">  sub_40086F((unsigned __int64 *)&amp;v5, (__int64)dest);</span><br><span class="line">  for ( i = 0; i &lt; a2; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    for ( j = 0; j &lt;= 63; ++j )</span><br><span class="line">      *((_BYTE *)src + j) = *((_BYTE *)dest + dword_6021E0[j]);</span><br><span class="line">    memcpy(dest, src, 0x40uLL);</span><br><span class="line">    sub_40095D(dest, &amp;v6);</span><br><span class="line">    *(_DWORD *)(v4 + 4LL * i) = v6;</span><br><span class="line">  &#125;</span><br><span class="line">  return __readfsqword(0x28u) ^ v11;</span><br></pre></td></tr></table></figure>
-<p>sub_40086f循环64次<br>dest[i]=v7&amp;1<br>v7&gt;&gt;=1</p>
-<p>一个32次的大循环中</p>
-<p>dest[i]=dest[i]+dword_6021E0[i]</p>
-<p>sub_40095D循环64次 v6*=2 v6^=dest[i]</p>
-<p>v9[i*4]=v6</p>
-<hr>
-<p>返回sub400e48中</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-480小时" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/21/480小时/" class="article-date">
-      <time datetime="2018-09-20T16:52:52.000Z" itemprop="datePublished">2018-09-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/21/480小时/">cgctf-480小时精通c++</a>
-    </h1>
-  
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/22/acdES/">
+                    acdES
+                </a>
+            </div>
+        
+    </nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先……</p>
-<p>题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……</p>
-<p>  ida启动！main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  signed int i; // [rsp+Ch] [rbp-54h]</span><br><span class="line">  __int64 v5; // [rsp+10h] [rbp-50h]</span><br><span class="line">  __int64 v6; // [rsp+18h] [rbp-48h]</span><br><span class="line">  __int64 v7; // [rsp+20h] [rbp-40h]</span><br><span class="line">  __int64 v8; // [rsp+28h] [rbp-38h]</span><br><span class="line">  int v9; // [rsp+30h] [rbp-30h]</span><br><span class="line">  char v10; // [rsp+34h] [rbp-2Ch]</span><br><span class="line">  unsigned __int64 v11; // [rsp+58h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v5 = 7652827924304847970LL;</span><br><span class="line">  v6 = 6588269719570178159LL;</span><br><span class="line">  v7 = 0615273543157435660505LL;</span><br><span class="line">  v8 = 4932672475662219355LL;</span><br><span class="line">  v9 = 2099869557;</span><br><span class="line">  v10 = 0;</span><br><span class="line">  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;((__int64)&amp;std::cout, (__int64)&quot;The Encrypted Flag is: &quot;);</span><br><span class="line">  for ( i = 0; i &lt;= 35; ++i )</span><br><span class="line">    printf(&quot;%02x&quot;, *((unsigned __int8 *)&amp;v5 + i));</span><br><span class="line">  std::ostream::operator&lt;&lt;((__int64)&amp;std::cout, (__int64)std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很容易发现输出了加密后的flag，也就是v5-v9中的值，按r键转换成字符型，得加密flag:bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}</p>
-<p>进入汇编界面发现输出”The Encrypted Flag is: “前被nop了一段，应该就是加密函数。</p>
-<p>左侧函数列表中有480个名为_X1C_CG_EncryptFunction的函数，实现output[i]^=string[i%len(string)]^i，区别就是这480个函数中的string是从“001001001”到“480480480”。所以可以知道flag经过了这480个函数的加密后，就变成了bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(35,-1,-1):</span><br><span class="line">			s=ord(flag[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag=flag.replace(flag[j],chr(s),1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><del>于是得到了flag</del></p>
-<p>可能由于并不会替换字符串中特定下标处的值，所以并没有得到flag……向大佬求救尚未得到回复……</p>
-<h2 id="两小时后"><a href="#两小时后" class="headerlink" title="两小时后"></a><strong><em>两小时后</em></strong></h2><p>原因没错，通过百度了一会python中字符串替换的问题，找到了正确的替换方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">flag1=list(flag)</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(36):</span><br><span class="line">			s=ord(flag1[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag1[j]=chr(s)</span><br><span class="line">flag=&apos;&apos;.join(flag1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong>flag get！</strong></p>
-<p>通过大佬的指点终于是完成了这一道简单题，明明知道了怎么去逆运算，结果因为python不会用的原因忙了这么久……要学的太多</p>
-<p>明天目标逆acdES</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"base64　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
 
 
 
@@ -452,9 +380,33 @@
 
 
 
+    
 
-  
-  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/22/acdES/" title="下一篇: acdES">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/base64/">base64</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/acdES/">acdES</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/21/480小时/">cgctf-480小时精通c++</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
