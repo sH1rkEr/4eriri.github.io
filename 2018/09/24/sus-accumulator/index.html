@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="4eriri" />
+
+
+
+<meta name="description" content="题目地址 拖进ida 主函数： 12345678910111213141516171819202122232425262728293031323334__int64 v3; // rbx  char v4; // al  signed __int64 result; // rax  __int64 v6; // [rsp+0h] [rbp-458h]  char v7; // [rsp+3Fh]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sus-accumulator">
+<meta property="og:url" content="http://yoursite.com/2018/09/24/sus-accumulator/index.html">
+<meta property="og:site_name" content="4eriri&#39;s blog">
+<meta property="og:description" content="题目地址 拖进ida 主函数： 12345678910111213141516171819202122232425262728293031323334__int64 v3; // rbx  char v4; // al  signed __int64 result; // rax  __int64 v6; // [rsp+0h] [rbp-458h]  char v7; // [rsp+3Fh]">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-24T07:32:29.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sus-accumulator">
+<meta name="twitter:description" content="题目地址 拖进ida 主函数： 12345678910111213141516171819202122232425262728293031323334__int64 v3; // rbx  char v4; // al  signed __int64 result; // rax  __int64 v6; // [rsp+0h] [rbp-458h]  char v7; // [rsp+3Fh]">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="4eriri&#39;s blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>sus-accumulator | 4eriri&#39;s blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">4eriri</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">4eriri</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">4eriri</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-sus-accumulator" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/24/sus-accumulator/" class="article-date">
+      <time datetime="2018-09-24T07:15:10.000Z" itemprop="datePublished">2018-09-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sus-accumulator
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://sus.njnet6.edu.cn/challenges#accumulator" target="_blank" rel="noopener">题目地址</a></p>
+<p>拖进ida 主函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">__int64 v3; // rbx</span><br><span class="line">  char v4; // al</span><br><span class="line">  signed __int64 result; // rax</span><br><span class="line">  __int64 v6; // [rsp+0h] [rbp-458h]</span><br><span class="line">  char v7; // [rsp+3Fh] [rbp-419h]</span><br><span class="line">  char input; // [rsp+40h] [rbp-418h]</span><br><span class="line">  unsigned __int64 v9; // [rsp+448h] [rbp-10h]</span><br><span class="line"></span><br><span class="line">  v3 = 0LL;</span><br><span class="line">  v9 = __readfsqword(0x28u);</span><br><span class="line">  __printf_chk(1LL, &quot;What&apos;s your flag? &quot;, a3);</span><br><span class="line">  do</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = _IO_getc(stdin);</span><br><span class="line">    if ( v4 == &apos;\n&apos; )</span><br><span class="line">      break;</span><br><span class="line">    if ( v4 == -1 )</span><br><span class="line">      break;</span><br><span class="line">    *(&amp;v7 + ++v3) = v4;</span><br><span class="line">  &#125;</span><br><span class="line">  while ( v3 != 1024 );</span><br><span class="line">  if ( SHA512((__int64)&amp;input, v3, (__int64)&amp;v6) )// v6=sha512(input)</span><br><span class="line">  &#123;</span><br><span class="line">    sub_4008C0((unsigned __int8 *)&amp;v6, 64LL);</span><br><span class="line">    sub_4008C0((unsigned __int8 *)&amp;input, v3);</span><br><span class="line">    puts(&quot;Good flag for you.&quot;);</span><br><span class="line">    result = 0LL;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    puts(&quot;error&quot;);</span><br><span class="line">    result = 1LL;</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br></pre></td></tr></table></figure>
+<p>do~while循环里是读取输入，最多读取1024位，遇到回车符或读取完则停止，很明显if条件必成立，v6=sha512(input)，进入sub4008c0函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">if ( a2 )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = i + *a1;                               // i,j初始为0</span><br><span class="line">    v3 = v2 == dword_601080[j];</span><br><span class="line">    v4 = (unsigned int)(j + 1);</span><br><span class="line">    i += *a1;</span><br><span class="line">    ++j;</span><br><span class="line">    if ( !v3 )</span><br><span class="line">    &#123;</span><br><span class="line">LABEL_8:</span><br><span class="line">      puts(&quot;Bad flag :(&quot;);</span><br><span class="line">      exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    v5 = a1 + 1;</span><br><span class="line">    v6 = &amp;a1[a2];</span><br><span class="line">    while ( v5 != v6 )</span><br><span class="line">    &#123;</span><br><span class="line">      v7 = *v5++;</span><br><span class="line">      v2 += v7;</span><br><span class="line">      v3 = v2 == dword_601080[v4];</span><br><span class="line">      i = v2;</span><br><span class="line">      j = v4 + 1;</span><br><span class="line">      if ( !v3 )</span><br><span class="line">        goto LABEL_8;</span><br><span class="line">      v4 = (unsigned int)(v4 + 1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>一开始没分析出i和j的作用…对应的地址内存值为????一脸懵逼以为是没看见赋值，后知道了i和j是下标的作用，很容易分析出dword601080处的值就是input累加的结果，也就是说flag和dword601080内存值的位数是相等的，直接根据第二次sub4008c0就可以逆运算出flag，不需要管if条件对v6的操作以及第一次此函数对v6值的校验。然而照这样手动逆运算了前几个值，并没有得到类似于flag开头之类的字符，以为是分析错了，又看了好几遍函数，结果只是flag并不是从头开始……前几位是无意义的字符而已，</p>
+<p>首次使用了idc脚本dump下了dword601080处内存，逆运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=[195,255,493,584,799,929,946,1086,1180,1184,1421,1595,1805,1846,2081,2320,2430,2605,2727,2972,3213,3403,3418,3649,3712,3950,3989,4193,4228,4394,4523,4624,4706,4935,4999,5072,5106,5291,5510,5536,5644,5751,5993,6118,6126,6198,6211,6410,6469,6609,6647,6752,6978,7010,7053,7106,7274,7468,7563,7673,7706,7956,8146,8187,8257,8333,8398,8469,8592,8640,8693,8742,8793,8844,8901,8953,9007,9062,9113,9161,9215,9317,9374,9429,9483,9540,9591,9644,9692,9741,9792,9846,9944,9996,10045,10144,10195,10246,10294,10350,10402,10450,10551,10652,10750,10849,10946,11045,11096,11147,11202,11304,11353,11451,11507,11605,11653,11753,11852,11900,11951,12052,12105,12161,12259,12360,12409,12461,12563,12664,12718,12775,12823,12921,12970,13020,13071,13173,13227,13276,13374,13422,13521,13569,13667,13718,13771,13873,13972,14029,14080,14179,14278,14377,14432,14482,14531,14579,14627,14679,14732,14789,14840,14894,14951,15052,15154,15210,15263,15314,15363,15460,15509,15610,15666,15763,15818,15916,15968,16018,16075,16132,16233,16288,16386,16443,16543,16600,16655,16703,16801,16858,16955,17005,17056,17153,17250,17375]</span><br><span class="line">b=[195]</span><br><span class="line">for i in range(1,len(a)):</span><br><span class="line">	b.append(a[i]-a[i-1])</span><br><span class="line">s=&apos;&apos;.join([chr(i)for i in b])</span><br><span class="line">print s</span><br></pre></td></tr></table></figure>
+<p>忽略掉前几个无意义字符后出现flag{}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sH1rkEr:desktop macbook$ python 1.py</span><br><span class="line">?;?&amp;i? +5??_n!??)FLAG&#123;051339467306f9769350136b41c330840eebcac337f1b8b0dc03e58be14fe690b123f61b0c0b35fc93ccc72100459369ef8531a1e8a7b4299e7b9d970b9a23aa&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>flag get</em></strong></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/09/24/sus-accumulator/">sus-accumulator</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
+        <p><span>发布时间:</span>2018-09-24, 15:15:10</p>
+        <p><span>最后更新:</span>2018-09-24, 15:32:29</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/24/sus-accumulator/" title="sus-accumulator">http://yoursite.com/2018/09/24/sus-accumulator/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/24/sus-accumulator/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/24/sus-pyyy/">
+                    sus-pyyy
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"sus-accumulator　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/24/sus-pyyy/" title="下一篇: sus-pyyy">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-accumulator/">sus-accumulator</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-pyyy/">sus-pyyy</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/23/sus-helloworld/">sus-helloworld</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/bitx/">sus-bitx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/base64/">base64</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/acdES/">acdES</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/21/480小时/">cgctf-480小时精通c++</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 4eriri
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
