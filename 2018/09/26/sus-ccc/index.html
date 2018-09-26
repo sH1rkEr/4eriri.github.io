@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="题目地址 主函数很简单，直接看验证函数： 1234567891011v6 = 0;if ( a2 != 42 )  return 0;for ( i = 3; i &amp;lt;= 42; i += 3 )&amp;#123;  v3 = crc32(0, (_BYTE *)a1, i);  v4 = v6++;  if ( v3 != hashes[v4] )    return 0;&amp;#125;return">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-26T15:28:16.619Z">
+<meta property="og:updated_time" content="2018-09-26T15:41:40.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sus-ccc">
 <meta name="twitter:description" content="题目地址 主函数很简单，直接看验证函数： 1234567891011v6 = 0;if ( a2 != 42 )  return 0;for ( i = 3; i &amp;lt;= 42; i += 3 )&amp;#123;  v3 = crc32(0, (_BYTE *)a1, i);  v4 = v6++;  if ( v3 != hashes[v4] )    return 0;&amp;#125;return">
@@ -232,6 +232,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v6 = a2;</span><br><span class="line">  for ( i = ~a1; ; i = (i &gt;&gt; 8) ^ crc32_tab[(unsigned __int8)(i ^ *v3)] )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = a3--;</span><br><span class="line">    if ( !v4 )</span><br><span class="line">      break;</span><br><span class="line">    v3 = v6++;</span><br><span class="line">  &#125;</span><br><span class="line">  return ~i;</span><br></pre></td></tr></table></figure>
 <p>然而不管是写爆破脚本还是逆运算脚本都没能得到flag……</p>
 <p>研究一下哪里出了问题</p>
+<p>看了大佬的writeup之后发现hashes应该取dword，然而还是不能得到flag，应该是算法出了问题</p>
 
       
     </div>
@@ -243,7 +244,7 @@
         <p><span>本文标题:</span><a href="/2018/09/26/sus-ccc/">sus-ccc</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-09-26, 22:52:35</p>
-        <p><span>最后更新:</span>2018-09-26, 23:28:16</p>
+        <p><span>最后更新:</span>2018-09-26, 23:41:40</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/09/26/sus-ccc/" title="sus-ccc">http://yoursite.com/2018/09/26/sus-ccc/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/26/sus-ccc/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

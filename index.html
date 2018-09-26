@@ -228,6 +228,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v6 = a2;</span><br><span class="line">  for ( i = ~a1; ; i = (i &gt;&gt; 8) ^ crc32_tab[(unsigned __int8)(i ^ *v3)] )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = a3--;</span><br><span class="line">    if ( !v4 )</span><br><span class="line">      break;</span><br><span class="line">    v3 = v6++;</span><br><span class="line">  &#125;</span><br><span class="line">  return ~i;</span><br></pre></td></tr></table></figure>
 <p>然而不管是写爆破脚本还是逆运算脚本都没能得到flag……</p>
 <p>研究一下哪里出了问题</p>
+<p>看了大佬的writeup之后发现hashes应该取dword，然而还是不能得到flag，应该是算法出了问题</p>
 
       
     </div>
