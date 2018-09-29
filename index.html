@@ -192,6 +192,84 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-cgctf-homuraVM" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/29/cgctf-homuraVM/" class="article-date">
+      <time datetime="2018-09-29T10:23:34.000Z" itemprop="datePublished">2018-09-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/29/cgctf-homuraVM/">cgctf-homuraVM</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="https://cgctf.nuptsast.com/challenges#Re" target="_blank" rel="noopener">题目地址</a></p>
+<p>ida打开F5主函数代码,要求输入一个字符串s</p>
+<p>然后input[i+1]=s[i]<br>input[0]=s[len(s)-1]</p>
+<p>之后把两个很长的字符串分别赋值到v39,v40</p>
+<p>sub_8DC函数根据这两个字符串对input进行操作</p>
+<p>sub_8AA不知道是干啥的，后百度得知是反调试</p>
+<p>最后将处理过的input与给定的值对比，相同则ok</p>
+<p>value1和value2初始值为0 i为很长的字符串的下标</p>
+<p>读取到每个字符对应到的操作如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">case &quot;C&quot;:*value2-=2*(*value1&amp;*ipnut) ++i</span><br><span class="line">case &quot;G&quot;:--*value2                   ++i</span><br><span class="line">case &quot;M&quot;:*value2=*value1+*input      ++i</span><br><span class="line">case &quot;T&quot;:++*value2                   ++i</span><br><span class="line">case &quot;[&quot;:if *input!=0                ++i</span><br><span class="line">		  else                       i为]后一位</span><br><span class="line">case &quot;]&quot;:if *input!=0                i为[后一位</span><br><span class="line">          else                       ++i</span><br><span class="line">case &quot;a&quot;:--*value1                   ++i</span><br><span class="line">case &quot;h&quot;:input=input+4               ++i</span><br><span class="line">case &quot;m&quot;:++*input                    ++i</span><br><span class="line">case &quot;o&quot;:input=input-4               ++i</span><br><span class="line">case &quot;r&quot;:++*value1                   ++i</span><br><span class="line">case &quot;u&quot;:--*input                    ++i</span><br><span class="line">case &quot;v&quot;:*value2=*value1             ++i</span><br><span class="line">case &quot;&#123;&quot;:if *value2!=0               ++i</span><br><span class="line">		  else                       i为&#125;后一位</span><br><span class="line">case &quot;&#125;&quot;:if *value2!=0               i为&#123;后一位</span><br><span class="line">          else                       ++i</span><br></pre></td></tr></table></figure>
+<p>注意到h是对input进行下标+1的操作，所以以h为分界线把很长的字符串分割开如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">h[ur]ovMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaMCh&#123;mG&#125; </span><br><span class="line">hv&#123;aG&#125;[ur]ovrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovararaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovarraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraaarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrrrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrararMCh&#123;mG&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，每条都有的部分为hv{aG}[ur]ov……MCh{mG}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[ur]： *value1=*input    *input减到0 </span><br><span class="line">&#123;aG&#125;： *value1-=*value2  *value2减到0 </span><br><span class="line">&#123;mG&#125;： *input+=*value2   *value2减到0 </span><br><span class="line">hv&#123;aG&#125;[ur]ov……MCh&#123;mG&#125;:</span><br><span class="line">input+=4</span><br><span class="line">*value2=*value1</span><br><span class="line">*value1-=*value2</span><br><span class="line">*value2=0</span><br><span class="line">*value1=*input</span><br><span class="line">*input=0</span><br><span class="line">input-=4</span><br><span class="line">*value2=*value1</span><br><span class="line">.</span><br><span class="line">.                           此部分仅ar数量及顺序不同，控制*value1</span><br><span class="line">.</span><br><span class="line">*value2=*value1+*input</span><br><span class="line">*value2-=2*(*value1&amp;*ipnut)</span><br><span class="line">input+=4</span><br><span class="line">*input+=*value2</span><br><span class="line">*value2=0</span><br></pre></td></tr></table></figure>
+<p>作用为：<br><code>input[i+1]=(input[i]+ar处理过的input[i+1])-2*(ar处理过的input[i+1]&amp;input[i])</code></p>
+<p>不知道怎么逆运算，只能尝试爆破了，打算先求出被ar处理过的input[i+1]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">final=[27,114,17,118,8,74,126,5,55,124,31,88,104,7,112,7,49,108,4,47,4,105,54,77,127,8,80,12,109,28,127,80,29,96,]</span><br><span class="line">ar=&apos;&apos;</span><br><span class="line">for i in range(33):</span><br><span class="line">	for s in string.printable:</span><br><span class="line">		if ord(s)+final[i]-2*(ord(s)&amp;final[i])==final[i+1]:</span><br><span class="line">			ar+=s</span><br><span class="line">print ar</span><br></pre></td></tr></table></figure>
+<p>得到ar处理后的flag从第二位开始为icg~B4{2KcG0oww6]h++m_{2wX\aqc/M}</p>
+<p>接下来根据ar的个数进行逆运算即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">operate=[+3,-2,0,-3,+2,-1,-5,-1,+1,-4,+1,0,-2,-2,-5,-2,+2,-2,-1,-1,-2,0,-2,-2,-2,-6,+3,+1,+1,-2,+2,+1,0]</span><br><span class="line">final=list(&apos;icg~B4&#123;2KcG0oww6]h++m_&#123;2wX\\aqc/M&#125;&apos;)</span><br><span class="line">for i in range(len(operate)):</span><br><span class="line">	final[i]=chr(operate[i]+ord(final[i]))</span><br><span class="line">flag=&apos;&apos;.join(final)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<p>得到flag第二位开始为<code>lag{D3v1L_H0mur4_f**k_y0uR_bra1N}</code></p>
+<p>很明显第一位为f 手动添加上</p>
+<p><strong><em>flag get</em></strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-sus-ccc" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -599,7 +677,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>f5大法好，main函数伪代码如下：</p>
+        <!--f5大法好，main函数伪代码如下：
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">v18 = __readfsqword(0x28u);</span><br><span class="line">  s = (char *)malloc(0x80uLL);</span><br><span class="line">  Meizijiu = (char *)malloc(0xC0uLL);</span><br><span class="line">  v10 = &apos;uijizieM&apos;;</span><br><span class="line">  v11 = &apos;goD dna &apos;;</span><br><span class="line">  v12 = &apos; era yob&apos;;</span><br><span class="line">  v13 = &apos;cus yrev&apos;;</span><br><span class="line">  v14 = &apos;lufssec&apos;;</span><br><span class="line">  v15 = 0LL;</span><br><span class="line">  v16 = 0LL;</span><br><span class="line">  v17 = 0LL;</span><br><span class="line">  v3 = sub_400B64((__int64)&amp;v10, 64);</span><br><span class="line">  srand(v3);                                    // 计算出v3=37</span><br><span class="line">  v7 = 0LL;</span><br><span class="line">  for ( i = 0; i &lt;= 7; ++i )</span><br><span class="line">    v7 = (unsigned __int8)rand() + (v7 &lt;&lt; 8);   // v7=159</span><br><span class="line">  puts(&quot;Input your text:&quot;);</span><br><span class="line">  scanf(&quot;%96s&quot;, s);</span><br><span class="line">  v4 = strlen(s);</span><br><span class="line">  sub_400E48((__int64)Meizijiu, (__int64)s, v4, v7);</span><br><span class="line">  puts(Meizijiu);</span><br><span class="line">  return 0LL;</span><br></pre></td></tr></table></figure>
 <p>Meizijiu and Dogboy are very successful</p>
 <p>sub400e48函数代码：</p>
@@ -615,7 +694,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">v6 = __readfsqword(0x28u);</span><br><span class="line">v4 = ((signed __int64)a1 &lt;&lt; 32) | a2;         // v4高32位为s[i+1]低32位为v9[31-i]</span><br><span class="line">v5 = &amp;v4;</span><br><span class="line">for ( i = 0; i &lt;= 7; ++i )                    // 循环八次，每次取v4的8位</span><br><span class="line">  *((_BYTE *)v5 + i) = byte_602080[*((unsigned __int8 *)v5 + i)];</span><br><span class="line">*(_DWORD *)v5 = ~*(_DWORD *)v5 ^ 0xEFCDAB89;</span><br><span class="line">*(_DWORD *)((char *)v5 + 1) ^= 0x67452301u;</span><br><span class="line">*(_DWORD *)((char *)v5 + 3) = ~*(_DWORD *)((char *)v5 + 3) ^ 0x98BADCFE;</span><br><span class="line">*((_DWORD *)v5 + 1) ^= 0x10325476u;</span><br><span class="line">return (unsigned int)(*(_DWORD *)v5 ^ *((_DWORD *)v5 + 1));</span><br></pre></td></tr></table></figure>
 <p>经过一系列处理之后得到v8，进入最后一个函数sub400c02:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">v16 = 0;</span><br><span class="line">  v17 = 0;</span><br><span class="line">  while ( v16 &lt; a3 )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = v17;</span><br><span class="line">    v18 = v17 + 1;</span><br><span class="line">    *(_BYTE *)(a1 + v3) = byte_602180[((((signed int)*(unsigned __int8 *)(v16 + a2) &gt;&gt; 2) &amp; 63) &gt;&gt; 2) ^ ((signed int)*(unsigned __int8 *)(v16 + a2) &gt;&gt; 2) &amp; 63];</span><br><span class="line">    v14 = 16 * *(_BYTE *)(v16 + a2) &amp; 48;</span><br><span class="line">    if ( v16 + 1 &gt;= a3 )</span><br><span class="line">    &#123;</span><br><span class="line">      v4 = v18;</span><br><span class="line">      v5 = v18 + 1;</span><br><span class="line">      *(_BYTE *)(a1 + v4) = byte_602180[((signed int)v14 &gt;&gt; 2) ^ v14];</span><br><span class="line">      *(_BYTE *)(v5 + a1) = &apos;=&apos;;</span><br><span class="line">      v6 = v5 + 1;</span><br><span class="line">      v17 = v5 + 2;</span><br><span class="line">      *(_BYTE *)(v6 + a1) = &apos;=&apos;;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">    v7 = (*(_BYTE *)(v16 + 1LL + a2) &gt;&gt; 4) | v14;</span><br><span class="line">    v8 = v18;</span><br><span class="line">    v19 = v18 + 1;</span><br><span class="line">    *(_BYTE *)(a1 + v8) = byte_602180[((signed int)v7 &gt;&gt; 2) ^ v7];</span><br><span class="line">    v15 = 4 * *(_BYTE *)(v16 + 1LL + a2) &amp; 60;</span><br><span class="line">    if ( v16 + 2 &gt;= a3 )</span><br><span class="line">    &#123;</span><br><span class="line">      *(_BYTE *)(a1 + v19) = byte_602180[((signed int)v15 &gt;&gt; 2) ^ v15];</span><br><span class="line">      v9 = v19 + 1;</span><br><span class="line">      v17 = v19 + 2;</span><br><span class="line">      *(_BYTE *)(v9 + a1) = &apos;=&apos;;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">    v10 = (*(_BYTE *)(v16 + 2LL + a2) &gt;&gt; 6) | v15;</span><br><span class="line">    *(_BYTE *)(a1 + v19) = byte_602180[((signed int)v10 &gt;&gt; 2) ^ v10];</span><br><span class="line">    v11 = *(_BYTE *)(v16 + 2LL + a2) &amp; 63;</span><br><span class="line">    v12 = v19 + 1;</span><br><span class="line">    v17 = v19 + 2;</span><br><span class="line">    *(_BYTE *)(a1 + v12) = byte_602180[((signed int)v11 &gt;&gt; 2) ^ v11];</span><br><span class="line">    v16 += 3;</span><br><span class="line">  &#125;</span><br><span class="line">  result = (_BYTE *)(v17 + a1);</span><br><span class="line">  *result = 0;</span><br><span class="line">  return result;</span><br></pre></td></tr></table></figure>
-
+<p>–&gt;</p>
+-->
       
     </div>
     

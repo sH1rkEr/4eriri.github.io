@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="4eriri" />
+
+
+
+<meta name="description" content="题目地址 ida打开F5主函数代码,要求输入一个字符串s 然后input[i+1]=s[i]input[0]=s[len(s)-1] 之后把两个很长的字符串分别赋值到v39,v40 sub_8DC函数根据这两个字符串对input进行操作 sub_8AA不知道是干啥的，后百度得知是反调试 最后将处理过的input与给定的值对比，相同则ok value1和value2初始值为0 i为很长的字符串的下标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cgctf-homuraVM">
+<meta property="og:url" content="http://yoursite.com/2018/09/29/cgctf-homuraVM/index.html">
+<meta property="og:site_name" content="4eriri&#39;s blog">
+<meta property="og:description" content="题目地址 ida打开F5主函数代码,要求输入一个字符串s 然后input[i+1]=s[i]input[0]=s[len(s)-1] 之后把两个很长的字符串分别赋值到v39,v40 sub_8DC函数根据这两个字符串对input进行操作 sub_8AA不知道是干啥的，后百度得知是反调试 最后将处理过的input与给定的值对比，相同则ok value1和value2初始值为0 i为很长的字符串的下标">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-29T12:30:24.435Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cgctf-homuraVM">
+<meta name="twitter:description" content="题目地址 ida打开F5主函数代码,要求输入一个字符串s 然后input[i+1]=s[i]input[0]=s[len(s)-1] 之后把两个很长的字符串分别赋值到v39,v40 sub_8DC函数根据这两个字符串对input进行操作 sub_8AA不知道是干啥的，后百度得知是反调试 最后将处理过的input与给定的值对比，相同则ok value1和value2初始值为0 i为很长的字符串的下标">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="4eriri&#39;s blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>cgctf-homuraVM | 4eriri&#39;s blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">4eriri</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">4eriri</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">4eriri</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-cgctf-homuraVM" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/29/cgctf-homuraVM/" class="article-date">
+      <time datetime="2018-09-29T10:23:34.000Z" itemprop="datePublished">2018-09-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cgctf-homuraVM
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="https://cgctf.nuptsast.com/challenges#Re" target="_blank" rel="noopener">题目地址</a></p>
+<p>ida打开F5主函数代码,要求输入一个字符串s</p>
+<p>然后input[i+1]=s[i]<br>input[0]=s[len(s)-1]</p>
+<p>之后把两个很长的字符串分别赋值到v39,v40</p>
+<p>sub_8DC函数根据这两个字符串对input进行操作</p>
+<p>sub_8AA不知道是干啥的，后百度得知是反调试</p>
+<p>最后将处理过的input与给定的值对比，相同则ok</p>
+<p>value1和value2初始值为0 i为很长的字符串的下标</p>
+<p>读取到每个字符对应到的操作如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">case &quot;C&quot;:*value2-=2*(*value1&amp;*ipnut) ++i</span><br><span class="line">case &quot;G&quot;:--*value2                   ++i</span><br><span class="line">case &quot;M&quot;:*value2=*value1+*input      ++i</span><br><span class="line">case &quot;T&quot;:++*value2                   ++i</span><br><span class="line">case &quot;[&quot;:if *input!=0                ++i</span><br><span class="line">		  else                       i为]后一位</span><br><span class="line">case &quot;]&quot;:if *input!=0                i为[后一位</span><br><span class="line">          else                       ++i</span><br><span class="line">case &quot;a&quot;:--*value1                   ++i</span><br><span class="line">case &quot;h&quot;:input=input+4               ++i</span><br><span class="line">case &quot;m&quot;:++*input                    ++i</span><br><span class="line">case &quot;o&quot;:input=input-4               ++i</span><br><span class="line">case &quot;r&quot;:++*value1                   ++i</span><br><span class="line">case &quot;u&quot;:--*input                    ++i</span><br><span class="line">case &quot;v&quot;:*value2=*value1             ++i</span><br><span class="line">case &quot;&#123;&quot;:if *value2!=0               ++i</span><br><span class="line">		  else                       i为&#125;后一位</span><br><span class="line">case &quot;&#125;&quot;:if *value2!=0               i为&#123;后一位</span><br><span class="line">          else                       ++i</span><br></pre></td></tr></table></figure>
+<p>注意到h是对input进行下标+1的操作，所以以h为分界线把很长的字符串分割开如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">h[ur]ovMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaMCh&#123;mG&#125; </span><br><span class="line">hv&#123;aG&#125;[ur]ovrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovararaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovarraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraaarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrrrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrararMCh&#123;mG&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，每条都有的部分为hv{aG}[ur]ov……MCh{mG}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[ur]： *value1=*input    *input减到0 </span><br><span class="line">&#123;aG&#125;： *value1-=*value2  *value2减到0 </span><br><span class="line">&#123;mG&#125;： *input+=*value2   *value2减到0 </span><br><span class="line">hv&#123;aG&#125;[ur]ov……MCh&#123;mG&#125;:</span><br><span class="line">input+=4</span><br><span class="line">*value2=*value1</span><br><span class="line">*value1-=*value2</span><br><span class="line">*value2=0</span><br><span class="line">*value1=*input</span><br><span class="line">*input=0</span><br><span class="line">input-=4</span><br><span class="line">*value2=*value1</span><br><span class="line">.</span><br><span class="line">.                           此部分仅ar数量及顺序不同，控制*value1</span><br><span class="line">.</span><br><span class="line">*value2=*value1+*input</span><br><span class="line">*value2-=2*(*value1&amp;*ipnut)</span><br><span class="line">input+=4</span><br><span class="line">*input+=*value2</span><br><span class="line">*value2=0</span><br></pre></td></tr></table></figure>
+<p>作用为：<br><code>input[i+1]=(input[i]+ar处理过的input[i+1])-2*(ar处理过的input[i+1]&amp;input[i])</code></p>
+<p>不知道怎么逆运算，只能尝试爆破了，打算先求出被ar处理过的input[i+1]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">final=[27,114,17,118,8,74,126,5,55,124,31,88,104,7,112,7,49,108,4,47,4,105,54,77,127,8,80,12,109,28,127,80,29,96,]</span><br><span class="line">ar=&apos;&apos;</span><br><span class="line">for i in range(33):</span><br><span class="line">	for s in string.printable:</span><br><span class="line">		if ord(s)+final[i]-2*(ord(s)&amp;final[i])==final[i+1]:</span><br><span class="line">			ar+=s</span><br><span class="line">print ar</span><br></pre></td></tr></table></figure>
+<p>得到ar处理后的flag从第二位开始为icg~B4{2KcG0oww6]h++m_{2wX\aqc/M}</p>
+<p>接下来根据ar的个数进行逆运算即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">operate=[+3,-2,0,-3,+2,-1,-5,-1,+1,-4,+1,0,-2,-2,-5,-2,+2,-2,-1,-1,-2,0,-2,-2,-2,-6,+3,+1,+1,-2,+2,+1,0]</span><br><span class="line">final=list(&apos;icg~B4&#123;2KcG0oww6]h++m_&#123;2wX\\aqc/M&#125;&apos;)</span><br><span class="line">for i in range(len(operate)):</span><br><span class="line">	final[i]=chr(operate[i]+ord(final[i]))</span><br><span class="line">flag=&apos;&apos;.join(final)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<p>得到flag第二位开始为<code>lag{D3v1L_H0mur4_f**k_y0uR_bra1N}</code></p>
+<p>很明显第一位为f 手动添加上</p>
+<p><strong><em>flag get</em></strong></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/09/29/cgctf-homuraVM/">cgctf-homuraVM</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
+        <p><span>发布时间:</span>2018-09-29, 18:23:34</p>
+        <p><span>最后更新:</span>2018-09-29, 20:30:24</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/29/cgctf-homuraVM/" title="cgctf-homuraVM">http://yoursite.com/2018/09/29/cgctf-homuraVM/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/29/cgctf-homuraVM/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/09/26/sus-ccc/">
+                    sus-ccc
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"cgctf-homuraVM　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/09/26/sus-ccc/" title="下一篇: sus-ccc">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/29/cgctf-homuraVM/">cgctf-homuraVM</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/26/sus-ccc/">sus-ccc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-accumulator/">sus-accumulator</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-pyyy/">sus-pyyy</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/23/sus-helloworld/">sus-helloworld</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/bitx/">sus-bitx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/base64/">base64</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/acdES/">acdES</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/21/480小时/">cgctf-480小时精通c++</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 4eriri
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
