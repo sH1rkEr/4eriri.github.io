@@ -192,6 +192,74 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-十一欢乐赛" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/02/十一欢乐赛/" class="article-date">
+      <time datetime="2018-10-02T05:03:23.000Z" itemprop="datePublished">2018-10-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/02/十一欢乐赛/">十一欢乐赛</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="HelloReverse："><a href="#HelloReverse：" class="headerlink" title="HelloReverse："></a>HelloReverse：</h2><p>直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。</p>
+<h2 id="HelloPython"><a href="#HelloPython" class="headerlink" title="HelloPython:"></a>HelloPython:</h2><p>pyc文件反编译一波直接运行，得不到flag分析一波程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if len(sys.argv) &lt; 5:</span><br><span class="line">    print(&quot;I can&apos;t give you flag :(&quot;)</span><br><span class="line">    sys.exit(0)</span><br></pre></td></tr></table></figure>
+<p>找到了一个判断条件，直接把exit(0)去掉</p>
+<p>再把输入flag的判断条件改为1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if int(sys.argv[1]) &gt; 10 and Fibonacci(int(sys.argv[1])) == int(sys.argv[4]):</span><br><span class="line">    print(decrypt(15, &apos;MFKFMFMELFJEEHIFMDDGMGAGCGKGAFLHAGAFPHGHLHHGAGBGICMHAFIHAGNHODLGCH&apos;))</span><br></pre></td></tr></table></figure>
+<p>运行发现<code>n = None // 2</code>会报错<br>改成<code>n=1</code>试试发现输出了一个S应该就是flag的开头</p>
+<p>最后尝试出<code>n=33</code>时输出完整flag</p>
+<h2 id="XOR1"><a href="#XOR1" class="headerlink" title="XOR1"></a>XOR1</h2><p>ida打开发现直接把两个数组异或就能得到flag</p>
+<h2 id="XOR2"><a href="#XOR2" class="headerlink" title="XOR2"></a>XOR2</h2><p>和1差不多，区别是有一个数组是rand函数生成的，不过rand函数生成的随机数其实也是固定的。一开始用mac试了很久得不到flag，后来想起来不同系统随机数生成的也不一样，又用windows尝试，结果最后发现要用linux。</p>
+<h2 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h2><p>写过了maze就很容易了，wasd对应上下左右移动<br>地图如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">OOOO*OOOO</span><br><span class="line">O1111O11O</span><br><span class="line">O1OOOO1OO</span><br><span class="line">O11O111OO</span><br><span class="line">OO111OO1O</span><br><span class="line">OOO1OO11O</span><br><span class="line">OOO111O1O</span><br><span class="line">OOO1O1111</span><br><span class="line">OOOOOOOO1</span><br></pre></td></tr></table></figure>
+<p>沿着1走到*得到flag 加上SUSCTF{}</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-cgctf-homuraVM" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
