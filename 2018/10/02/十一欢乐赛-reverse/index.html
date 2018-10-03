@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="题目地址 主函数很简单，直接看验证函数： 1234567891011v6 = 0;if ( a2 != 42 )  return 0;for ( i = 3; i &amp;lt;= 42; i += 3 )&amp;#123;  v3 = crc32(0, (_BYTE *)a1, i);  v4 = v6++;  if ( v3 != hashes[v4] )    return 0;&amp;#125;return">
+<meta name="description" content="HelloReverse直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。 HelloPythonpyc文件反编译一波直接运行，得不到flag分析一波程序。 123if len(sys.argv) &amp;lt; 5:    print(&amp;quot;I can&amp;apos;t give you flag :(&amp;quot;)    sys.exit(0) 找到了一个判断条">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sus-ccc">
-<meta property="og:url" content="http://yoursite.com/2018/09/26/sus-ccc/index.html">
+<meta property="og:title" content="十一欢乐赛-reverse">
+<meta property="og:url" content="http://yoursite.com/2018/10/02/十一欢乐赛-reverse/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="题目地址 主函数很简单，直接看验证函数： 1234567891011v6 = 0;if ( a2 != 42 )  return 0;for ( i = 3; i &amp;lt;= 42; i += 3 )&amp;#123;  v3 = crc32(0, (_BYTE *)a1, i);  v4 = v6++;  if ( v3 != hashes[v4] )    return 0;&amp;#125;return">
+<meta property="og:description" content="HelloReverse直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。 HelloPythonpyc文件反编译一波直接运行，得不到flag分析一波程序。 123if len(sys.argv) &amp;lt; 5:    print(&amp;quot;I can&amp;apos;t give you flag :(&amp;quot;)    sys.exit(0) 找到了一个判断条">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-27T14:47:26.943Z">
+<meta property="og:updated_time" content="2018-10-03T08:24:38.780Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sus-ccc">
-<meta name="twitter:description" content="题目地址 主函数很简单，直接看验证函数： 1234567891011v6 = 0;if ( a2 != 42 )  return 0;for ( i = 3; i &amp;lt;= 42; i += 3 )&amp;#123;  v3 = crc32(0, (_BYTE *)a1, i);  v4 = v6++;  if ( v3 != hashes[v4] )    return 0;&amp;#125;return">
+<meta name="twitter:title" content="十一欢乐赛-reverse">
+<meta name="twitter:description" content="HelloReverse直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。 HelloPythonpyc文件反编译一波直接运行，得不到flag分析一波程序。 123if len(sys.argv) &amp;lt; 5:    print(&amp;quot;I can&amp;apos;t give you flag :(&amp;quot;)    sys.exit(0) 找到了一个判断条">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>sus-ccc | 4eriri&#39;s blog</title>
+<title>十一欢乐赛-reverse | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-sus-ccc" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-十一欢乐赛-reverse" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/09/26/sus-ccc/" class="article-date">
-      <time datetime="2018-09-26T14:52:35.000Z" itemprop="datePublished">2018-09-26</time>
+      <a href="/2018/10/02/十一欢乐赛-reverse/" class="article-date">
+      <time datetime="2018-10-02T05:03:23.000Z" itemprop="datePublished">2018-10-02</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sus-ccc
+      十一欢乐赛-reverse
     </h1>
   
 
@@ -225,14 +225,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="http://sus.njnet6.edu.cn/challenges#ccc" target="_blank" rel="noopener">题目地址</a></p>
-<p>主函数很简单，直接看验证函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v6 = 0;</span><br><span class="line">if ( a2 != 42 )</span><br><span class="line">  return 0;</span><br><span class="line">for ( i = 3; i &lt;= 42; i += 3 )</span><br><span class="line">&#123;</span><br><span class="line">  v3 = crc32(0, (_BYTE *)a1, i);</span><br><span class="line">  v4 = v6++;</span><br><span class="line">  if ( v3 != hashes[v4] )</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">return 1;</span><br></pre></td></tr></table></figure>
-<p>输入一共42位，1-3，1-6，1-9一直到1-42循环经过crc32函数处理后与hashes值进行比对，一共比对14次。crc32函数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v6 = a2;</span><br><span class="line">  for ( i = ~a1; ; i = (i &gt;&gt; 8) ^ crc32_tab[(unsigned __int8)(i ^ *v3)] )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = a3--;</span><br><span class="line">    if ( !v4 )</span><br><span class="line">      break;</span><br><span class="line">    v3 = v6++;</span><br><span class="line">  &#125;</span><br><span class="line">  return ~i;</span><br></pre></td></tr></table></figure>
-<p>然而不管是写爆破脚本还是逆运算脚本都没能得到flag……觉得自己对函数的理解没有错误，百度了一下python中~0=-1,c语言中~0=1，所以出了问题。看了大佬的writeup发现python里可以使用crc32函数，于是爆破脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">import string</span><br><span class="line">import binascii</span><br><span class="line">hashes=[0xD641596F,0x80A3E990,0xC98D5C9B,0xD05AFAF,0x1372A12D,0x5D5F117B,0x4001FBFD,0xA7D2D56B,0x7D04FB7E,0x2E42895E,0x61C97EB3,0x84AB43C3,0x9FC129DD,0xF4592F4D]</span><br><span class="line">flag=&apos;&apos;</span><br><span class="line">for n in hashes:</span><br><span class="line">	</span><br><span class="line">	for i in string.printable:</span><br><span class="line">		for j in string.printable:</span><br><span class="line">			for k in string.printable:</span><br><span class="line">				temp+=i+j+k</span><br><span class="line">				if binascii.crc32(temp)&amp;0xffffffff == n:</span><br><span class="line">					flag+=i+j+k</span><br><span class="line">					break;</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong><em>flag get</em></strong></p>
+        <h1 id="HelloReverse"><a href="#HelloReverse" class="headerlink" title="HelloReverse"></a>HelloReverse</h1><p>直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。</p>
+<h1 id="HelloPython"><a href="#HelloPython" class="headerlink" title="HelloPython"></a>HelloPython</h1><p>pyc文件反编译一波直接运行，得不到flag分析一波程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if len(sys.argv) &lt; 5:</span><br><span class="line">    print(&quot;I can&apos;t give you flag :(&quot;)</span><br><span class="line">    sys.exit(0)</span><br></pre></td></tr></table></figure>
+<p>找到了一个判断条件，直接把exit(0)去掉</p>
+<p>再把输入flag的判断条件改为1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if int(sys.argv[1]) &gt; 10 and Fibonacci(int(sys.argv[1])) == int(sys.argv[4]):</span><br><span class="line">    print(decrypt(15, &apos;MFKFMFMELFJEEHIFMDDGMGAGCGKGAFLHAGAFPHGHLHHGAGBGICMHAFIHAGNHODLGCH&apos;))</span><br></pre></td></tr></table></figure>
+<p>运行发现<code>n = None // 2</code>会报错<br>改成<code>n=1</code>试试发现输出了一个S应该就是flag的开头</p>
+<p>最后尝试出<code>n=33</code>时输出完整flag</p>
+<h1 id="XOR1"><a href="#XOR1" class="headerlink" title="XOR1"></a>XOR1</h1><p>ida打开发现直接把两个数组异或就能得到flag</p>
+<h1 id="XOR2"><a href="#XOR2" class="headerlink" title="XOR2"></a>XOR2</h1><p>和1差不多，区别是有一个数组是rand函数生成的，不过rand函数生成的随机数其实也是固定的。一开始用mac试了很久得不到flag，后来想起来不同系统随机数生成的也不一样，又用windows尝试，结果最后发现要用linux。</p>
+<h1 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h1><p>写过了maze就很容易了，wasd对应上下左右移动<br>地图如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">OOOO*OOOO</span><br><span class="line">O1111O11O</span><br><span class="line">O1OOOO1OO</span><br><span class="line">O11O111OO</span><br><span class="line">OO111OO1O</span><br><span class="line">OOO1OO11O</span><br><span class="line">OOO111O1O</span><br><span class="line">OOO1O1111</span><br><span class="line">OOOOOOOO1</span><br></pre></td></tr></table></figure>
+<p>沿着1走到*得到flag 加上SUSCTF{}</p>
+<hr>
+<p>题目都很简单，其他方向的也都是当场百度就能做(pwn还没</p>
 
       
     </div>
@@ -241,13 +248,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/26/sus-ccc/">sus-ccc</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/02/十一欢乐赛-reverse/">十一欢乐赛-reverse</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-09-26, 22:52:35</p>
-        <p><span>最后更新:</span>2018-09-27, 22:47:26</p>
+        <p><span>发布时间:</span>2018-10-02, 13:03:23</p>
+        <p><span>最后更新:</span>2018-10-03, 16:24:38</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/26/sus-ccc/" title="sus-ccc">http://yoursite.com/2018/09/26/sus-ccc/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/26/sus-ccc/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/02/十一欢乐赛-reverse/" title="十一欢乐赛-reverse">http://yoursite.com/2018/10/02/十一欢乐赛-reverse/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/02/十一欢乐赛-reverse/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -260,15 +267,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/29/cgctf-homuraVM/">
-                    cgctf-homuraVM
+                <a href="/2018/10/02/cgctf-born/">
+                    cgctf-born
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/09/24/sus-accumulator/">
-                    sus-accumulator
+                <a href="/2018/09/29/cgctf-homuraVM/">
+                    cgctf-homuraVM
                 </a>
             </div>
         
@@ -280,7 +287,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HelloReverse"><span class="toc-number">1.</span> <span class="toc-text">HelloReverse</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HelloPython"><span class="toc-number">2.</span> <span class="toc-text">HelloPython</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XOR1"><span class="toc-number">3.</span> <span class="toc-text">XOR1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XOR2"><span class="toc-number">4.</span> <span class="toc-text">XOR2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maze"><span class="toc-number">5.</span> <span class="toc-text">Maze</span></a></li></ol>
         
     </div>
     <style>
@@ -316,7 +323,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"sus-ccc　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"十一欢乐赛-reverse　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -336,7 +343,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/29/cgctf-homuraVM/" title="上一篇: cgctf-homuraVM">
+            <a href="/2018/10/02/cgctf-born/" title="上一篇: cgctf-born">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -344,7 +351,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/09/24/sus-accumulator/" title="下一篇: sus-accumulator">
+            <a href="/2018/09/29/cgctf-homuraVM/" title="下一篇: cgctf-homuraVM">
                 <i class="fa fa-angle-right"></i>
             </a>
         
