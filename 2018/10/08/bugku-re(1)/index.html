@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="游戏过关虽然ida打开之后函数很乱…但大佬说过用ida都是可以做的 搜索一下flag试试，直接找到了生成flag的函数 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T13:32:54.066Z">
+<meta property="og:updated_time" content="2018-10-09T08:19:55.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bugku-re(1)">
 <meta name="twitter:description" content="游戏过关虽然ida打开之后函数很乱…但大佬说过用ida都是可以做的 搜索一下flag试试，直接找到了生成flag的函数 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747">
@@ -235,7 +235,11 @@
 <p>原来这是图片数据，base64 png让我想到了经常看见但是没用过的base64转图片，转出来一个二维码，扫描后得到flag。</p>
 <h1 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h1><p>用dex2jar和jd-gui操作一下得到</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (MainActivity.this.beg - MainActivity.this.now &lt;= 0)</span><br><span class="line">        &#123;</span><br><span class="line">          paramBundle.setText(&quot;The flag is:&quot;);</span><br><span class="line">          localTextView.setText(&quot;alictf&#123;&quot; + MainActivity.this.stringFromJNI2(MainActivity.this.k) + &quot;&#125;&quot;);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到flag的格式啥的了，可是不会java有点看不懂，先放着吧</p>
+<p>可以看到flag的格式啥的了，可是不会java有点看不懂，后面也有几题都是apk，等看了java再来看看。</p>
+<h1 id="love"><a href="#love" class="headerlink" title="love"></a>love</h1><p>直接ida打开，搜索flag找到了关键函数。</p>
+<p>要求输入flag，经过一个函数加密后，再每一位加上下标值，与一固定字符串对比。写脚本得出加上下标值之前的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=&apos;e3nifIH9b_C@n@dH&apos;</span><br><span class="line">temp=&apos;&apos;</span><br><span class="line">for i in range(len(key)):</span><br><span class="line">	temp+=chr(ord(key[i])-i)</span><br><span class="line">print temp</span><br></pre></td></tr></table></figure>
+<p>后发现加密函数就是base64加密，直接解密刚刚得到的temp字符串得到flag。</p>
 
       
     </div>
@@ -247,7 +251,7 @@
         <p><span>本文标题:</span><a href="/2018/10/08/bugku-re(1)/">bugku-re(1)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-10-08, 19:03:15</p>
-        <p><span>最后更新:</span>2018-10-08, 21:32:54</p>
+        <p><span>最后更新:</span>2018-10-09, 16:19:55</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/10/08/bugku-re(1)/" title="bugku-re(1)">http://yoursite.com/2018/10/08/bugku-re(1)/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/08/bugku-re(1)/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -277,7 +281,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#游戏过关"><span class="toc-number">1.</span> <span class="toc-text">游戏过关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逆向入门"><span class="toc-number">2.</span> <span class="toc-text">逆向入门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Timer"><span class="toc-number">3.</span> <span class="toc-text">Timer</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#游戏过关"><span class="toc-number">1.</span> <span class="toc-text">游戏过关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逆向入门"><span class="toc-number">2.</span> <span class="toc-text">逆向入门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Timer"><span class="toc-number">3.</span> <span class="toc-text">Timer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#love"><span class="toc-number">4.</span> <span class="toc-text">love</span></a></li></ol>
         
     </div>
     <style>

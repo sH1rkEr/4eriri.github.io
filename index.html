@@ -231,7 +231,11 @@
 <p>原来这是图片数据，base64 png让我想到了经常看见但是没用过的base64转图片，转出来一个二维码，扫描后得到flag。</p>
 <h1 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h1><p>用dex2jar和jd-gui操作一下得到</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (MainActivity.this.beg - MainActivity.this.now &lt;= 0)</span><br><span class="line">        &#123;</span><br><span class="line">          paramBundle.setText(&quot;The flag is:&quot;);</span><br><span class="line">          localTextView.setText(&quot;alictf&#123;&quot; + MainActivity.this.stringFromJNI2(MainActivity.this.k) + &quot;&#125;&quot;);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到flag的格式啥的了，可是不会java有点看不懂，先放着吧</p>
+<p>可以看到flag的格式啥的了，可是不会java有点看不懂，后面也有几题都是apk，等看了java再来看看。</p>
+<h1 id="love"><a href="#love" class="headerlink" title="love"></a>love</h1><p>直接ida打开，搜索flag找到了关键函数。</p>
+<p>要求输入flag，经过一个函数加密后，再每一位加上下标值，与一固定字符串对比。写脚本得出加上下标值之前的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=&apos;e3nifIH9b_C@n@dH&apos;</span><br><span class="line">temp=&apos;&apos;</span><br><span class="line">for i in range(len(key)):</span><br><span class="line">	temp+=chr(ord(key[i])-i)</span><br><span class="line">print temp</span><br></pre></td></tr></table></figure>
+<p>后发现加密函数就是base64加密，直接解密刚刚得到的temp字符串得到flag。</p>
 
       
     </div>
