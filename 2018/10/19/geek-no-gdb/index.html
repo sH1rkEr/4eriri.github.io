@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="description" content="题目地址 话说好像是要用gdb调试的，然而之前一直没用过gdb，对着教程弄了一会，也许是因为编译时没有-g导致调试不起来，只能拖进ida看看，发现大部分函数也是能看的，不过最关键的一段函数却无法使用f5，只能怼汇编了： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cgctf-480小时精通c++">
-<meta property="og:url" content="http://yoursite.com/2018/09/21/480小时/index.html">
+<meta property="og:title" content="geek-no-gdb">
+<meta property="og:url" content="http://yoursite.com/2018/10/19/geek-no-gdb/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta property="og:description" content="题目地址 话说好像是要用gdb调试的，然而之前一直没用过gdb，对着教程弄了一会，也许是因为编译时没有-g导致调试不起来，只能拖进ida看看，发现大部分函数也是能看的，不过最关键的一段函数却无法使用f5，只能怼汇编了： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-22T01:20:58.359Z">
+<meta property="og:updated_time" content="2018-10-19T08:19:30.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cgctf-480小时精通c++">
-<meta name="twitter:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="twitter:title" content="geek-no-gdb">
+<meta name="twitter:description" content="题目地址 话说好像是要用gdb调试的，然而之前一直没用过gdb，对着教程弄了一会，也许是因为编译时没有-g导致调试不起来，只能拖进ida看看，发现大部分函数也是能看的，不过最关键的一段函数却无法使用f5，只能怼汇编了： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>cgctf-480小时精通c++ | 4eriri&#39;s blog</title>
+<title>geek-no-gdb | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-480小时" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-geek-no-gdb" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/09/21/480小时/" class="article-date">
-      <time datetime="2018-09-20T16:52:52.000Z" itemprop="datePublished">2018-09-21</time>
+      <a href="/2018/10/19/geek-no-gdb/" class="article-date">
+      <time datetime="2018-10-19T08:01:32.000Z" itemprop="datePublished">2018-10-19</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      cgctf-480小时精通c++
+      geek-no-gdb
     </h1>
   
 
@@ -225,22 +225,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先……</p>
-<p>题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……</p>
-<p>  ida启动！main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  signed int i; // [rsp+Ch] [rbp-54h]</span><br><span class="line">  __int64 v5; // [rsp+10h] [rbp-50h]</span><br><span class="line">  __int64 v6; // [rsp+18h] [rbp-48h]</span><br><span class="line">  __int64 v7; // [rsp+20h] [rbp-40h]</span><br><span class="line">  __int64 v8; // [rsp+28h] [rbp-38h]</span><br><span class="line">  int v9; // [rsp+30h] [rbp-30h]</span><br><span class="line">  char v10; // [rsp+34h] [rbp-2Ch]</span><br><span class="line">  unsigned __int64 v11; // [rsp+58h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v5 = 7652827924304847970LL;</span><br><span class="line">  v6 = 6588269719570178159LL;</span><br><span class="line">  v7 = 0615273543157435660505LL;</span><br><span class="line">  v8 = 4932672475662219355LL;</span><br><span class="line">  v9 = 2099869557;</span><br><span class="line">  v10 = 0;</span><br><span class="line">  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;((__int64)&amp;std::cout, (__int64)&quot;The Encrypted Flag is: &quot;);</span><br><span class="line">  for ( i = 0; i &lt;= 35; ++i )</span><br><span class="line">    printf(&quot;%02x&quot;, *((unsigned __int8 *)&amp;v5 + i));</span><br><span class="line">  std::ostream::operator&lt;&lt;((__int64)&amp;std::cout, (__int64)std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很容易发现输出了加密后的flag，也就是v5-v9中的值，按r键转换成字符型，得加密flag:bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}</p>
-<p>进入汇编界面发现输出”The Encrypted Flag is: “前被nop了一段，应该就是加密函数。</p>
-<p>左侧函数列表中有480个名为_X1C_CG_EncryptFunction的函数，实现output[i]^=string[i%len(string)]^i，区别就是这480个函数中的string是从“001001001”到“480480480”。所以可以知道flag经过了这480个函数的加密后，就变成了bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(35,-1,-1):</span><br><span class="line">			s=ord(flag[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag=flag.replace(flag[j],chr(s),1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><del>于是得到了flag</del></p>
-<p>可能由于并不会替换字符串中特定下标处的值，所以并没有得到flag……向大佬求救尚未得到回复……</p>
-<h2 id="两小时后"><a href="#两小时后" class="headerlink" title="两小时后"></a><strong><em>两小时后</em></strong></h2><p>原因没错，通过百度了一会python中字符串替换的问题，找到了正确的替换方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">flag1=list(flag)</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(36):</span><br><span class="line">			s=ord(flag1[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag1[j]=chr(s)</span><br><span class="line">flag=&apos;&apos;.join(flag1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong>flag get！</strong></p>
-<p>通过大佬的指点终于是完成了这一道简单题，明明知道了怎么去逆运算，结果因为python不会用的原因忙了这么久……要学的太多</p>
-<p>明天目标逆acdES</p>
+        <p><a href="http://geek.sycsec.com/index.php/main/view/challenges" target="_blank" rel="noopener">题目地址</a> 话说好像是要用gdb调试的，然而之前一直没用过gdb，对着教程弄了一会，也许是因为编译时没有-g导致调试不起来，只能拖进ida看看，发现大部分函数也是能看的，不过最关键的一段函数却无法使用f5，只能怼汇编了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">sub_400716      proc near               ; CODE XREF: main+B0↓p</span><br><span class="line"></span><br><span class="line">s               = qword ptr -68h</span><br><span class="line">var_54          = dword ptr -54h</span><br><span class="line">s2              = byte ptr -50h</span><br><span class="line">var_48          = qword ptr -48h</span><br><span class="line">var_40          = qword ptr -40h</span><br><span class="line">var_38          = qword ptr -38h</span><br><span class="line">var_30          = qword ptr -30h</span><br><span class="line">var_28          = word ptr -28h</span><br><span class="line">var_18          = qword ptr -18h</span><br><span class="line"></span><br><span class="line">; __unwind &#123;</span><br><span class="line">                push    rbp</span><br><span class="line">                mov     rbp, rsp</span><br><span class="line">                nop</span><br><span class="line">                sub     rsp, 68h</span><br><span class="line">                mov     [rbp+s], rdi</span><br><span class="line">                mov     rax, fs:28h</span><br><span class="line">                mov     [rbp+var_18], rax</span><br><span class="line">                xor     eax, eax</span><br><span class="line">                mov     rax, &apos;kVPSOwmg&apos;</span><br><span class="line">                mov     qword ptr [rbp+s2], rax</span><br><span class="line">                mov     rax, &apos;YkQ\@kQV&apos;</span><br><span class="line">                mov     [rbp+var_48], rax</span><br><span class="line">                mov     rax, &apos;QC[Dk@G[&apos;</span><br><span class="line">                mov     [rbp+var_40], rax</span><br><span class="line">                mov     rax, &apos;kg&#123;kXARF&apos;</span><br><span class="line">                mov     [rbp+var_38], rax</span><br><span class="line">                mov     rax, &apos;FQSSAVQP&apos;</span><br><span class="line">                mov     [rbp+var_30], rax</span><br><span class="line">                mov     [rbp+var_28], &apos;I&apos;</span><br><span class="line">                mov     [rbp+var_54], 0</span><br><span class="line">                jmp     short loc_4007A3</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_400787:                             ; CODE XREF: sub_400716+A2↓j</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                cdqe</span><br><span class="line">                movzx   eax, [rbp+rax+s2]</span><br><span class="line">                xor     eax, 34h</span><br><span class="line">                mov     edx, eax</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                cdqe</span><br><span class="line">                mov     [rbp+rax+s2], dl</span><br><span class="line">                add     [rbp+var_54], 1</span><br><span class="line"></span><br><span class="line">loc_4007A3:                             ; CODE XREF: sub_400716+6F↑j</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                movsxd  rbx, eax</span><br><span class="line">                mov     rax, [rbp+s]</span><br><span class="line">                mov     rdi, rax        ; s</span><br><span class="line">                call    _strlen</span><br><span class="line">                cmp     rbx, rax</span><br><span class="line">                jb      short loc_400787</span><br><span class="line">                lea     rdx, [rbp+s2]</span><br><span class="line">                mov     rax, [rbp+s]</span><br><span class="line">                mov     rsi, rdx        ; s2</span><br><span class="line">                mov     rdi, rax        ; s1</span><br><span class="line">                call    _strcmp</span><br><span class="line">                test    eax, eax</span><br><span class="line">                jnz     short loc_4007DD</span><br><span class="line">                mov     edi, offset s   ; &quot;Yeah!Prison break!&quot;</span><br><span class="line">                call    _puts</span><br><span class="line">                jmp     short loc_4007E7</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_4007DD:                             ; CODE XREF: sub_400716+B9↑j</span><br><span class="line">                mov     edi, offset aNoYouFailed ; &quot;No!You Failed&quot;</span><br><span class="line">                call    _puts</span><br></pre></td></tr></table></figure>
+<p>一通操作就是把一开始的输入读入s，然后再把一个字符串读入s2，如果对于s的每一位异或0x34后与s2相等就ok啦，所以flag=s2^0x34，逆运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s2=&quot;gmwOSPVkVQk@\QkY[G@kD[CQFRAXk&#123;gkPQVASSQFI&quot;</span><br><span class="line">flag=&apos;&apos;.join([chr(ord(i)^0x34) for i in s2])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<p>不知道怎么用gdb真是鶸啊orz</p>
 
       
     </div>
@@ -249,13 +238,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/21/480小时/">cgctf-480小时精通c++</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/19/geek-no-gdb/">geek-no-gdb</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-09-21, 00:52:52</p>
-        <p><span>最后更新:</span>2018-09-22, 09:20:58</p>
+        <p><span>发布时间:</span>2018-10-19, 16:01:32</p>
+        <p><span>最后更新:</span>2018-10-19, 16:19:30</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/21/480小时/" title="cgctf-480小时精通c++">http://yoursite.com/2018/09/21/480小时/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/21/480小时/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/19/geek-no-gdb/" title="geek-no-gdb">http://yoursite.com/2018/10/19/geek-no-gdb/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/19/geek-no-gdb/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -267,12 +256,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/22/acdES/">
-                    acdES
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/10/15/CNSSrecruit-3/">
+                    CNSSrecruit-3
                 </a>
             </div>
-        
         
     </nav>
 
@@ -282,7 +271,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两小时后"><span class="toc-number">1.</span> <span class="toc-text">两小时后</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -318,7 +307,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"cgctf-480小时精通c++　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"geek-no-gdb　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -338,15 +327,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/22/acdES/" title="上一篇: acdES">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2018/10/15/CNSSrecruit-3/" title="下一篇: CNSSrecruit-3">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
