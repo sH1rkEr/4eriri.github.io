@@ -248,6 +248,8 @@
 <p>如果这个函数返回1的话就是注册码正确了。<br>输入用户名后，<code>注册码[i]=i+i*用户名[i]*用户名[i]%0x42+33</code>，再在前面加上Happy@就得到注册码了。</p>
 <p>脚本如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">username=&quot;hello&quot;</span><br><span class="line">string2=&quot;&quot;</span><br><span class="line">for i in range(len(username)):</span><br><span class="line">	string2+=chr(i+i*ord(username[i])*ord(username[i])%0x42 +33)</span><br><span class="line">print &quot;Happy@&quot;+string2</span><br></pre></td></tr></table></figure>
+<p>这样的明文密码用od调试应该会更快一点，可以直接看到注册码是什么。</p>
+
       
     </div>
     
