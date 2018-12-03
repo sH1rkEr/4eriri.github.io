@@ -225,6 +225,13 @@
 <p>someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。</p>
 <p>babystack开了pie，看了网上的教程说可以只覆盖后四位，因为pie不会改变最后三位，所以多试几次肯定会成功，但是输入限制了必需要为8的倍数，与部分覆盖产生了冲突，不知道怎么解决。</p>
 <p>smallbug3也开了pie，先输入接下来接受的输入的长度，要求不大于128，感觉可以输入一个负数的十六进制的表达的形式那种来形成栈溢出，好像也成功了，但是这题不知道怎么泄漏libc基址，后来也就没做。</p>
+<h1 id="someboxes"><a href="#someboxes" class="headerlink" title="someboxes"></a>someboxes</h1><p>看了源码之后终于知道了地图哪里出了问题，原来地图中的每个数值都与下标异或了，再异或一次得到真正的地图。当时没看程序中有哪些地方对地图进行了操作（准确的说是看了但是没看见最底下有一个改写地图的orz。</p>
+<p>地图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[*  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * </span><br><span class="line"> *  *  0  0  *  *  *  *  *  *  *  *  0  0  *  * </span><br><span class="line"> *  *  0  0  0  x  0  *  0  0  0  0  0  0  *  * </span><br><span class="line"> *  *  0  *  *  0  0  0  0  0  *  *  *  0  0  * </span><br><span class="line"> *  *  0  *  *  0  *  *  0  0  *  @  0  0  0  * </span><br><span class="line"> *  *  0  0  *  0  0  0  P  0  *  *  *  *  *  * </span><br><span class="line"> *  *  0  0  *  *  *  *  0  *  *  *  *  *  *  * </span><br><span class="line"> *  *  0  *  *  *  *  *  X  *  *  0  0  0  *  * </span><br><span class="line"> *  0  0  *  @  *  0  *  0  0  0  0  *  0  *  * </span><br><span class="line"> *  0  0  0  0  0  0  0  0  *  *  *  *  0  *  * </span><br><span class="line"> *  0  0  0  0  *  *  *  0  *  0  0  0  0  *  * </span><br><span class="line"> *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *]</span><br></pre></td></tr></table></figure>
+<p>玩家初始的位置用P表示，两个箱子用x表示，终点用@表示，不能推到*上，所以沿着0推就行了。</p>
+<p>操作顺序：aaawwdwaaawasssssssasddsdwwddddwwwwwaaawwdddsdwawddddwdssdsaa</p>
+<p>用W540替换：<br>444Wd0W444W4555555545d0d05d0Wd0d0d0d0W444Wd0d0d05d0W4Wd0d0d0d0Wd055d0544</p>
+<p>输入这个应该就可以得到flag了。</p>
 
       
     </div>
