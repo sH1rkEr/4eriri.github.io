@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="SO EASY虽然程序很大，但是在main函数里直接可以看见flag。 跳跳跳还是🎲游戏，千篇一律，nop掉判断就好了,最后给出的字符串base64解密得到flag。 暗恋的苦恼给了加密程序，密文，密钥，要推算出明文。 ida打开，定位到加密函数： 123456789101112v7 = strlen(a1);v6 = strlen(a2);v4 = 0;v3 = operator new(0x">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-12T14:33:19.669Z">
+<meta property="og:updated_time" content="2019-01-12T14:48:09.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MOCTF-1">
 <meta name="twitter:description" content="SO EASY虽然程序很大，但是在main函数里直接可以看见flag。 跳跳跳还是🎲游戏，千篇一律，nop掉判断就好了,最后给出的字符串base64解密得到flag。 暗恋的苦恼给了加密程序，密文，密钥，要推算出明文。 ida打开，定位到加密函数： 123456789101112v7 = strlen(a1);v6 = strlen(a2);v4 = 0;v3 = operator new(0x">
@@ -237,6 +237,7 @@
 <p>这一部分怎么逆好，就把两种情况都写了…结合题目中有具体意义的提示应该也不失为一种方法吧23333:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mingwen=&quot;&quot;</span><br><span class="line">miwen=&quot;QWDRILDWNTW&quot;</span><br><span class="line">miyao=&quot;ILOVEMOCTF&quot;</span><br><span class="line">for i in range(len(miwen)):</span><br><span class="line">	v5=ord(miwen[i])</span><br><span class="line">	v4=65+v5-ord(miyao[i%9])</span><br><span class="line">	mingwen+=chr(v4)</span><br><span class="line">print mingwen</span><br><span class="line">mingwen=&quot;&quot;</span><br><span class="line">for i in range(len(miwen)):</span><br><span class="line">	v5=ord(miwen[i])+25</span><br><span class="line">	v4=65+v5-ord(miyao[i%9])</span><br><span class="line">	mingwen+=chr(v4)</span><br><span class="line">print mingwen</span><br></pre></td></tr></table></figure>
 <h1 id="crakeme2"><a href="#crakeme2" class="headerlink" title="crakeme2"></a>crakeme2</h1><p>简单的异或，逆运算得到一串十六进制数字，ascii得到flag。</p>
+<p>you get flag ， but it … -1s？XD</p>
 <h1 id="easy-pwn"><a href="#easy-pwn" class="headerlink" title="easy pwn"></a>easy pwn</h1><p>栈溢出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+4h] [ebp-14h]</span><br><span class="line"></span><br><span class="line">gets(&amp;s);</span><br><span class="line">return puts(&amp;s);</span><br></pre></td></tr></table></figure>
 <p>后门函数：</p>
@@ -253,7 +254,7 @@
         <p><span>本文标题:</span><a href="/2018/10/31/MOCTF-1/">MOCTF-1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2018-10-31, 21:25:57</p>
-        <p><span>最后更新:</span>2019-01-12, 22:33:19</p>
+        <p><span>最后更新:</span>2019-01-12, 22:48:09</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/10/31/MOCTF-1/" title="MOCTF-1">http://yoursite.com/2018/10/31/MOCTF-1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/31/MOCTF-1/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
