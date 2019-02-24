@@ -23,7 +23,8 @@
 <meta property="og:description" content="鶸只写了crypto，misc，re各一道题orz">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0hnmpbyjej312u0oujyg.jpg">
-<meta property="og:updated_time" content="2019-02-24T10:00:21.260Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hnytbdyxj31bq0ta7am.jpg">
+<meta property="og:updated_time" content="2019-02-24T10:02:37.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安恒杯2019年2月月赛">
 <meta name="twitter:description" content="鶸只写了crypto，misc，re各一道题orz">
@@ -241,7 +242,7 @@
 <p>题目下载了一个压缩包，提示需要密码。</p>
 <p>发现压缩包里有4个6字节的txt和一个flag.pdf。</p>
 <p>以前看过类似的题目，利用crc32爆破出txt的内容，就是压缩包的密码，然后解密得到flag.pdf：</p>
-<p><img src="" alt=""></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hnytbdyxj31bq0ta7am.jpg" alt=""></p>
 <p>看图可知需要继续爆破，把字符全排列一下，然后sha1后等于给的值就行了。</p>
 <p>一开始沙雕了爆破了很久都没得到flag,后来才想起来flag应该是有格式的，所以shift键只能用在1或2上，加了格式之后秒出结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">visit = [True, True, True, True, True, True, True]</span><br><span class="line">temp = [&quot;&quot; for x in range(0, 7)]</span><br><span class="line">def dfs(position):</span><br><span class="line">    if position == len(arr):</span><br><span class="line">        string=&apos;&apos;.join(temp)</span><br><span class="line">        flag=&quot;flag&#123;&quot;+string+&quot;&#125;&quot;</span><br><span class="line">        if hashlib.sha1(flag).hexdigest()==&apos;e6079c5ce56e781a50f4bf853cdb5302e0d8f054&apos;:</span><br><span class="line">        	print flag</span><br><span class="line">        return</span><br><span class="line"> </span><br><span class="line">    for index in range(0,len(arr)):</span><br><span class="line">        if visit[index] == True:</span><br><span class="line">            temp[position] = arr[index]</span><br><span class="line">            visit[index] = False</span><br><span class="line">            dfs(position + 1)</span><br><span class="line">            visit[index] = True</span><br><span class="line"> </span><br><span class="line">arr = [&quot;1&quot;,&quot;@&quot;,&apos;s&apos;,&apos;e&apos;,&apos;h&apos;,&apos;c&apos;,&apos;n&apos;]</span><br><span class="line">dfs(0)</span><br></pre></td></tr></table></figure>
@@ -264,7 +265,7 @@
         <p><span>本文标题:</span><a href="/2019/02/24/安恒杯2019年2月月赛/">安恒杯2019年2月月赛</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-02-24, 17:42:04</p>
-        <p><span>最后更新:</span>2019-02-24, 18:00:21</p>
+        <p><span>最后更新:</span>2019-02-24, 18:02:37</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/02/24/安恒杯2019年2月月赛/" title="安恒杯2019年2月月赛">http://yoursite.com/2019/02/24/安恒杯2019年2月月赛/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/02/24/安恒杯2019年2月月赛/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
