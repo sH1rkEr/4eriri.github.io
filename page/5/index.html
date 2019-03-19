@@ -202,6 +202,70 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-sus-helloworld" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/23/sus-helloworld/" class="article-date">
+      <time datetime="2018-09-22T16:19:46.000Z" itemprop="datePublished">2018-09-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/23/sus-helloworld/">sus-helloworld</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://sus.njnet6.edu.cn/challenges#Helloworld" target="_blank" rel="noopener">题目地址</a></p>
+<p>ida启动 main函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">*(_DWORD *)flag = 0xC881E8F1;</span><br><span class="line">*(_DWORD *)&amp;flag[4] = 0xCECF81D2;</span><br><span class="line">*(_DWORD *)&amp;flag[8] = 0x81C081D5;</span><br><span class="line">*(_DWORD *)&amp;flag[12] = 0xC8D5C0D3;</span><br><span class="line">*(_DWORD *)&amp;flag[16] = 0xCDC0CFCE;</span><br><span class="line">*(_DWORD *)&amp;flag[20] = 0xCCD4CF81;</span><br><span class="line">*(_DWORD *)&amp;flag[24] = 0x8FD3C4C3;</span><br><span class="line">flag[28] = 0;</span><br><span class="line">printf(&quot;What is magic number? &quot;);</span><br><span class="line">__isoc99_scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">if ( n == 0x12B9B0A1 )</span><br><span class="line">&#123;</span><br><span class="line">  for ( i = 0; flag[i]; ++i )</span><br><span class="line">    flag[i] ^= n;</span><br><span class="line">  printf(&quot;Flag is FLAG&#123;%s&#125;\n&quot;, flag);</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;Try Hard.&quot;);</span><br><span class="line">&#125;</span><br><span class="line">return 0;</span><br></pre></td></tr></table></figure>
+<p>如果输入的n为0x12b9b0a1，flag[i]^=n</p>
+<p>通过汇编命令可以发现此处n取一个byte，也就是0xa1</p>
+<p>逆运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">flag=[0xf1,0xe8,0x81,0xc8,</span><br><span class="line">0xd2,0x81,0xcf,0xce,</span><br><span class="line">0xd5,0x81,0xc0,0x81,</span><br><span class="line">0xd3,0xc0,0xd5,0xc8,</span><br><span class="line">0xce,0xcf,0xc0,0xcd,</span><br><span class="line">0x81,0xcf,0xd4,0xcc,</span><br><span class="line">0xc3,0xc4,0xd3,0x8f]</span><br><span class="line">s=&apos;&apos;</span><br><span class="line">for i in flag:</span><br><span class="line">	i^=0xa1</span><br><span class="line">	s+=chr(i)</span><br><span class="line">print s</span><br></pre></td></tr></table></figure>
+<p><strong><em>flag get</em></strong></p>
+<p>因为不会啥操作，所以flag list只能手打了……</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-bitx" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
