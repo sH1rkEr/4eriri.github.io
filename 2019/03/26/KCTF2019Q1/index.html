@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g1w9edzg8lj30ke0gu0u2.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g1w9hktvsnj30e60eq0tz.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g1w9x0dejsj30e6068wfp.jpg">
-<meta property="og:updated_time" content="2019-04-09T04:58:49.992Z">
+<meta property="og:updated_time" content="2019-04-14T05:33:54.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KCTF2019Q1">
 <meta name="twitter:description" content="好菜，这次必看着dalao的wp学习一波。">
@@ -254,6 +254,25 @@
 <p>输入<code>20101001X1Y0uN3tG00dHaCk</code>后程序情况<br><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g1w9x0dejsj30e6068wfp.jpg" alt=""></p>
 <p>分析<code>sub_401bf0</code>，发现对输入进行des加密，key为<code>XiyouNet</code>，得到第二部分输入<code>Wel1C0me</code>。</p>
 <p>当时没看出栈溢出，但是发现了函数<code>sub_401bf0</code>，只知道最终答案格式是第一次输入加第二次输入，可惜没能分析出des，也不知道怎么样能进行第二次输入，属实鶸。</p>
+<h1 id="影分身之术"><a href="#影分身之术" class="headerlink" title="影分身之术"></a>影分身之术</h1><p>这一题当时甚至还找了出题人去年出的题的wp，结果也是只做出了一半233</p>
+<p>首先有一段js混淆，解密后代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function ckpswd() &#123;</span><br><span class="line">    key = &quot;simpower91&quot;;</span><br><span class="line">    a = document.all.pswd.value;</span><br><span class="line">    if (a.indexOf(key) == 0) &#123;</span><br><span class="line">        l = a.length;</span><br><span class="line">        i = key.length;</span><br><span class="line">        sptWBCallback(a.substring(i, l));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        alert(&quot;wrong!&lt;&quot; + a + &quot;&gt; is not my GUID ;-)&quot;);</span><br><span class="line">        return &quot;1234&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function ok() &#123;</span><br><span class="line">    alert(&quot;congratulations!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入的key的前缀必须是simpower91，之后的字符会作为sptWBCallback的参数，猜测是调用ok函数，不过上网找了半天也不知道怎么样的字符能调用到ok函数…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sptWBCallback(spt_wb_id,spt_wb_name,optionstr)&#123;</span><br><span class="line">    url=&apos;#sptWBCallback:id=&apos;;</span><br><span class="line">    url=url+spt_wb_id+&apos;;eventName=&apos;+spt_wb_name;</span><br><span class="line">    if(optionstr)         </span><br><span class="line">        url=url+&apos;;params=optionstr&apos;;</span><br><span class="line">    location=url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（看了wp之后）跟踪发现这里有一个cmp eax,0x4的操作，simpower91后输入的字符长度为4。</p>
+<pre><code>00493FA6   .  55            push ebp
+00493FA7   .  68 BA414900   push crackme2.004941BA
+00493FAC   .  64:FF30       push dword ptr fs:[eax]
+00493FAF   .  64:8920       mov dword ptr fs:[eax],esp
+00493FB2   .  8B45 EC       mov eax,dword ptr ss:[ebp-0x14]
+00493FB5   .  E8 7A07F7FF   call crackme2.00404734
+00493FBA   .  83F8 04       cmp eax,0x4
+00493FBD   .  0F85 BE010000 jnz crackme2.00494181
+00493FC3   .  EB 21         jmp short crackme2.00493FE6
+00493FC5   .^ E0 B0         loopdne short crackme2.00493F77
+00493FC7   .  B1 B2         mov cl,0xB2
+</code></pre><p>一路跟踪跟进了虚拟机函数，对四个字符的验证为<br><code>ord(i)+0x7f==[0xe0, 0xb0, 0xb1, 0xb2]</code></p>
+<p>后四个字符为<code>a123</code></p>
 
       
     </div>
@@ -265,7 +284,7 @@
         <p><span>本文标题:</span><a href="/2019/03/26/KCTF2019Q1/">KCTF2019Q1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-03-26, 07:47:49</p>
-        <p><span>最后更新:</span>2019-04-09, 12:58:49</p>
+        <p><span>最后更新:</span>2019-04-14, 13:33:54</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/03/26/KCTF2019Q1/" title="KCTF2019Q1">http://yoursite.com/2019/03/26/KCTF2019Q1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/26/KCTF2019Q1/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -301,7 +320,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#流浪者"><span class="toc-number">1.</span> <span class="toc-text">流浪者</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初入好望角"><span class="toc-number">2.</span> <span class="toc-text">初入好望角</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#REPWN"><span class="toc-number">3.</span> <span class="toc-text">REPWN</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#流浪者"><span class="toc-number">1.</span> <span class="toc-text">流浪者</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初入好望角"><span class="toc-number">2.</span> <span class="toc-text">初入好望角</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#REPWN"><span class="toc-number">3.</span> <span class="toc-text">REPWN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#影分身之术"><span class="toc-number">4.</span> <span class="toc-text">影分身之术</span></a></li></ol>
         
     </div>
     <style>
