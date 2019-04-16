@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="记录一下，方便以后虚拟机爆炸时重新配置。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-15T16:20:36.572Z">
+<meta property="og:updated_time" content="2019-04-16T03:14:05.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的Ubuntu16.04配置">
 <meta name="twitter:description" content="记录一下，方便以后虚拟机爆炸时重新配置。">
@@ -247,15 +247,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">[install]</span><br><span class="line">trusted-host=mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
 <h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p>终端执行：</p>
 <p><code>sudo apt install git</code></p>
+<h1 id="安装ruby"><a href="#安装ruby" class="headerlink" title="安装ruby"></a>安装ruby</h1><p>终端执行：</p>
+<p><code>sudo apt install ruby</code></p>
 <h1 id="安装pwntools"><a href="#安装pwntools" class="headerlink" title="安装pwntools"></a>安装pwntools</h1><p>终端执行：</p>
 <p><code>sudo pip install pwntools</code></p>
 <h1 id="安装pwndbg"><a href="#安装pwndbg" class="headerlink" title="安装pwndbg"></a>安装pwndbg</h1><p>终端执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pwndbg/pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">sudo ./setup.sh</span><br></pre></td></tr></table></figure>
+<h1 id="安装one-gadget"><a href="#安装one-gadget" class="headerlink" title="安装one_gadget"></a>安装one_gadget</h1><p>终端执行：</p>
+<p><code>sudo gem install one_gadget</code></p>
 <h1 id="安装z3"><a href="#安装z3" class="headerlink" title="安装z3"></a>安装z3</h1><p>终端执行：</p>
 <p><code>pip install z3-solver</code></p>
 <h1 id="安装open-cv"><a href="#安装open-cv" class="headerlink" title="安装open-cv"></a>安装open-cv</h1><p>终端执行：</p>
 <p><code>pip install opencv-python</code></p>
-<h1 id="安装angr"><a href="#安装angr" class="headerlink" title="安装angr"></a>安装angr</h1><p>终端执行：</p>
+<h1 id="安装angr-影响pwntools部分功能"><a href="#安装angr-影响pwntools部分功能" class="headerlink" title="安装angr(影响pwntools部分功能)"></a>安装angr(影响pwntools部分功能)</h1><p>终端执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenvwrapper</span><br><span class="line">export WORKON_HOME=$HOME/Python-workhome</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br><span class="line">mkvirtualenv angr</span><br><span class="line">sudo pip install angr</span><br></pre></td></tr></table></figure>
 <h1 id="可能会出现的问题"><a href="#可能会出现的问题" class="headerlink" title="可能会出现的问题"></a>可能会出现的问题</h1><p>由于作死很多东西一起安装，忘记了哪一个会对pip版本作出修改，导致后面安装时可能会出现cannot import name main的问题</p>
 <p>终端执行：</p>
@@ -276,7 +280,7 @@
         <p><span>本文标题:</span><a href="/2019/04/15/从零开始的Ubuntu16-04配置/">从零开始的Ubuntu16.04配置</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-04-15, 19:47:01</p>
-        <p><span>最后更新:</span>2019-04-16, 00:20:36</p>
+        <p><span>最后更新:</span>2019-04-16, 11:14:05</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/04/15/从零开始的Ubuntu16-04配置/" title="从零开始的Ubuntu16.04配置">http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/04/15/从零开始的Ubuntu16-04配置/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -306,7 +310,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#换源"><span class="toc-number">1.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pip"><span class="toc-number">2.</span> <span class="toc-text">安装pip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pip换源"><span class="toc-number">3.</span> <span class="toc-text">pip换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装git"><span class="toc-number">4.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwntools"><span class="toc-number">5.</span> <span class="toc-text">安装pwntools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwndbg"><span class="toc-number">6.</span> <span class="toc-text">安装pwndbg</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装z3"><span class="toc-number">7.</span> <span class="toc-text">安装z3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装open-cv"><span class="toc-number">8.</span> <span class="toc-text">安装open-cv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装angr"><span class="toc-number">9.</span> <span class="toc-text">安装angr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#可能会出现的问题"><span class="toc-number">10.</span> <span class="toc-text">可能会出现的问题</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#换源"><span class="toc-number">1.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pip"><span class="toc-number">2.</span> <span class="toc-text">安装pip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pip换源"><span class="toc-number">3.</span> <span class="toc-text">pip换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装git"><span class="toc-number">4.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装ruby"><span class="toc-number">5.</span> <span class="toc-text">安装ruby</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwntools"><span class="toc-number">6.</span> <span class="toc-text">安装pwntools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装pwndbg"><span class="toc-number">7.</span> <span class="toc-text">安装pwndbg</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装one-gadget"><span class="toc-number">8.</span> <span class="toc-text">安装one_gadget</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装z3"><span class="toc-number">9.</span> <span class="toc-text">安装z3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装open-cv"><span class="toc-number">10.</span> <span class="toc-text">安装open-cv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装angr-影响pwntools部分功能"><span class="toc-number">11.</span> <span class="toc-text">安装angr(影响pwntools部分功能)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#可能会出现的问题"><span class="toc-number">12.</span> <span class="toc-text">可能会出现的问题</span></a></li></ol>
         
     </div>
     <style>
