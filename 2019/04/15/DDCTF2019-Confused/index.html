@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="peid查壳upx壳，尝试手动脱壳。然而对着教程发现，用od载入时我的od载入的一开始并不是push ad，也就一直没有办法脱壳。百度了接近半个晚上才知道，原来虚拟机里用od时不要把要载入的文件放在共享文件夹里，否则就会出现这种状况，把unpackme.exe拖到虚拟机文件夹里后脱壳成功。 定位到关键函数： 123456789101112131415161718192021222324252627">
+<meta name="description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sus-unpackme">
-<meta property="og:url" content="http://yoursite.com/2018/10/11/sus-unpackme/index.html">
+<meta property="og:title" content="DDCTF2019-Confused">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/DDCTF2019-Confused/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="peid查壳upx壳，尝试手动脱壳。然而对着教程发现，用od载入时我的od载入的一开始并不是push ad，也就一直没有办法脱壳。百度了接近半个晚上才知道，原来虚拟机里用od时不要把要载入的文件放在共享文件夹里，否则就会出现这种状况，把unpackme.exe拖到虚拟机文件夹里后脱壳成功。 定位到关键函数： 123456789101112131415161718192021222324252627">
+<meta property="og:description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-21T14:18:49.043Z">
+<meta property="og:updated_time" content="2019-04-15T11:45:34.350Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sus-unpackme">
-<meta name="twitter:description" content="peid查壳upx壳，尝试手动脱壳。然而对着教程发现，用od载入时我的od载入的一开始并不是push ad，也就一直没有办法脱壳。百度了接近半个晚上才知道，原来虚拟机里用od时不要把要载入的文件放在共享文件夹里，否则就会出现这种状况，把unpackme.exe拖到虚拟机文件夹里后脱壳成功。 定位到关键函数： 123456789101112131415161718192021222324252627">
+<meta name="twitter:title" content="DDCTF2019-Confused">
+<meta name="twitter:description" content="题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>sus-unpackme | 4eriri&#39;s blog</title>
+<title>DDCTF2019-Confused | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-sus-unpackme" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-DDCTF2019-Confused" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/11/sus-unpackme/" class="article-date">
-      <time datetime="2018-10-11T15:20:59.000Z" itemprop="datePublished">2018-10-11</time>
+      <a href="/2019/04/15/DDCTF2019-Confused/" class="article-date">
+      <time datetime="2019-04-15T10:48:38.000Z" itemprop="datePublished">2019-04-15</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sus-unpackme
+      DDCTF2019-Confused
     </h1>
   
 
@@ -225,16 +225,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>peid查壳upx壳，尝试手动脱壳。然而对着教程发现，用od载入时我的od载入的一开始并不是push ad，也就一直没有办法脱壳。百度了接近半个晚上才知道，原来虚拟机里用od时不要把要载入的文件放在共享文件夹里，否则就会出现这种状况，把unpackme.exe拖到虚拟机文件夹里后脱壳成功。</p>
-<p>定位到关键函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">pdwDataLen = 16;</span><br><span class="line">if ( a2 == 514 )</span><br><span class="line">&#123;</span><br><span class="line">  v4 = GetParent(hWnd);</span><br><span class="line">  v5 = GetDlgItemTextA(v4, 101, &amp;String, 63);</span><br><span class="line">  if ( v5 )</span><br><span class="line">  &#123;</span><br><span class="line">    phProv = 0;</span><br><span class="line">    phHash = 0;</span><br><span class="line">    if ( !CryptAcquireContextA(&amp;phProv, 0, 0, 1u, 0xF0000000)</span><br><span class="line">      || !CryptCreateHash(phProv, 0x8003u, 0, 0, &amp;phHash)</span><br><span class="line">      || !CryptHashData(phHash, (const BYTE *)&amp;String, v5, 0)</span><br><span class="line">      || !CryptGetHashParam(phHash, 2u, (BYTE *)pbData, &amp;pdwDataLen, 0) )</span><br><span class="line">    &#123;</span><br><span class="line">      ExitProcess(1u);</span><br><span class="line">    &#125;</span><br><span class="line">    CryptDestroyHash(phHash);</span><br><span class="line">    CryptReleaseContext(phProv, 0);</span><br><span class="line">    v7 = pbData;</span><br><span class="line">    v8 = dword_4128A0;</span><br><span class="line">    v9 = 12;</span><br><span class="line">    while ( *(_DWORD *)v7 == *v8 )</span><br><span class="line">    &#123;</span><br><span class="line">      v7 += 4;</span><br><span class="line">      ++v8;</span><br><span class="line">      v10 = v9 &lt; 4;</span><br><span class="line">      v9 -= 4;</span><br><span class="line">      if ( v10 )</span><br><span class="line">      &#123;</span><br><span class="line">        v11 = String;</span><br><span class="line">        v12 = 0;</span><br><span class="line">        v13 = 3;</span><br><span class="line">        v14 = 2;</span><br><span class="line">        do</span><br><span class="line">        &#123;</span><br><span class="line">          *(&amp;Text + v12) = v11 ^ byte_410A80[v12] ^ pbData[v12 &amp; 0xF];</span><br><span class="line">          *(&amp;v23 + v12) = v11 ^ byte_410A81[v12] ^ pbData[((_BYTE)v14 - 1) &amp; 0xF];</span><br><span class="line">          v15 = byte_410A80[v14] ^ pbData[v14 &amp; 0xF];</span><br><span class="line">          v14 += 4;</span><br><span class="line">          *(&amp;v24 + v13 - 3) = v11 ^ v15;</span><br><span class="line">          v16 = byte_410A80[v13] ^ pbData[v13 &amp; 0xF];</span><br><span class="line">          v13 += 4;</span><br><span class="line">          v25[v12] = v11 ^ v16;</span><br><span class="line">          v12 += 4;</span><br><span class="line">        &#125;</span><br><span class="line">        while ( v14 &lt; 0x22 );</span><br><span class="line">        if ( v12 &lt; 0x80 )</span><br><span class="line">        &#123;</span><br><span class="line">          *(&amp;Text + v12) = 0;</span><br><span class="line">          MessageBoxA(hWnd, &amp;Text, &quot;Flag is&quot;, 0x40u);</span><br><span class="line">          ExitProcess(0);</span><br><span class="line">        &#125;</span><br><span class="line">        __report_rangecheckfailure();</span><br><span class="line">        __debugbreak();</span><br><span class="line">        JUMPOUT(*(_DWORD *)algn_40BDCF);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    MessageBoxA(hWnd, &quot;Wrong answer&quot;, &quot;HACKMECTF&quot;, 0x10u);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    MessageBoxA(hWnd, &quot;Say something!&quot;, &quot;HACKMECTF&quot;, 0x10u);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">return MEMORY[0](hWnd, a2, a3, a4);</span><br></pre></td></tr></table></figure>
-<p>Text处存放的就是flag</p>
-<p>赋值语句：</p>
-<p><code>*(&amp;Text + v12) = v11 ^ byte_410A80[v12] ^ pbData[v12 &amp; 0xF]</code></p>
-<p>v11是输入的string，pbData可以在上面发现就是<code>dword_4128A0</code>处的值，由<code>v12 &lt; 0x80</code>可以知道flag的长度不超过0x20位，爆破脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">byte_410a80 = [0x1A, 0x8B, 0x24, 0x28, 0x58, 0x37, 0xAC, 0x52, 0x53, 0xB5, </span><br><span class="line">  0x1E, 0x3E, 0x4A, 0x25, 0x4A, 0x27, 0x6B, 0xB2, 0x17, 0x01, </span><br><span class="line">  0x03, 0x0B, 0xF4, 0x14, 0x00, 0xF1, 0x61, 0x70, 0x0C, 0x55, </span><br><span class="line">  0x20, 0x7A]</span><br><span class="line">pbData = [0x34, 0xAF, 0x0D, 0x07, 0x4B, 0x17, 0xF4, 0x4D, 0x1B, 0xB9, </span><br><span class="line">  0x39, 0x76, 0x5B, 0x02, 0x77, 0x6F]</span><br><span class="line">for i in string.printable:</span><br><span class="line">    a = ord(i)</span><br><span class="line">    flag = &quot;&quot;</span><br><span class="line">    for a1 in range(0,0x20):</span><br><span class="line">        flag += chr(a ^ byte_410a80[a1] ^ pbData[a1&amp;0xf])</span><br><span class="line">    if ~flag.find(&quot;FLAG&quot;):</span><br><span class="line">        print flag</span><br></pre></td></tr></table></figure>
-<p>如果flag中有”FLAG”的话，flag.find()返回的是“FLAG”所在的下标0。所以加上取反号，就可以打印出flag。</p>
-
+        <p>题目文件为一个osx的app，打开包内容可以发现Contents/MacOS里有一个xia0Crackme，很明显是要对这个文件进行分析。</p>
+<a id="more"></a>
+<p>IDA打开，定位到checkcode函数，对输入进行约束，前缀为<code>DDCTF{</code>，结尾为<code>}</code>，中间部分长度为18，另外进入check函数。</p>
+<p>经过分析，程序会根据下面的数组对输入进行校验。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">[0xf0,0x10,0x66,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x30,</span><br><span class="line">0xf6,0xc1,</span><br><span class="line">0xf0,0x10,0x63,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x31,</span><br><span class="line">0xf6,0xb6,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x32,</span><br><span class="line">0xf6,0xab,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x33,</span><br><span class="line">0xf6,0xa0,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x34,</span><br><span class="line">0xf6,0x95,</span><br><span class="line">0xf0,0x10,0x57,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x35,</span><br><span class="line">0xf6,0x8a,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x36,</span><br><span class="line">0xf6,0x7f,</span><br><span class="line">0xf0,0x10,0x73,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x37,</span><br><span class="line">0xf6,0x74,</span><br><span class="line">0xf0,0x10,0x45,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x38,</span><br><span class="line">0xf6,0x69,</span><br><span class="line">0xf0,0x10,0x6d,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x39,</span><br><span class="line">0xf6,0x5e,</span><br><span class="line">0xf0,0x10,0x72,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3a,</span><br><span class="line">0xf6,0x53,</span><br><span class="line">0xf0,0x10,0x52,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3b,</span><br><span class="line">0xf6,0x48,</span><br><span class="line">0xf0,0x10,0x66,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3c,</span><br><span class="line">0xf6,0x3d,</span><br><span class="line">0xf0,0x10,0x63,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3d,</span><br><span class="line">0xf6,0x32,</span><br><span class="line">0xf0,0x10,0x44,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3e,</span><br><span class="line">0xf6,0x27,</span><br><span class="line">0xf0,0x10,0x6a,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x3f,</span><br><span class="line">0xf6,0x1c,</span><br><span class="line">0xf0,0x10,0x79,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x40,</span><br><span class="line">0xf6,0x11,</span><br><span class="line">0xf0,0x10,0x65,0x0,0x0,0x0,</span><br><span class="line">0xf8,</span><br><span class="line">0xf2,0x41,</span><br><span class="line">0xf6,0x6,</span><br><span class="line">0xf7,0x1,0x0,0x0,0x0,</span><br><span class="line">0xf3,]</span><br></pre></td></tr></table></figure>
+<p><code>0xf0</code>使<code>a=0xf0后面的第二个数</code></p>
+<p><code>0xf8</code>使<code>a</code>凯撒移位2位</p>
+<p><code>0xf2</code>比较输入与<code>a</code>是否相等</p>
+<p><code>0xf6</code>如果相等则向下运行，否则改变程序流程</p>
+<p><code>0xf7</code>使标记<code>success</code>和<code>failed</code>的标志位为<code>success</code></p>
+<p><code>0xf3</code>结束程序</p>
+<p>加密解密不是很复杂，贴上脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s=[0x66,0x63,0x6a,0x6a,0x6d,0x57,0x6d,0x73,0x45,0x6d,0x72,0x52,0x66,0x63,0x44,0x6a,0x79,0x65]</span><br><span class="line">flag=&apos;&apos;</span><br><span class="line">for i in s:</span><br><span class="line">    if i&gt;=ord(&apos;a&apos;) and i&lt;=ord(&apos;z&apos;):</span><br><span class="line">        flag+=chr((i-ord(&apos;a&apos;)+2)%26+ord(&apos;a&apos;))</span><br><span class="line">    elif i&gt;=ord(&apos;A&apos;) and i&lt;=ord(&apos;Z&apos;):</span><br><span class="line">        flag+=chr((i-ord(&apos;A&apos;)+2)%26+ord(&apos;A&apos;))</span><br><span class="line">    else:</span><br><span class="line">        flag+=chr(i)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -242,13 +245,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/11/sus-unpackme/">sus-unpackme</a></p>
+        <p><span>本文标题:</span><a href="/2019/04/15/DDCTF2019-Confused/">DDCTF2019-Confused</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-11, 23:20:59</p>
-        <p><span>最后更新:</span>2018-10-21, 22:18:49</p>
+        <p><span>发布时间:</span>2019-04-15, 18:48:38</p>
+        <p><span>最后更新:</span>2019-04-15, 19:45:34</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/11/sus-unpackme/" title="sus-unpackme">http://yoursite.com/2018/10/11/sus-unpackme/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/11/sus-unpackme/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/15/DDCTF2019-Confused/" title="DDCTF2019-Confused">http://yoursite.com/2019/04/15/DDCTF2019-Confused/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/04/15/DDCTF2019-Confused/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -261,15 +264,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/13/CNSSrecruit-1/">
-                    CNSSrecruit-1
+                <a href="/2019/04/15/从零开始的Ubuntu16-04配置/">
+                    从零开始的Ubuntu16.04配置
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/11/geekgame-2/">
-                    geekgame-2
+                <a href="/2019/04/15/PinTool安装与简单使用/">
+                    PinTool安装与简单使用
                 </a>
             </div>
         
@@ -317,7 +320,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"sus-unpackme　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"DDCTF2019-Confused　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -336,8 +339,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/10/11/sus-unpackme/';
-            this.page.identifier = '2018/10/11/sus-unpackme/';
+            this.page.url = 'http://yoursite.com/2019/04/15/DDCTF2019-Confused/';
+            this.page.identifier = '2019/04/15/DDCTF2019-Confused/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -359,7 +362,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/13/CNSSrecruit-1/" title="上一篇: CNSSrecruit-1">
+            <a href="/2019/04/15/从零开始的Ubuntu16-04配置/" title="上一篇: 从零开始的Ubuntu16.04配置">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -367,7 +370,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/11/geekgame-2/" title="下一篇: geekgame-2">
+            <a href="/2019/04/15/PinTool安装与简单使用/" title="下一篇: PinTool安装与简单使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
