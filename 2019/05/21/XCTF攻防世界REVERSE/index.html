@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="description" content="菜鸡还是从刷题做起吧……">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-480小时精通c++">
-<meta property="og:url" content="http://yoursite.com/2018/09/21/480小时/index.html">
+<meta property="og:title" content="XCTF攻防世界REVERSE">
+<meta property="og:url" content="http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta property="og:description" content="菜鸡还是从刷题做起吧……">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:35:53.219Z">
+<meta property="og:updated_time" content="2019-05-21T10:59:29.260Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-480小时精通c++">
-<meta name="twitter:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="twitter:title" content="XCTF攻防世界REVERSE">
+<meta name="twitter:description" content="菜鸡还是从刷题做起吧……">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-480小时精通c++ | 4eriri&#39;s blog</title>
+<title>XCTF攻防世界REVERSE | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-480小时" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-XCTF攻防世界REVERSE" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/09/21/480小时/" class="article-date">
-      <time datetime="2018-09-20T16:52:52.000Z" itemprop="datePublished">2018-09-21</time>
+      <a href="/2019/05/21/XCTF攻防世界REVERSE/" class="article-date">
+      <time datetime="2019-05-21T05:49:20.000Z" itemprop="datePublished">2019-05-21</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-480小时精通c++
+      XCTF攻防世界REVERSE
     </h1>
   
 
@@ -225,22 +225,26 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先……</p>
-<p>题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……</p>
-<p>  ida启动！main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  signed int i; // [rsp+Ch] [rbp-54h]</span><br><span class="line">  __int64 v5; // [rsp+10h] [rbp-50h]</span><br><span class="line">  __int64 v6; // [rsp+18h] [rbp-48h]</span><br><span class="line">  __int64 v7; // [rsp+20h] [rbp-40h]</span><br><span class="line">  __int64 v8; // [rsp+28h] [rbp-38h]</span><br><span class="line">  int v9; // [rsp+30h] [rbp-30h]</span><br><span class="line">  char v10; // [rsp+34h] [rbp-2Ch]</span><br><span class="line">  unsigned __int64 v11; // [rsp+58h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v5 = 7652827924304847970LL;</span><br><span class="line">  v6 = 6588269719570178159LL;</span><br><span class="line">  v7 = 0615273543157435660505LL;</span><br><span class="line">  v8 = 4932672475662219355LL;</span><br><span class="line">  v9 = 2099869557;</span><br><span class="line">  v10 = 0;</span><br><span class="line">  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;((__int64)&amp;std::cout, (__int64)&quot;The Encrypted Flag is: &quot;);</span><br><span class="line">  for ( i = 0; i &lt;= 35; ++i )</span><br><span class="line">    printf(&quot;%02x&quot;, *((unsigned __int8 *)&amp;v5 + i));</span><br><span class="line">  std::ostream::operator&lt;&lt;((__int64)&amp;std::cout, (__int64)std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很容易发现输出了加密后的flag，也就是v5-v9中的值，按r键转换成字符型，得加密flag:bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}</p>
-<p>进入汇编界面发现输出”The Encrypted Flag is: “前被nop了一段，应该就是加密函数。</p>
-<p>左侧函数列表中有480个名为_X1C_CG_EncryptFunction的函数，实现output[i]^=string[i%len(string)]^i，区别就是这480个函数中的string是从“001001001”到“480480480”。所以可以知道flag经过了这480个函数的加密后，就变成了bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(35,-1,-1):</span><br><span class="line">			s=ord(flag[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag=flag.replace(flag[j],chr(s),1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><del>于是得到了flag</del></p>
-<p>可能由于并不会替换字符串中特定下标处的值，所以并没有得到flag……向大佬求救尚未得到回复……</p>
-<h2 id="两小时后"><a href="#两小时后" class="headerlink" title="两小时后"></a><strong><em>两小时后</em></strong></h2><p>原因没错，通过百度了一会python中字符串替换的问题，找到了正确的替换方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">flag1=list(flag)</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(36):</span><br><span class="line">			s=ord(flag1[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag1[j]=chr(s)</span><br><span class="line">flag=&apos;&apos;.join(flag1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong>flag get！</strong></p>
-<p>通过大佬的指点终于是完成了这一道简单题，明明知道了怎么去逆运算，结果因为python不会用的原因忙了这么久……要学的太多</p>
-
+        <p>菜鸡还是从刷题做起吧……</p>
+<a id="more"></a>
+<h1 id="001-dmd-50"><a href="#001-dmd-50" class="headerlink" title="001 dmd-50"></a>001 dmd-50</h1><p>输入md5后与<code>780438d5b6e29db0898bc4f0225935c0</code>进行比较，md5解密后得正确输入</p>
+<p><code>b781cbb29054db12f88f08c6e161c199</code>。</p>
+<h1 id="002-Shuffle"><a href="#002-Shuffle" class="headerlink" title="002 Shuffle"></a>002 Shuffle</h1><p>明文flag</p>
+<p><code>SECCON{Welcome to the SECCON 2014 CTF!}</code></p>
+<h1 id="003-crackme"><a href="#003-crackme" class="headerlink" title="003 crackme"></a>003 crackme</h1><p>ESP定律脱壳，简单加密</p>
+<p>逆运算脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key=&quot;this_is_not_flag&quot;</span><br><span class="line">s=[0x12, 0x04, 0x08, 0x14, 0x24, 0x5C, 0x4A, 0x3D, 0x56, 0x0A, 0x10, 0x67,0x0,0x41, 0x0,0x01, 0x46, 0x5A, 0x44, 0x42, 0x6E, 0x0C, 0x44, 0x72, 0x0C, 0x0D, 0x40, 0x3E, 0x4B, 0x5F, 0x02, 0x01, 0x4C, 0x5E, 0x5B, 0x17, 0x6E, 0x0C, 0x16, 0x68, 0x5B, 0x12, 0x48,0x0e]</span><br><span class="line">print &apos;&apos;.join([chr(s[i]^ord(key[i%16]))for i in range(42)])</span><br></pre></td></tr></table></figure>
+<p><code>flag{59b8ed8f-af22-11e7-bb4a-3cf862d1ee75}</code></p>
+<h1 id="004-re2-cpp-is-awesome"><a href="#004-re2-cpp-is-awesome" class="headerlink" title="004 re2-cpp-is-awesome"></a>004 re2-cpp-is-awesome</h1><p>根据给的index表在table中取值得到flag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">table=&quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_&#123;FL4G&#125;_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;</span><br><span class="line">index=[36,   0,   0,   0,   0,   0,   0,   0,   5,   0,  0,   0,  54,   0,   0,   0, 101,   0,   0,   0,  7,   0,   0,   0,  39,   0,   0,   0,  38,   0,  0,   0,  45,   0,   0,   0,   1,   0,   0,   0,  3,   0,   0,   0,   0,   0,   0,   0,  13,   0,  0,   0,  86,   0,   0,   0,   1,   0,   0,   0,  3,   0,   0,   0, 101,   0,   0,   0,   3,   0,  0,   0,  45,   0,   0,   0,  22,   0,   0,   0,  2,   0,   0,   0,  21,   0,   0,   0,   3,   0,  0,   0, 101,   0,   0,   0,   0,   0,   0,   0, 41,   0,   0,   0,  68,   0,   0,   0,  68,   0,  0,   0,   1,   0,   0,   0,  68,   0,   0,   0, 43,   0,   0,   0]</span><br><span class="line">print &apos;&apos;.join([table[index[i]] for i in range(0,len(index),4)])</span><br></pre></td></tr></table></figure>
+<p><code>ALEXCTF{W3_L0v3_C_W1th_CL45535}</code></p>
+<h1 id="005-re-for-50-plz-50"><a href="#005-re-for-50-plz-50" class="headerlink" title="005 re-for-50-plz-50"></a>005 re-for-50-plz-50</h1><p>MIPS汇编</p>
+<p>输入的每个字符异或0x37后与<code>cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ</code>比较</p>
+<p>逆运算得flag：<br><code>TUCTF{but_really_whoisjohngalt}</code></p>
+<h1 id="006-The-Maya-Society"><a href="#006-The-Maya-Society" class="headerlink" title="006 The Maya Society"></a>006 The Maya Society</h1><p><del>这题有点脑洞</del></p>
+<p>计算机时间改为2012-12-21运行程序即可得到flag:</p>
+<p><code>flag{e3a03c6f3fe91b40eaa8e71b41f0db12}</code></p>
+<h1 id="007-key"><a href="#007-key" class="headerlink" title="007 key"></a>007 key</h1>
       
     </div>
     
@@ -248,13 +252,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/21/480小时/">CGCTF-480小时精通c++</a></p>
+        <p><span>本文标题:</span><a href="/2019/05/21/XCTF攻防世界REVERSE/">XCTF攻防世界REVERSE</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-09-21, 00:52:52</p>
-        <p><span>最后更新:</span>2019-03-05, 23:35:53</p>
+        <p><span>发布时间:</span>2019-05-21, 13:49:20</p>
+        <p><span>最后更新:</span>2019-05-21, 18:59:29</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/21/480小时/" title="CGCTF-480小时精通c++">http://yoursite.com/2018/09/21/480小时/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/21/480小时/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/21/XCTF攻防世界REVERSE/" title="XCTF攻防世界REVERSE">http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -266,12 +270,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/22/base64/">
-                    base64
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/05/19/ISCC2019-pwn01/">
+                    ISCC2019-pwn01
                 </a>
             </div>
-        
         
     </nav>
 
@@ -281,7 +285,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两小时后"><span class="toc-number">1.</span> <span class="toc-text">两小时后</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#001-dmd-50"><span class="toc-number">1.</span> <span class="toc-text">001 dmd-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#002-Shuffle"><span class="toc-number">2.</span> <span class="toc-text">002 Shuffle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#003-crackme"><span class="toc-number">3.</span> <span class="toc-text">003 crackme</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#004-re2-cpp-is-awesome"><span class="toc-number">4.</span> <span class="toc-text">004 re2-cpp-is-awesome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#005-re-for-50-plz-50"><span class="toc-number">5.</span> <span class="toc-text">005 re-for-50-plz-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#006-The-Maya-Society"><span class="toc-number">6.</span> <span class="toc-text">006 The Maya Society</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#007-key"><span class="toc-number">7.</span> <span class="toc-text">007 key</span></a></li></ol>
         
     </div>
     <style>
@@ -317,7 +321,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-480小时精通c++　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"XCTF攻防世界REVERSE　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -336,8 +340,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/09/21/480小时/';
-            this.page.identifier = '2018/09/21/480小时/';
+            this.page.url = 'http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/';
+            this.page.identifier = '2019/05/21/XCTF攻防世界REVERSE/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -359,15 +363,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/22/base64/" title="上一篇: base64">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/05/19/ISCC2019-pwn01/" title="下一篇: ISCC2019-pwn01">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 

