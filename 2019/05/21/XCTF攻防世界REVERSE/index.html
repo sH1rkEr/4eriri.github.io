@@ -22,10 +22,12 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="菜鸡还是从刷题做起吧……">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-21T10:59:29.260Z">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g3h0trsmjyj30bu01wwec.jpg">
+<meta property="og:updated_time" content="2019-05-28T16:17:25.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界REVERSE">
 <meta name="twitter:description" content="菜鸡还是从刷题做起吧……">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g3h0trsmjyj30bu01wwec.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -244,7 +246,17 @@
 <h1 id="006-The-Maya-Society"><a href="#006-The-Maya-Society" class="headerlink" title="006 The Maya Society"></a>006 The Maya Society</h1><p><del>这题有点脑洞</del></p>
 <p>计算机时间改为2012-12-21运行程序即可得到flag:</p>
 <p><code>flag{e3a03c6f3fe91b40eaa8e71b41f0db12}</code></p>
-<h1 id="007-key"><a href="#007-key" class="headerlink" title="007 key"></a>007 key</h1>
+<h1 id="007-key"><a href="#007-key" class="headerlink" title="007 key"></a>007 key</h1><p>运行程序会报：<code>&quot;?W?h?a?t h?a?p?p?e?n?&quot;</code></p>
+<p>ida分析一波发现是读取不到<br><code>C:\\Users\\CSAW2016\\haha\\flag_dir\\flag.txt</code>，所以报错，建立该文件，继续运行。<br>再次运行会提示<code>=W=r=o=n=g=K=e=y=</code></p>
+<p>定位到此处：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">if ( sub_4020C0(&amp;v44, v12, v45, (int)v13, v48) )</span><br><span class="line">  &#123;</span><br><span class="line">    v28 = sub_402A00(std::cout, &quot;=W=r=o=n=g=K=e=y=&quot;, sub_402C50);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    v14 = sub_402A00(std::cout, &quot;|------------------------------|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v14, v15);</span><br><span class="line">    v16 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v16, v17);</span><br><span class="line">    v18 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v18, v19);</span><br><span class="line">    v20 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v20, v21);</span><br><span class="line">    v22 = sub_402A00(std::cout, &quot;\\  /\\  /\\  /\\  /\\==============|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v22, v23);</span><br><span class="line">    v24 = sub_402A00(std::cout, &quot; \\/  \\/  \\/  \\/  \\=============|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v24, v25);</span><br><span class="line">    v26 = sub_402A00(std::cout, &quot;                 |-------------|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v26, v27);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(std::cout, sub_402C50);</span><br><span class="line">    v28 = sub_402A00(std::cout, &quot;Congrats You got it!&quot;, sub_402C50);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>使用od跟进sub_4020c0，调试发现是在进行字符串比较<br><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g3h0trsmjyj30bu01wwec.jpg" alt=""><br><code>4eriri</code>是我自己建立的flag.txt中的内容，比较的字符串可能就是正确的flag，提交发现正确。</p>
+<p><code>idg_cni~bjbfi|gsxb</code></p>
+<h1 id="008-simple-check-100"><a href="#008-simple-check-100" class="headerlink" title="008 simple-check-100"></a>008 simple-check-100</h1><p>给了三个文件，随便找一个逆一下就ok了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">unsigned char flagdata[28]=&#123;0xDC, 0x17, 0xBF, 0x5B, 0xD4, 0x0A, 0xD2, 0x1B, 0x7D, 0xDA,</span><br><span class="line">          0xA7, 0x95, 0xB5, 0x32, 0x10, 0xF6, 0x1C, 0x65, 0x53, 0x53,</span><br><span class="line">    0x67, 0xBA, 0xEA, 0x6E, 0x78, 0x22, 0x72, 0xD3&#125;;</span><br><span class="line">unsigned int a1[7]=&#123;0xe37ec854,0x9a16c764,0x326511cd,0x43d3e32d,0xd29da992,0xd32c6de6,0x6afebdb6&#125;;</span><br><span class="line">for(int i=0;i&lt;7;i++)</span><br><span class="line">    a1[i]^=0xdeadbeef;</span><br><span class="line">unsigned char key[28]=&#123;0&#125;;</span><br><span class="line">memcpy(key,a1,28);</span><br><span class="line">unsigned char flag[28]=&#123;0&#125;;</span><br><span class="line">for(int i=0;i&lt;28;i++)</span><br><span class="line">&#123;</span><br><span class="line">    flag[i]=flagdata[i]^key[i];</span><br><span class="line">    printf(&quot;%c&quot;,flag[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>脚本有点小小的问题，自己读一下flag</p>
+<p><code>flag_is_you_know_cracking!!!</code></p>
+
       
     </div>
     
@@ -255,7 +267,7 @@
         <p><span>本文标题:</span><a href="/2019/05/21/XCTF攻防世界REVERSE/">XCTF攻防世界REVERSE</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-05-21, 13:49:20</p>
-        <p><span>最后更新:</span>2019-05-21, 18:59:29</p>
+        <p><span>最后更新:</span>2019-05-29, 00:17:25</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/21/XCTF攻防世界REVERSE/" title="XCTF攻防世界REVERSE">http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/21/XCTF攻防世界REVERSE/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -285,7 +297,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#001-dmd-50"><span class="toc-number">1.</span> <span class="toc-text">001 dmd-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#002-Shuffle"><span class="toc-number">2.</span> <span class="toc-text">002 Shuffle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#003-crackme"><span class="toc-number">3.</span> <span class="toc-text">003 crackme</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#004-re2-cpp-is-awesome"><span class="toc-number">4.</span> <span class="toc-text">004 re2-cpp-is-awesome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#005-re-for-50-plz-50"><span class="toc-number">5.</span> <span class="toc-text">005 re-for-50-plz-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#006-The-Maya-Society"><span class="toc-number">6.</span> <span class="toc-text">006 The Maya Society</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#007-key"><span class="toc-number">7.</span> <span class="toc-text">007 key</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#001-dmd-50"><span class="toc-number">1.</span> <span class="toc-text">001 dmd-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#002-Shuffle"><span class="toc-number">2.</span> <span class="toc-text">002 Shuffle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#003-crackme"><span class="toc-number">3.</span> <span class="toc-text">003 crackme</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#004-re2-cpp-is-awesome"><span class="toc-number">4.</span> <span class="toc-text">004 re2-cpp-is-awesome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#005-re-for-50-plz-50"><span class="toc-number">5.</span> <span class="toc-text">005 re-for-50-plz-50</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#006-The-Maya-Society"><span class="toc-number">6.</span> <span class="toc-text">006 The Maya Society</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#007-key"><span class="toc-number">7.</span> <span class="toc-text">007 key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#008-simple-check-100"><span class="toc-number">8.</span> <span class="toc-text">008 simple-check-100</span></a></li></ol>
         
     </div>
     <style>
