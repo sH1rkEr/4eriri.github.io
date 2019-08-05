@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="只打了本地">
+<meta name="description" content="tcache只打了本地">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ciscn_2019_es_1">
 <meta property="og:url" content="http://yoursite.com/2019/08/06/ciscn-2019-es-1/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="只打了本地">
+<meta property="og:description" content="tcache只打了本地">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-05T18:13:00.608Z">
+<meta property="og:updated_time" content="2019-08-05T18:14:51.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ciscn_2019_es_1">
-<meta name="twitter:description" content="只打了本地">
+<meta name="twitter:description" content="tcache只打了本地">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -225,7 +225,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>只打了本地<br><a id="more"></a></p>
+        <p>tcache<br>只打了本地<br><a id="more"></a></p>
 <h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.Add a 996 info</span><br><span class="line">2.Show info</span><br><span class="line">3.Call that 996 compary!</span><br><span class="line">4.I hate 996!</span><br></pre></td></tr></table></figure>
 <p>每次add会malloc(0x18)来创建一个chunk记录信息，其结构为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	name ----------&gt; content chunk</span><br><span class="line">size | call</span><br><span class="line">   call</span><br></pre></td></tr></table></figure>
@@ -247,7 +247,7 @@
         <p><span>本文标题:</span><a href="/2019/08/06/ciscn-2019-es-1/">ciscn_2019_es_1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-08-06, 01:55:03</p>
-        <p><span>最后更新:</span>2019-08-06, 02:13:00</p>
+        <p><span>最后更新:</span>2019-08-06, 02:14:51</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/08/06/ciscn-2019-es-1/" title="ciscn_2019_es_1">http://yoursite.com/2019/08/06/ciscn-2019-es-1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/06/ciscn-2019-es-1/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
