@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="4eriri" />
+
+
+
+<meta name="description" content="yxtql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUCTF2019-babyunic">
+<meta property="og:url" content="http://yoursite.com/2019/08/19/SUCTF2019-babyunic/index.html">
+<meta property="og:site_name" content="4eriri&#39;s blog">
+<meta property="og:description" content="yxtql">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-18T13:14:02.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SUCTF2019-babyunic">
+<meta name="twitter:description" content="yxtql">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="4eriri&#39;s blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>SUCTF2019-babyunic | 4eriri&#39;s blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">4eriri</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">4eriri</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">4eriri</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:itrickl@outlook.com" title="Email"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-SUCTF2019-babyunic" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/08/19/SUCTF2019-babyunic/" class="article-date">
+      <time datetime="2019-08-19T13:00:00.000Z" itemprop="datePublished">2019-08-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SUCTF2019-babyunic
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>yxtql<br><a id="more"></a></p>
+<p>main函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if ( a1 == 2 )</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;SUCTF 2019&quot;);</span><br><span class="line">  printf(&quot;input your flag:&quot;, a2);</span><br><span class="line">  s1 = malloc(0x200uLL);</span><br><span class="line">  v4 = malloc(0x200uLL);</span><br><span class="line">  __isoc99_scanf(&quot;%50s&quot;, v4);</span><br><span class="line">  sub_CBA(v4, s1, *(_QWORD *)(v5 + 8));</span><br><span class="line">  if ( !memcmp(s1, &amp;unk_202020, 0xA8uLL) )</span><br><span class="line">    puts(&quot;congratuation!&quot;);</span><br><span class="line">  else</span><br><span class="line">    puts(&quot;fail!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;no input files&quot;);</span><br><span class="line">&#125;</span><br><span class="line">return 0LL;</span><br></pre></td></tr></table></figure>
+<p>看上去很简单，跟进关键函数subCBA:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">stream = fopen(&quot;./func&quot;, &quot;rb&quot;);</span><br><span class="line">ptr = malloc(0x7100uLL);</span><br><span class="line">fread(ptr, 1uLL, 0x7100uLL, stream);</span><br><span class="line">v5 = 0x101FFFC0;</span><br><span class="line">v6 = 0x101FFFC0;</span><br><span class="line">v7 = 0x101FFB00;</span><br><span class="line">v8 = 0x101FFA00;</span><br><span class="line">uc_open(3LL, 0x40000004LL, &amp;v9);</span><br><span class="line">uc_mem_map(v9, 0x400000LL, 0x200000LL, 7LL);</span><br><span class="line">uc_mem_map(v9, 0x10000000LL, 0x200000LL, 7LL);</span><br><span class="line">v3 = strlen(a1);</span><br><span class="line">uc_mem_write(v9, 0x101FFB00LL, a1, v3);</span><br><span class="line">uc_mem_write(v9, 0x400000LL, ptr, 28928LL);</span><br><span class="line">uc_reg_write(v9, 31LL, &amp;v5);</span><br><span class="line">uc_reg_write(v9, 32LL, &amp;v6);</span><br><span class="line">uc_reg_write(v9, 7LL, &amp;v8);</span><br><span class="line">uc_reg_write(v9, 6LL, &amp;v7);</span><br><span class="line">uc_emu_start(v9, 0x400000LL, 4223084LL, 0LL, 0LL);</span><br><span class="line">uc_mem_read(v9, 0x101FFA00LL, a2, 200LL);</span><br><span class="line">uc_close(v9);</span><br><span class="line">return fclose(stream)</span><br></pre></td></tr></table></figure>
+<p>完全看不懂，但是通过万能的google了解到这是unicorn。分配了虚拟内存，并在其中模拟代码的执行，最后读取<code>0x101ffa00</code>的内存来与main函数中的输入作比较。</p>
+<p>其中<code>uc_open(3LL, 0x40000004LL, &amp;v9)</code>代表使用<code>UC_ARCH_MIPS</code>和<code>UC_MODE_32</code>，特别的是<code>0x40000004LL</code>，<code>0x4</code>代表了<code>UC_MODE_32</code>，而<code>0x40000000</code>代表了大端序，所以可以判断func使用的是大端序的MIPS32。</p>
+<p>func:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">unsigned int sub_0(unsigned int param0, unsigned int param1) &#123;</span><br><span class="line">    unsigned int v0 = param0, v1 = param1;</span><br><span class="line">    int i;</span><br><span class="line"></span><br><span class="line">    for(i = 0; *(i + v0) != 0; ++i) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for(int j = 0; j &lt; i; ++j) &#123;</span><br><span class="line">        unsigned char v2 = *(j + v0);</span><br><span class="line">        unsigned int v3 = ((unsigned int)v2) * &amp;loc_8;</span><br><span class="line">        v3 = ((unsigned int)(((unsigned char)(((unsigned int)v2) &gt;&gt;&gt; 5)))) | ((int)(((unsigned char)v3)));</span><br><span class="line">        *(j + v0) = (unsigned char)(((int)(((unsigned char)v3))) ^ ((int)(((unsigned char)j))));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    *v1 = ((unsigned int)(*(v0 + 1))) + ((unsigned int)(*(v0 + 2))) + ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 3))) + ((unsigned int)(*(v0 + &amp;loc_4))) - ((unsigned int)(*(v0 + 5))) - ((unsigned int)(*(v0 + 6))) - ((unsigned int)(*(v0 + 7))) - ((unsigned int)(*(v0 + &amp;loc_8))) + ((unsigned int)(*(v0 + 9))) + ((unsigned int)(*(v0 + 10))) - ((unsigned int)(*(v0 + 11))) + ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) - ((unsigned int)(*(v0 + 14))) + ((unsigned int)(*(v0 + 15))) - ((unsigned int)(*(v0 + &amp;loc_10))) - ((unsigned int)(*(v0 + 17))) + ((unsigned int)(*(v0 + 18))) + ((unsigned int)(*(v0 + 19))) - ((unsigned int)(*(v0 + &amp;loc_14))) + ((unsigned int)(*(v0 + 21))) + (((unsigned int)(*(v0 + 22))) + ((unsigned int)(*(v0 + 23)))) + ((unsigned int)(*(v0 + &amp;loc_18))) - ((unsigned int)(*(v0 + 25))) + ((unsigned int)(*(v0 + 26))) - ((unsigned int)(*(v0 + 27))) + ((unsigned int)(*(v0 + &amp;loc_1C))) + ((unsigned int)(*(v0 + 29))) - ((unsigned int)(*(v0 + 30))) - ((unsigned int)(*(v0 + 31))) + ((unsigned int)(*(v0 + &amp;loc_20))) - ((unsigned int)(*(v0 + 33))) + ((unsigned int)(*(v0 + 34))) + ((unsigned int)(*(v0 + 35))) - ((unsigned int)(*(v0 + &amp;loc_24))) - ((unsigned int)(*(v0 + 37))) + ((unsigned int)(*(v0 + 38))) - ((unsigned int)(*(v0 + 39))) + ((unsigned int)(*(v0 + &amp;loc_28))) + ((unsigned int)(*(v0 + 41)));</span><br><span class="line">    *(v1 + &amp;loc_4) = ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 1))) + ((unsigned int)(*(v0 + 2))) - ((unsigned int)(*(v0 + 3))) - ((unsigned int)(*(v0 + &amp;loc_4))) + ((unsigned int)(*(v0 + 5))) - ((unsigned int)(*(v0 + 6))) - ((unsigned int)(*(v0 + 7))) - ((unsigned int)(*(v0 + &amp;loc_8))) - ((unsigned int)(*(v0 + 9))) + ((unsigned int)(*(v0 + 10))) - ((unsigned int)(*(v0 + 11))) + ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) - ((unsigned int)(*(v0 + 14))) + ((unsigned int)(*(v0 + 15))) - ((unsigned int)(*(v0 + &amp;loc_10))) - ((unsigned int)(*(v0 + 17))) + ((unsigned int)(*(v0 + 18))) - ((unsigned int)(*(v0 + 19))) + ((unsigned int)(*(v0 + &amp;loc_14))) + ((unsigned int)(*(v0 + 21))) - ((unsigned int)(*(v0 + 22))) - ((unsigned int)(*(v0 + 23))) - ((unsigned int)(*(v0 + &amp;loc_18))) + ((unsigned int)(*(v0 + 25))) - ((unsigned int)(*(v0 + 26))) + ((unsigned int)(*(v0 + 27))) - ((unsigned int)(*(v0 + &amp;loc_1C))) - ((unsigned int)(*(v0 + 29))) + ((unsigned int)(*(v0 + 30))) + (((unsigned int)(*(v0 + 31))) + ((unsigned int)(*(v0 + &amp;loc_20)))) + (((unsigned int)(*(v0 + 33))) + ((unsigned int)(*(v0 + 34))) + ((unsigned int)(*(v0 + 35)))) - ((unsigned int)(*(v0 + &amp;loc_24))) - ((unsigned int)(*(v0 + 37))) - ((unsigned int)(*(v0 + 38))) - ((unsigned int)(*(v0 + 39))) - ((unsigned int)(*(v0 + &amp;loc_28))) + ((unsigned int)(*(v0 + 41)));</span><br><span class="line">    *(v1 + &amp;loc_8) = ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 1))) + ((unsigned int)(*(v0 + 2))) + ((unsigned int)(*(v0 + 3))) - ((unsigned int)(*(v0 + &amp;loc_4))) + ((unsigned int)(*(v0 + 5))) - ((unsigned int)(*(v0 + 6))) - ((unsigned int)(*(v0 + 7))) + ((unsigned int)(*(v0 + &amp;loc_8))) - ((unsigned int)(*(v0 + 9))) - ((unsigned int)(*(v0 + 10))) - ((unsigned int)(*(v0 + 11))) - ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) + ((unsigned int)(*(v0 + 14))) - ((unsigned int)(*(v0 + 15))) - ((unsigned int)(*(v0 + &amp;loc_10))) + ((unsigned int)(*(v0 + 17))) + (((unsigned int)(*(v0 + 18))) + ((unsigned int)(*(v0 + 19)))) + (((unsigned int)(*(v0 + &amp;loc_14))) + ((unsigned int)(*(v0 + 21)))) - ((unsigned int)(*(v0 + 22))) + ((unsigned int)(*(v0 + 23))) + (((unsigned int)(*(v0 + &amp;loc_18))) + ((unsigned int)(*(v0 + 25)))) + ((unsigned int)(*(v0 + 26))) - ((unsigned int)(*(v0 + 27))) + ((unsigned int)(*(v0 + &amp;loc_1C))) - ((unsigned int)(*(v0 + 29))) + ((unsigned int)(*(v0 + 30))) - ((unsigned int)(*(v0 + 31))) + ((unsigned int)(*(v0 + &amp;loc_20))) + ((unsigned int)(*(v0 + 33))) - ((unsigned int)(*(v0 + 34))) - ((unsigned int)(*(v0 + 35))) + ((unsigned int)(*(v0 + &amp;loc_24))) + (((unsigned int)(*(v0 + 37))) + ((unsigned int)(*(v0 + 38)))) - ((unsigned int)(*(v0 + 39))) + ((unsigned int)(*(v0 + &amp;loc_28))) - ((unsigned int)(*(v0 + 41)));</span><br><span class="line">    *(v1 + &amp;loc_C) = ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 1))) - ((unsigned int)(*(v0 + 2))) - ((unsigned int)(*(v0 + 3))) - ((unsigned int)(*(v0 + &amp;loc_4))) - ((unsigned int)(*(v0 + 5))) + ((unsigned int)(*(v0 + 6))) + ((unsigned int)(*(v0 + 7))) - ((unsigned int)(*(v0 + &amp;loc_8))) - ((unsigned int)(*(v0 + 9))) - ((unsigned int)(*(v0 + 10))) - ((unsigned int)(*(v0 + 11))) + ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) + ((unsigned int)(*(v0 + 14))) - ((unsigned int)(*(v0 + 15))) + ((unsigned int)(*(v0 + &amp;loc_10))) - ((unsigned int)(*(v0 + 17))) + ((unsigned int)(*(v0 + 18))) + (((unsigned int)(*(v0 + 19))) + ((unsigned int)(*(v0 + &amp;loc_14)))) - ((unsigned int)(*(v0 + 21))) + ((unsigned int)(*(v0 + 22))) + (((unsigned int)(*(v0 + 23))) + ((unsigned int)(*(v0 + &amp;loc_18)))) - ((unsigned int)(*(v0 + 25))) - ((unsigned int)(*(v0 + 26))) + ((unsigned int)(*(v0 + 27))) - ((unsigned int)(*(v0 + &amp;loc_1C))) + ((unsigned int)(*(v0 + 29))) + ((unsigned int)(*(v0 + 30))) - ((unsigned int)(*(v0 + 31))) - ((unsigned int)(*(v0 + &amp;loc_20))) - ((unsigned int)(*(v0 + 33))) + ((unsigned int)(*(v0 + 34))) - ((unsigned int)(*(v0 + 35))) + ((unsigned int)(*(v0 + &amp;loc_24))) + (((unsigned int)(*(v0 + 37))) + ((unsigned int)(*(v0 + 38)))) - ((unsigned int)(*(v0 + 39))) + ((unsigned int)(*(v0 + &amp;loc_28))) + ((unsigned int)(*(v0 + 41)));</span><br><span class="line">    *(v1 + &amp;loc_10) = ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 1))) - ((unsigned int)(*(v0 + 2))) + ((unsigned int)(*(v0 + 3))) - ((unsigned int)(*(v0 + &amp;loc_4))) - ((unsigned int)(*(v0 + 5))) + ((unsigned int)(*(v0 + 6))) + (((unsigned int)(*(v0 + 7))) + ((unsigned int)(*(v0 + &amp;loc_8)))) + ((unsigned int)(*(v0 + 9))) - ((unsigned int)(*(v0 + 10))) + ((unsigned int)(*(v0 + 11))) + ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) + ((unsigned int)(*(v0 + 14))) - ((unsigned int)(*(v0 + 15))) + ((unsigned int)(*(v0 + &amp;loc_10))) + ((unsigned int)(*(v0 + 17))) - ((unsigned int)(*(v0 + 18))) + ((unsigned int)(*(v0 + 19))) - ((unsigned int)(*(v0 + &amp;loc_14))) + ((unsigned int)(*(v0 + 21))) - ((unsigned int)(*(v0 + 22))) - ((unsigned int)(*(v0 + 23))) - ((unsigned int)(*(v0 + &amp;loc_18))) + ((unsigned int)(*(v0 + 25))) - ((unsigned int)(*(v0 + 26))) - ((unsigned int)(*(v0 + 27))) - ((unsigned int)(*(v0 + &amp;loc_1C))) + ((unsigned int)(*(v0 + 29))) + (((unsigned int)(*(v0 + 30))) + ((unsigned int)(*(v0 + 31)))) - ((unsigned int)(*(v0 + &amp;loc_20))) + ((unsigned int)(*(v0 + 33))) - ((unsigned int)(*(v0 + 34))) - ((unsigned int)(*(v0 + 35))) + ((unsigned int)(*(v0 + &amp;loc_24))) - ((unsigned int)(*(v0 + 37))) + ((unsigned int)(*(v0 + 38))) - ((unsigned int)(*(v0 + 39))) - ((unsigned int)(*(v0 + &amp;loc_28))) - ((unsigned int)(*(v0 + 41)));</span><br><span class="line">    *(v1 + &amp;loc_14) = ((unsigned int)(*(v0 + 1))) + ((unsigned int)(*(v0 + 2))) + (((unsigned int)(*(v0 + 3))) + ((unsigned int)(*(v0 + &amp;loc_4)))) + (((unsigned int)(*(v0 + 5))) + ((unsigned int)(*(v0 + 6))) + (((unsigned int)(*(v0 + 7))) + ((unsigned int)(*(v0 + &amp;loc_8))))) + ((unsigned int)(*v0)) - ((unsigned int)(*(v0 + 9))) - ((unsigned int)(*(v0 + 10))) - ((unsigned int)(*(v0 + 11))) - ((unsigned int)(*(v0 + &amp;loc_C))) - ((unsigned int)(*(v0 + 13))) - ((unsigned int)(*(v0 + 14))) + ((unsigned int)(*(v0 + 15))) - ((unsigned int)(*(v0 + &amp;loc_10))) + ((unsigned int)(*(v0 + 17))) - ((unsigned int)(*(v0 + 18))) + ((unsigned int)(*(v0 + 19))) + ((unsigned int)(*(v0 + &amp;loc_14))) - ((unsigned int)(*(v0 + 21))) + ((unsigned int)(*(v0 + 22))) - ((unsigned int)(*(v0 + 23))) + ((unsigned int)(*(v0 + &amp;loc_18))) - ((unsigned int)(*(v0 + 25))) + ((unsigned int)(*(v0 + 26))) + ((unsigned int)(*(v0 + 27))) - ((unsigned int)(*(v0 + &amp;loc_1C))) + ((unsigned int)(*(v0 + 29))) - ((unsigned int)(*(v0 + 30))) + ((unsigned int)(*(v0 + 31))) + (((unsigned int)(*(v0 + &amp;loc_20))) + ((unsigned int)(*(v0 + 33)))) - ((unsigned int)(*(v0 + 34))) - ((unsigned int)(*(v0 + 35))) - ((unsigned int)(*(v0 + &amp;loc_24))) + ((unsigned int)(*(v0 + 37))) - ((unsigned int)(*(v0 + 38))) - ((unsigned int)(*(v0 + 39))) + ((unsigned int)(*(v0 + &amp;loc_28))) + ((unsigned int)(*(v0 + 41)));</span><br></pre></td></tr></table></figure>
+<p>省略了部分代码，可以看出是对输入进行加密后，再通过输入的42位加减计算来得到输出，最终输出来与main函数里的数组进行比较，所以就变成了一个求解42元1次方程组的问题：</p>
+<p>贴上我的z3脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line"></span><br><span class="line">flag=[BitVec(&apos;flag%d&apos;%i,8)for i in range(42)]</span><br><span class="line">s=[-108,-200,294,-216,-1008,660,-866,1770,220,6,-244,-522,-1406,-816,386,990,334,690,-1832,372,-1370,-1580,450,-1668,858,326,-196,-1516,462,2012,-696,152,2142,-592,-68,878,-178,-1994,1472,1710,1684,34]</span><br><span class="line">solver=Solver()</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[0]-flag[3]+flag[4]-flag[5]-flag[6]-flag[7]-flag[8]+flag[9]+flag[10]-flag[11]+flag[12]-flag[13]-flag[14]+flag[15]-flag[16]-flag[17]+flag[18]+flag[19]-flag[20]+flag[21]+flag[22]+flag[23]+flag[24]-flag[25]+flag[26]-flag[27]+flag[28]+flag[29]-flag[30]-flag[31]+flag[32]-flag[33]+flag[34]+flag[35]-flag[36]-flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[0])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]-flag[3]-flag[4]+flag[5]-flag[6]-flag[7]-flag[8]-flag[9]+flag[10]-flag[11]+flag[12]-flag[13]-flag[14]+flag[15]-flag[16]-flag[17]+flag[18]-flag[19]+flag[20]+flag[21]-flag[22]-flag[23]-flag[24]+flag[25]-flag[26]+flag[27]-flag[28]-flag[29]+flag[30]+flag[31]+flag[32]+flag[33]+flag[34]+flag[35]-flag[36]-flag[37]-flag[38]-flag[39]-flag[40]+flag[41]==s[1])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]+flag[5]-flag[6]-flag[7]+flag[8]-flag[9]-flag[10]-flag[11]-flag[12]-flag[13]+flag[14]-flag[15]-flag[16]+flag[17]+flag[18]+flag[19]+flag[20]+flag[21]-flag[22]+flag[23]+flag[24]+flag[25]+flag[26]-flag[27]+flag[28]-flag[29]+flag[30]-flag[31]+flag[32]+flag[33]-flag[34]-flag[35]+flag[36]+flag[37]+flag[38]-flag[39]+flag[40]-flag[41]==s[2])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]-flag[4]-flag[5]+flag[6]+flag[7]-flag[8]-flag[9]-flag[10]-flag[11]+flag[12]-flag[13]+flag[14]-flag[15]+flag[16]-flag[17]+flag[18]+flag[19]+flag[20]-flag[21]+flag[22]+flag[23]+flag[24]-flag[25]-flag[26]+flag[27]-flag[28]+flag[29]+flag[30]-flag[31]-flag[32]-flag[33]+flag[34]-flag[35]+flag[36]+flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[3])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]+flag[3]-flag[4]-flag[5]+flag[6]+flag[7]+flag[8]+flag[9]-flag[10]+flag[11]+flag[12]-flag[13]+flag[14]-flag[15]+flag[16]+flag[17]-flag[18]+flag[19]-flag[20]+flag[21]-flag[22]-flag[23]-flag[24]+flag[25]-flag[26]-flag[27]-flag[28]+flag[29]+flag[30]+flag[31]-flag[32]+flag[33]-flag[34]-flag[35]+flag[36]-flag[37]+flag[38]-flag[39]-flag[40]-flag[41]==s[4])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[4]+flag[5]+flag[6]+flag[7]+flag[8]+flag[0]-flag[9]-flag[10]-flag[11]-flag[12]-flag[13]-flag[14]+flag[15]-flag[16]+flag[17]-flag[18]+flag[19]+flag[20]-flag[21]+flag[22]-flag[23]+flag[24]-flag[25]+flag[26]+flag[27]-flag[28]+flag[29]-flag[30]+flag[31]+flag[32]+flag[33]-flag[34]-flag[35]-flag[36]+flag[37]-flag[38]-flag[39]+flag[40]+flag[41]==s[5])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]+flag[4]-flag[5]+flag[6]+flag[7]+flag[8]+flag[9]-flag[10]+flag[11]+flag[12]-flag[13]+flag[14]+flag[15]+flag[16]+flag[17]-flag[18]-flag[19]-flag[20]-flag[21]-flag[22]-flag[23]+flag[24]+flag[25]-flag[26]+flag[27]+flag[28]+flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]+flag[36]+flag[37]-flag[38]-flag[39]+flag[40]-flag[41]==s[6])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]-flag[3]-flag[4]+flag[5]+flag[6]-flag[7]+flag[8]+flag[9]-flag[10]+flag[11]-flag[12]+flag[13]-flag[14]+flag[15]-flag[16]+flag[17]-flag[18]-flag[19]+flag[20]-flag[21]+flag[22]-flag[23]-flag[24]+flag[25]-flag[26]+flag[27]+flag[28]+flag[29]+flag[30]+flag[31]+flag[32]-flag[33]+flag[34]-flag[35]+flag[36]+flag[37]+flag[38]+flag[39]-flag[40]-flag[41]==s[7])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]+flag[3]+flag[4]-flag[5]+flag[6]+flag[7]+flag[8]+flag[9]+flag[10]-flag[11]-flag[12]+flag[13]-flag[14]+flag[15]+flag[16]+flag[17]+flag[18]-flag[19]+flag[20]+flag[21]-flag[22]-flag[23]+flag[24]+flag[25]+flag[26]-flag[27]+flag[28]-flag[29]-flag[30]-flag[31]-flag[32]-flag[33]+flag[34]-flag[35]-flag[36]+flag[37]-flag[38]-flag[39]+flag[40]-flag[41]==s[8])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[0]-flag[3]+flag[4]+flag[5]+flag[6]-flag[7]-flag[8]-flag[9]-flag[10]+flag[11]+flag[12]+flag[13]-flag[14]+flag[15]+flag[16]-flag[17]-flag[18]+flag[19]+flag[20]-flag[21]-flag[22]-flag[23]+flag[24]-flag[25]-flag[26]-flag[27]+flag[28]+flag[29]+flag[30]-flag[31]+flag[32]+flag[33]-flag[34]-flag[35]-flag[36]-flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[9])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]-flag[5]+flag[6]+flag[7]-flag[8]-flag[9]-flag[10]-flag[11]+flag[12]+flag[13]+flag[14]-flag[15]+flag[16]-flag[17]+flag[18]+flag[19]+flag[20]-flag[21]+flag[22]-flag[23]-flag[24]-flag[25]+flag[26]-flag[27]-flag[28]+flag[29]-flag[30]+flag[31]+flag[32]-flag[33]-flag[34]+flag[35]-flag[36]-flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[10])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]+flag[4]-flag[5]+flag[6]+flag[7]-flag[8]+flag[9]+flag[10]-flag[11]-flag[12]-flag[13]-flag[14]+flag[15]-flag[16]-flag[17]-flag[18]+flag[19]+flag[20]-flag[21]+flag[22]-flag[23]+flag[24]+flag[25]+flag[26]+flag[27]-flag[28]+flag[29]+flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]+flag[36]+flag[37]-flag[38]-flag[39]-flag[40]-flag[41]==s[11])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]+flag[4]-flag[5]-flag[6]+flag[7]+flag[8]-flag[9]+flag[10]-flag[11]-flag[12]-flag[13]+flag[14]-flag[15]+flag[16]-flag[17]+flag[18]-flag[19]-flag[20]-flag[21]-flag[22]+flag[23]-flag[24]+flag[25]-flag[26]+flag[27]-flag[28]+flag[29]-flag[30]-flag[31]+flag[32]+flag[33]+flag[34]-flag[35]-flag[36]-flag[37]-flag[38]+flag[39]-flag[40]-flag[41]==s[12])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]-flag[3]+flag[4]-flag[5]+flag[6]-flag[7]+flag[8]-flag[9]+flag[10]-flag[11]+flag[12]+flag[13]+flag[14]+flag[15]-flag[16]-flag[17]-flag[18]+flag[19]+flag[20]+flag[21]-flag[22]-flag[23]+flag[24]+flag[25]-flag[26]-flag[27]+flag[28]+flag[29]-flag[30]-flag[31]-flag[32]+flag[33]-flag[34]-flag[35]+flag[36]-flag[37]-flag[38]-flag[39]+flag[40]-flag[41]==s[13])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[0]-flag[3]-flag[4]-flag[5]+flag[6]-flag[7]+flag[8]+flag[9]+flag[10]-flag[11]+flag[12]-flag[13]-flag[14]+flag[15]+flag[16]+flag[17]-flag[18]-flag[19]-flag[20]-flag[21]+flag[22]+flag[23]+flag[24]-flag[25]+flag[26]+flag[27]+flag[28]-flag[29]-flag[30]-flag[31]+flag[32]+flag[33]+flag[34]+flag[35]+flag[36]+flag[37]+flag[38]-flag[39]-flag[40]-flag[41]==s[14])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]+flag[4]+flag[5]-flag[6]+flag[7]-flag[8]-flag[9]-flag[10]+flag[11]+flag[12]+flag[13]-flag[14]-flag[15]-flag[16]+flag[17]-flag[18]-flag[19]-flag[20]-flag[21]+flag[22]+flag[23]+flag[24]+flag[25]+flag[26]+flag[27]-flag[28]-flag[29]-flag[30]-flag[31]+flag[32]-flag[33]+flag[34]+flag[35]+flag[36]+flag[37]-flag[38]+flag[39]+flag[40]-flag[41]==s[15])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]-flag[5]+flag[6]+flag[7]+flag[8]+flag[9]+flag[10]-flag[11]+flag[12]-flag[13]+flag[14]+flag[15]+flag[16]-flag[17]+flag[18]-flag[19]+flag[20]-flag[21]-flag[22]-flag[23]-flag[24]-flag[25]+flag[26]+flag[27]+flag[28]+flag[29]-flag[30]-flag[31]+flag[32]-flag[33]-flag[34]+flag[35]-flag[36]+flag[37]-flag[38]+flag[39]-flag[40]+flag[41]==s[16])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[4]+flag[0]-flag[5]+flag[6]+flag[7]+flag[8]-flag[9]-flag[10]+flag[11]-flag[12]+flag[13]+flag[14]+flag[15]-flag[16]+flag[17]-flag[18]-flag[19]+flag[20]-flag[21]+flag[22]-flag[23]-flag[24]+flag[25]-flag[26]+flag[27]-flag[28]+flag[29]-flag[30]-flag[31]+flag[32]-flag[33]-flag[34]+flag[35]-flag[36]+flag[37]-flag[38]+flag[39]+flag[40]-flag[41]==s[17])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]+flag[4]+flag[5]-flag[6]+flag[7]-flag[8]+flag[9]+flag[10]-flag[11]-flag[12]-flag[13]+flag[14]-flag[15]-flag[16]+flag[17]+flag[18]+flag[19]-flag[20]-flag[21]-flag[22]-flag[23]-flag[24]-flag[25]-flag[26]-flag[27]+flag[28]+flag[29]+flag[30]-flag[31]-flag[32]-flag[33]+flag[34]-flag[35]-flag[36]-flag[37]-flag[38]-flag[39]-flag[40]+flag[41]==s[18])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[0]-flag[4]-flag[5]+flag[6]-flag[7]-flag[8]-flag[9]-flag[10]-flag[11]-flag[12]-flag[13]+flag[14]+flag[15]+flag[16]-flag[17]+flag[18]+flag[19]+flag[20]+flag[21]-flag[22]+flag[23]+flag[24]-flag[25]+flag[26]+flag[27]-flag[28]+flag[29]+flag[30]+flag[31]+flag[32]+flag[33]-flag[34]+flag[35]-flag[36]-flag[37]-flag[38]+flag[39]+flag[40]-flag[41]==s[19])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]-flag[3]-flag[4]+flag[5]-flag[6]+flag[7]-flag[8]-flag[9]+flag[10]+flag[11]-flag[12]-flag[13]+flag[14]-flag[15]-flag[16]+flag[17]-flag[18]-flag[19]+flag[20]+flag[21]-flag[22]+flag[23]+flag[24]-flag[25]-flag[26]-flag[27]-flag[28]-flag[29]-flag[30]-flag[31]-flag[32]+flag[33]-flag[34]+flag[35]+flag[36]-flag[37]+flag[38]-flag[39]+flag[40]-flag[41]==s[20])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]+flag[4]+flag[5]+flag[6]+flag[7]-flag[8]-flag[9]-flag[10]-flag[11]-flag[12]-flag[13]-flag[14]-flag[15]-flag[16]+flag[17]-flag[18]-flag[19]+flag[20]-flag[21]+flag[22]+flag[23]+flag[24]-flag[25]-flag[26]+flag[27]-flag[28]-flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]-flag[36]+flag[37]-flag[38]-flag[39]-flag[40]+flag[41]==s[21])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[4]+flag[5]+flag[6]+flag[7]+flag[0]-flag[8]+flag[9]-flag[10]+flag[11]-flag[12]+flag[13]+flag[14]+flag[15]-flag[16]+flag[17]+flag[18]-flag[19]-flag[20]+flag[21]+flag[22]-flag[23]+flag[24]-flag[25]-flag[26]+flag[27]-flag[28]+flag[29]+flag[30]+flag[31]-flag[32]+flag[33]-flag[34]-flag[35]-flag[36]-flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[22])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]-flag[5]-flag[6]-flag[7]+flag[8]-flag[9]-flag[10]+flag[11]+flag[12]-flag[13]-flag[14]+flag[15]-flag[16]-flag[17]+flag[18]+flag[19]-flag[20]-flag[21]+flag[22]-flag[23]+flag[24]+flag[25]-flag[26]+flag[27]-flag[28]+flag[29]+flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]-flag[36]-flag[37]+flag[38]-flag[39]-flag[40]-flag[41]==s[23])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]+flag[3]+flag[4]-flag[5]+flag[6]+flag[7]-flag[8]+flag[9]+flag[10]-flag[11]-flag[12]-flag[13]-flag[14]+flag[15]+flag[16]+flag[17]-flag[18]+flag[19]+flag[20]+flag[21]+flag[22]+flag[23]+flag[24]+flag[25]-flag[26]-flag[27]-flag[28]+flag[29]+flag[30]-flag[31]+flag[32]+flag[33]+flag[34]-flag[35]-flag[36]-flag[37]-flag[38]+flag[39]+flag[40]-flag[41]==s[24])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]+flag[5]+flag[6]-flag[7]+flag[8]+flag[9]+flag[10]-flag[11]-flag[12]+flag[13]-flag[14]+flag[15]-flag[16]+flag[17]+flag[18]+flag[19]-flag[20]-flag[21]+flag[22]+flag[23]-flag[24]-flag[25]+flag[26]-flag[27]+flag[28]-flag[29]+flag[30]-flag[31]-flag[32]+flag[33]-flag[34]-flag[35]-flag[36]-flag[37]+flag[38]-flag[39]+flag[40]+flag[41]==s[25])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[4]+flag[0]-flag[5]-flag[6]+flag[7]-flag[8]-flag[9]-flag[10]-flag[11]+flag[12]-flag[13]+flag[14]-flag[15]+flag[16]-flag[17]+flag[18]-flag[19]-flag[20]+flag[21]+flag[22]+flag[23]+flag[24]+flag[25]-flag[26]-flag[27]-flag[28]-flag[29]+flag[30]+flag[31]-flag[32]-flag[33]-flag[34]+flag[35]+flag[36]-flag[37]-flag[38]+flag[39]+flag[40]+flag[41]==s[26])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]-flag[3]+flag[4]-flag[5]-flag[6]-flag[7]-flag[8]-flag[9]-flag[10]-flag[11]+flag[12]+flag[13]-flag[14]+flag[15]+flag[16]+flag[17]+flag[18]+flag[19]-flag[20]-flag[21]-flag[22]-flag[23]+flag[24]+flag[25]+flag[26]-flag[27]+flag[28]+flag[29]+flag[30]-flag[31]-flag[32]-flag[33]-flag[34]+flag[35]-flag[36]-flag[37]-flag[38]-flag[39]-flag[40]-flag[41]==s[27])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]+flag[4]-flag[5]+flag[6]+flag[7]-flag[8]-flag[9]+flag[10]+flag[11]-flag[12]+flag[13]-flag[14]+flag[15]-flag[16]+flag[17]+flag[18]+flag[19]-flag[20]-flag[21]+flag[22]-flag[23]-flag[24]-flag[25]-flag[26]+flag[27]-flag[28]-flag[29]-flag[30]+flag[31]-flag[32]-flag[33]+flag[34]+flag[35]+flag[36]-flag[37]-flag[38]+flag[39]+flag[40]+flag[41]==s[28])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]-flag[3]-flag[4]+flag[5]+flag[6]+flag[7]-flag[8]+flag[9]-flag[10]-flag[11]+flag[12]-flag[13]+flag[14]+flag[15]-flag[16]+flag[17]+flag[18]-flag[19]+flag[20]+flag[21]+flag[22]+flag[23]-flag[24]+flag[25]+flag[26]-flag[27]+flag[28]+flag[29]+flag[30]+flag[31]+flag[32]-flag[33]-flag[34]+flag[35]+flag[36]-flag[37]+flag[38]+flag[39]-flag[40]+flag[41]==s[29])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[0]-flag[4]-flag[5]-flag[6]-flag[7]+flag[8]+flag[9]-flag[10]-flag[11]-flag[12]+flag[13]-flag[14]-flag[15]+flag[16]-flag[17]-flag[18]-flag[19]+flag[20]-flag[21]-flag[22]+flag[23]+flag[24]-flag[25]-flag[26]+flag[27]-flag[28]-flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]+flag[35]+flag[36]+flag[37]-flag[38]+flag[39]+flag[40]+flag[41]==s[30])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]+flag[3]+flag[4]-flag[5]-flag[6]+flag[7]+flag[8]+flag[9]+flag[10]+flag[11]+flag[12]-flag[13]-flag[14]-flag[15]+flag[16]+flag[17]+flag[18]+flag[19]-flag[20]+flag[21]-flag[22]+flag[23]-flag[24]-flag[25]+flag[26]+flag[27]-flag[28]+flag[29]-flag[30]-flag[31]-flag[32]+flag[33]-flag[34]+flag[35]-flag[36]+flag[37]-flag[38]+flag[39]-flag[40]-flag[41]==s[31])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]-flag[4]+flag[5]+flag[6]+flag[7]+flag[8]-flag[9]+flag[10]+flag[11]-flag[12]+flag[13]+flag[14]-flag[15]+flag[16]-flag[17]+flag[18]+flag[19]+flag[20]-flag[21]-flag[22]+flag[23]-flag[24]+flag[25]+flag[26]+flag[27]-flag[28]-flag[29]-flag[30]-flag[31]-flag[32]-flag[33]+flag[34]+flag[35]+flag[36]+flag[37]-flag[38]+flag[39]-flag[40]+flag[41]==s[32])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]+flag[3]+flag[4]+flag[5]+flag[6]-flag[7]-flag[8]+flag[9]+flag[10]+flag[11]-flag[12]-flag[13]+flag[14]+flag[15]-flag[16]+flag[17]-flag[18]+flag[19]-flag[20]+flag[21]+flag[22]+flag[23]-flag[24]-flag[25]+flag[26]+flag[27]-flag[28]+flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]+flag[36]-flag[37]+flag[38]-flag[39]-flag[40]-flag[41]==s[33])</span><br><span class="line">solver.add(flag[1]+flag[0]-flag[2]+flag[3]-flag[4]-flag[5]-flag[6]+flag[7]+flag[8]+flag[9]+flag[10]+flag[11]-flag[12]-flag[13]-flag[14]+flag[15]-flag[16]+flag[17]-flag[18]+flag[19]-flag[20]-flag[21]+flag[22]+flag[23]-flag[24]-flag[25]+flag[26]+flag[27]+flag[28]+flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]-flag[36]+flag[37]+flag[38]+flag[39]-flag[40]-flag[41]==s[34])</span><br><span class="line">solver.add(flag[0]-flag[1]+flag[2]+flag[3]+flag[4]-flag[5]-flag[6]+flag[7]+flag[8]-flag[9]-flag[10]+flag[11]+flag[12]+flag[13]-flag[14]-flag[15]+flag[16]-flag[17]+flag[18]+flag[19]-flag[20]-flag[21]-flag[22]+flag[23]+flag[24]-flag[25]-flag[26]+flag[27]+flag[28]-flag[29]-flag[30]+flag[31]+flag[32]-flag[33]+flag[34]+flag[35]+flag[36]+flag[37]+flag[38]+flag[39]-flag[40]-flag[41]==s[35])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[0]-flag[3]-flag[4]-flag[5]-flag[6]+flag[7]+flag[8]+flag[9]-flag[10]+flag[11]+flag[12]-flag[13]+flag[14]+flag[15]+flag[16]+flag[17]+flag[18]+flag[19]+flag[20]+flag[21]-flag[22]-flag[23]+flag[24]-flag[25]-flag[26]-flag[27]-flag[28]+flag[29]+flag[30]+flag[31]+flag[32]-flag[33]-flag[34]-flag[35]-flag[36]+flag[37]-flag[38]+flag[39]+flag[40]-flag[41]==s[36])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]+flag[3]-flag[4]+flag[5]-flag[6]-flag[7]-flag[8]-flag[9]+flag[10]-flag[11]-flag[12]-flag[13]-flag[14]-flag[15]-flag[16]+flag[17]+flag[18]-flag[19]-flag[20]-flag[21]+flag[22]-flag[23]+flag[24]-flag[25]-flag[26]+flag[27]-flag[28]-flag[29]+flag[30]+flag[31]-flag[32]+flag[33]-flag[34]+flag[35]-flag[36]-flag[37]+flag[38]-flag[39]-flag[40]-flag[41]==s[37])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[0]-flag[4]+flag[5]+flag[6]+flag[7]-flag[8]-flag[9]-flag[10]+flag[11]+flag[12]+flag[13]-flag[14]-flag[15]-flag[16]-flag[17]-flag[18]-flag[19]+flag[20]+flag[21]-flag[22]+flag[23]+flag[24]+flag[25]+flag[26]+flag[27]-flag[28]-flag[29]+flag[30]+flag[31]-flag[32]-flag[33]+flag[34]-flag[35]-flag[36]-flag[37]+flag[38]+flag[39]+flag[40]-flag[41]==s[38])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]-flag[4]+flag[5]-flag[6]-flag[7]-flag[8]+flag[9]-flag[10]+flag[11]-flag[12]+flag[13]+flag[14]-flag[15]-flag[16]-flag[17]+flag[18]+flag[19]+flag[20]+flag[21]+flag[22]-flag[23]+flag[24]+flag[25]+flag[26]+flag[27]+flag[28]-flag[29]+flag[30]+flag[31]+flag[32]+flag[33]+flag[34]-flag[35]-flag[36]+flag[37]+flag[38]+flag[39]-flag[40]+flag[41]==s[39])</span><br><span class="line">solver.add(flag[0]-flag[1]-flag[2]-flag[3]+flag[4]+flag[5]+flag[6]-flag[7]+flag[8]+flag[9]-flag[10]+flag[11]-flag[12]-flag[13]-flag[14]+flag[15]+flag[16]+flag[17]+flag[18]+flag[19]+flag[20]+flag[21]+flag[22]-flag[23]+flag[24]+flag[25]-flag[26]+flag[27]+flag[28]-flag[29]+flag[30]+flag[31]+flag[32]-flag[33]-flag[34]+flag[35]+flag[36]-flag[37]+flag[38]+flag[39]+flag[40]+flag[41]==s[40])</span><br><span class="line">solver.add(flag[1]+flag[2]+flag[3]+flag[4]+flag[5]+flag[6]+flag[0]-flag[7]-flag[8]-flag[9]+flag[10]+flag[11]-flag[12]+flag[13]-flag[14]-flag[15]-flag[16]-flag[17]-flag[18]-flag[19]+flag[20]-flag[21]+flag[22]-flag[23]-flag[24]+flag[25]+flag[26]+flag[27]+flag[28]-flag[29]-flag[30]-flag[31]-flag[32]-flag[33]-flag[34]-flag[35]-flag[36]-flag[37]-flag[38]-flag[39]-flag[40]+flag[41]==s[41])</span><br><span class="line">if solver.check()==sat:</span><br><span class="line">	print solver.model()</span><br></pre></td></tr></table></figure>
+<p>不过解了半天也没解出来2333，最后是密码学大佬yx解的方程</p>
+<p>最后再逆运算一下得到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s2=[154, 171, 24, 161, 54, 222, 172, 116, 129, 18, 139, 152, 127, 247, 36, 124, 43, 90, 97, 138, 238, 95, 141, 237, 26, 227, 152, 154, 167, 54, 141, 166, 139, 66, 216, 129, 94, 164, 69, 188, 33, 194]</span><br><span class="line">for i in range(len(s2)):</span><br><span class="line">	s2[i]^=i</span><br><span class="line">	s2[i]=(s2[i]&gt;&gt;3)|(s2[i]&lt;&lt;5)</span><br><span class="line">	s2[i]=s2[i]&amp;0xff</span><br><span class="line">print &apos;&apos;.join([chr(i) for i in s2])</span><br><span class="line">#SUCTF&#123;Un1c0rn_Engin3_Is_@_P0wer7ul_TO0ls!&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/08/19/SUCTF2019-babyunic/">SUCTF2019-babyunic</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
+        <p><span>发布时间:</span>2019-08-19, 21:00:00</p>
+        <p><span>最后更新:</span>2019-08-18, 21:14:02</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/19/SUCTF2019-babyunic/" title="SUCTF2019-babyunic">http://yoursite.com/2019/08/19/SUCTF2019-babyunic/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/19/SUCTF2019-babyunic/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/08/19/SUCTF2019-playfmt/">
+                    SUCTF2019-playfmt
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/08/19/SUCTF2019-hardCPP/">
+                    SUCTF2019-hardCPP
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"SUCTF2019-babyunic　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://yoursite.com/2019/08/19/SUCTF2019-babyunic/';
+            this.page.identifier = '2019/08/19/SUCTF2019-babyunic/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//4eriri.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/08/19/SUCTF2019-playfmt/" title="上一篇: SUCTF2019-playfmt">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/08/19/SUCTF2019-hardCPP/" title="下一篇: SUCTF2019-hardCPP">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/08/19/SUCTF2019-playfmt/">SUCTF2019-playfmt</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/19/SUCTF2019-babyunic/">SUCTF2019-babyunic</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/19/SUCTF2019-hardCPP/">SUCTF2019-hardCPP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/09/ciscn2019-c06/">ciscn2019-c06</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/06/ciscn-2019-es-1/">ciscn_2019_es_1</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/03/ciscn-2019-es-4/">ciscn_2019_es_4</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/02/ciscn-2019-es-7/">ciscn_2019_es_7</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/01/hacknote/">攻防世界-hacknote</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/30/ciscn-2019-c-1/">ciscn_2019_emachine</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/29/babyheap-0ctf-2017/">babyheap_0ctf_2017</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/30/安恒杯2019年5月月赛/">安恒杯2019年5月月赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/ISCC2019-pwn01/">ISCC2019-pwn01</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/16/DDCTF2019-pwn/">DDCTF2019-pwn</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/13/某awd的唯一pwn/">某awd的唯一pwn</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/ctf2019-quicksort/">*ctf2019-quicksort</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/19/DDCTF2019-Confused/">DDCTF2019-Confused</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/CGCTF-homura-note/">CGCTF-homura_note</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/从零开始的Ubuntu16-04配置/">从零开始的Ubuntu16.04配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/PinTool安装与简单使用/">PinTool安装与简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/bugku-pwn3/">bugku-pwn3</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/27/0ctf2017-babyheap/">0ctf2017-babyheap</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/26/栈-SROP/">栈-SROP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/26/KCTF2019Q1/">KCTF2019Q1</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/某stack-4/">某stack-4</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/2014-HITCON-stkof/">2014 HITCON stkof</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/17/CONFidence2019-oldschool/">CONFidence2019-oldschool</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/CGCTF-note/">CGCTF-note</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/12/32位程序调用64位代码/">调用64位代码的32位程序逆向</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/04/2018网鼎杯pwn-GUESS/">2018网鼎杯pwn-GUESS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/安恒杯2019年2月月赛/">安恒杯2019年2月月赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/12/HGAME2019-Say-Muggle-Code-a-k-a-SMC/">HGAME2019-Say-Muggle-Code a.k.a. SMC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/10/outguess/">outguess</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/08/Math简单/">HGAME2019-Math简单</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/06/HGAME2019-python-bytecode/">HGAME2019-python-bytecode</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/brainfxxker-s-revenge/">HGAME2019-brainfxxker's revenge</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/26/NCTF2018/">NCTF2018</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/21/格式化字符串/">格式化字符串</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/20/z3求解/">z3求解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/07/basic-re-su/">basic-re-su</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/03/符号执行Angr/">符号执行Angr</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/31/MOCTF-1/">MOCTF-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/30/MCTF2018-2/">MCTF2018-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/27/MCTF2018-1/">MCTF2018-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/25/sus-gccc/">sus-gccc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/24/实验吧-3/">实验吧-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/23/实验吧-2/">实验吧-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/22/实验吧-1/">实验吧-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/19/geek-no-gdb/">geek-no-gdb</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/15/CNSSrecruit-3/">CNSSrecruit-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/14/CNSSrecruit-2/">CNSSrecruit-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/13/CNSSrecruit-1/">CNSSrecruit-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/11/sus-unpackme/">sus-unpackme</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/11/geekgame-2/">geekgame-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/10/geekgame-1/">geekgame-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/08/bugku-re-1/">bugku-re-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/03/cgctf-stackoverflow/">CGCTF-stackoverflow</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/03/十一欢乐赛-pwn4/">十一欢乐赛-pwn4</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/03/十一欢乐赛-bss-stack/">十一欢乐赛-bss_stack</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/02/cgctf-born/">CGCTF-born</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/02/十一欢乐赛-reverse/">十一欢乐赛-reverse</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/29/cgctf-homuraVM/">CGCTF-homuraVM</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/26/sus-ccc/">sus-ccc</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-accumulator/">sus-accumulator</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/24/sus-pyyy/">sus-pyyy</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/23/sus-helloworld/">sus-helloworld</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/bitx/">sus-bitx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/22/base64/">base64</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/21/480小时/">CGCTF-480小时精通c++</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2019 4eriri
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 1;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
+</html>

