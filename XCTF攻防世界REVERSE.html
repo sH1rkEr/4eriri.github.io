@@ -23,7 +23,7 @@
 <meta property="og:description" content="菜鸡还是从刷题做起吧……">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g3h0trsmjyj30bu01wwec.jpg">
-<meta property="og:updated_time" content="2019-05-28T16:17:25.302Z">
+<meta property="og:updated_time" content="2019-08-30T15:34:08.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界REVERSE">
 <meta name="twitter:description" content="菜鸡还是从刷题做起吧……">
@@ -255,33 +255,60 @@
           
         <p>菜鸡还是从刷题做起吧……</p>
 <a id="more"></a>
-<h1 id="001-dmd-50"><a href="#001-dmd-50" class="headerlink" title="001 dmd-50"></a>001 dmd-50</h1><p>输入md5后与<code>780438d5b6e29db0898bc4f0225935c0</code>进行比较，md5解密后得正确输入</p>
+<h1 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h1><p>输入md5后与<code>780438d5b6e29db0898bc4f0225935c0</code>进行比较，md5解密后得正确输入</p>
 <p><code>b781cbb29054db12f88f08c6e161c199</code>。</p>
-<h1 id="002-Shuffle"><a href="#002-Shuffle" class="headerlink" title="002 Shuffle"></a>002 Shuffle</h1><p>明文flag</p>
+<h1 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle"></a>Shuffle</h1><p>明文flag</p>
 <p><code>SECCON{Welcome to the SECCON 2014 CTF!}</code></p>
-<h1 id="003-crackme"><a href="#003-crackme" class="headerlink" title="003 crackme"></a>003 crackme</h1><p>ESP定律脱壳，简单加密</p>
+<h1 id="crackme"><a href="#crackme" class="headerlink" title="crackme"></a>crackme</h1><p>ESP定律脱壳，简单加密</p>
 <p>逆运算脚本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key=&quot;this_is_not_flag&quot;</span><br><span class="line">s=[0x12, 0x04, 0x08, 0x14, 0x24, 0x5C, 0x4A, 0x3D, 0x56, 0x0A, 0x10, 0x67,0x0,0x41, 0x0,0x01, 0x46, 0x5A, 0x44, 0x42, 0x6E, 0x0C, 0x44, 0x72, 0x0C, 0x0D, 0x40, 0x3E, 0x4B, 0x5F, 0x02, 0x01, 0x4C, 0x5E, 0x5B, 0x17, 0x6E, 0x0C, 0x16, 0x68, 0x5B, 0x12, 0x48,0x0e]</span><br><span class="line">print &apos;&apos;.join([chr(s[i]^ord(key[i%16]))for i in range(42)])</span><br></pre></td></tr></table></figure>
 <p><code>flag{59b8ed8f-af22-11e7-bb4a-3cf862d1ee75}</code></p>
-<h1 id="004-re2-cpp-is-awesome"><a href="#004-re2-cpp-is-awesome" class="headerlink" title="004 re2-cpp-is-awesome"></a>004 re2-cpp-is-awesome</h1><p>根据给的index表在table中取值得到flag：</p>
+<h1 id="re2-cpp-is-awesome"><a href="#re2-cpp-is-awesome" class="headerlink" title="re2-cpp-is-awesome"></a>re2-cpp-is-awesome</h1><p>根据给的index表在table中取值得到flag：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">table=&quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_&#123;FL4G&#125;_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;</span><br><span class="line">index=[36,   0,   0,   0,   0,   0,   0,   0,   5,   0,  0,   0,  54,   0,   0,   0, 101,   0,   0,   0,  7,   0,   0,   0,  39,   0,   0,   0,  38,   0,  0,   0,  45,   0,   0,   0,   1,   0,   0,   0,  3,   0,   0,   0,   0,   0,   0,   0,  13,   0,  0,   0,  86,   0,   0,   0,   1,   0,   0,   0,  3,   0,   0,   0, 101,   0,   0,   0,   3,   0,  0,   0,  45,   0,   0,   0,  22,   0,   0,   0,  2,   0,   0,   0,  21,   0,   0,   0,   3,   0,  0,   0, 101,   0,   0,   0,   0,   0,   0,   0, 41,   0,   0,   0,  68,   0,   0,   0,  68,   0,  0,   0,   1,   0,   0,   0,  68,   0,   0,   0, 43,   0,   0,   0]</span><br><span class="line">print &apos;&apos;.join([table[index[i]] for i in range(0,len(index),4)])</span><br></pre></td></tr></table></figure>
 <p><code>ALEXCTF{W3_L0v3_C_W1th_CL45535}</code></p>
-<h1 id="005-re-for-50-plz-50"><a href="#005-re-for-50-plz-50" class="headerlink" title="005 re-for-50-plz-50"></a>005 re-for-50-plz-50</h1><p>MIPS汇编</p>
+<h1 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h1><p>MIPS汇编</p>
 <p>输入的每个字符异或0x37后与<code>cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ</code>比较</p>
 <p>逆运算得flag：<br><code>TUCTF{but_really_whoisjohngalt}</code></p>
-<h1 id="006-The-Maya-Society"><a href="#006-The-Maya-Society" class="headerlink" title="006 The Maya Society"></a>006 The Maya Society</h1><p><del>这题有点脑洞</del></p>
+<h1 id="The-Maya-Society"><a href="#The-Maya-Society" class="headerlink" title="The Maya Society"></a>The Maya Society</h1><p><del>这题有点脑洞</del></p>
 <p>计算机时间改为2012-12-21运行程序即可得到flag:</p>
 <p><code>flag{e3a03c6f3fe91b40eaa8e71b41f0db12}</code></p>
-<h1 id="007-key"><a href="#007-key" class="headerlink" title="007 key"></a>007 key</h1><p>运行程序会报：<code>&quot;?W?h?a?t h?a?p?p?e?n?&quot;</code></p>
+<h1 id="key"><a href="#key" class="headerlink" title="key"></a>key</h1><p>运行程序会报：<code>&quot;?W?h?a?t h?a?p?p?e?n?&quot;</code></p>
 <p>ida分析一波发现是读取不到<br><code>C:\\Users\\CSAW2016\\haha\\flag_dir\\flag.txt</code>，所以报错，建立该文件，继续运行。<br>再次运行会提示<code>=W=r=o=n=g=K=e=y=</code></p>
 <p>定位到此处：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">if ( sub_4020C0(&amp;v44, v12, v45, (int)v13, v48) )</span><br><span class="line">  &#123;</span><br><span class="line">    v28 = sub_402A00(std::cout, &quot;=W=r=o=n=g=K=e=y=&quot;, sub_402C50);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    v14 = sub_402A00(std::cout, &quot;|------------------------------|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v14, v15);</span><br><span class="line">    v16 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v16, v17);</span><br><span class="line">    v18 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v18, v19);</span><br><span class="line">    v20 = sub_402A00(std::cout, &quot;|==============================|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v20, v21);</span><br><span class="line">    v22 = sub_402A00(std::cout, &quot;\\  /\\  /\\  /\\  /\\==============|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v22, v23);</span><br><span class="line">    v24 = sub_402A00(std::cout, &quot; \\/  \\/  \\/  \\/  \\=============|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v24, v25);</span><br><span class="line">    v26 = sub_402A00(std::cout, &quot;                 |-------------|&quot;, sub_402C50);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(v26, v27);</span><br><span class="line">    std::basic_ostream&lt;char,std::char_traits&lt;char&gt;&gt;::operator&lt;&lt;(std::cout, sub_402C50);</span><br><span class="line">    v28 = sub_402A00(std::cout, &quot;Congrats You got it!&quot;, sub_402C50);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>使用od跟进sub_4020c0，调试发现是在进行字符串比较<br><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g3h0trsmjyj30bu01wwec.jpg" alt=""><br><code>4eriri</code>是我自己建立的flag.txt中的内容，比较的字符串可能就是正确的flag，提交发现正确。</p>
 <p><code>idg_cni~bjbfi|gsxb</code></p>
-<h1 id="008-simple-check-100"><a href="#008-simple-check-100" class="headerlink" title="008 simple-check-100"></a>008 simple-check-100</h1><p>给了三个文件，随便找一个逆一下就ok了</p>
+<h1 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h1><p>给了三个文件，随便找一个逆一下就ok了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">unsigned char flagdata[28]=&#123;0xDC, 0x17, 0xBF, 0x5B, 0xD4, 0x0A, 0xD2, 0x1B, 0x7D, 0xDA,</span><br><span class="line">          0xA7, 0x95, 0xB5, 0x32, 0x10, 0xF6, 0x1C, 0x65, 0x53, 0x53,</span><br><span class="line">    0x67, 0xBA, 0xEA, 0x6E, 0x78, 0x22, 0x72, 0xD3&#125;;</span><br><span class="line">unsigned int a1[7]=&#123;0xe37ec854,0x9a16c764,0x326511cd,0x43d3e32d,0xd29da992,0xd32c6de6,0x6afebdb6&#125;;</span><br><span class="line">for(int i=0;i&lt;7;i++)</span><br><span class="line">    a1[i]^=0xdeadbeef;</span><br><span class="line">unsigned char key[28]=&#123;0&#125;;</span><br><span class="line">memcpy(key,a1,28);</span><br><span class="line">unsigned char flag[28]=&#123;0&#125;;</span><br><span class="line">for(int i=0;i&lt;28;i++)</span><br><span class="line">&#123;</span><br><span class="line">    flag[i]=flagdata[i]^key[i];</span><br><span class="line">    printf(&quot;%c&quot;,flag[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>脚本有点小小的问题，自己读一下flag</p>
 <p><code>flag_is_you_know_cracking!!!</code></p>
+<h1 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h1><p>fork了一下，主要看子进程进的if就可以了，对给的字符串进行了重新拼接。</p>
+<p><code>53fc275d81053ed5be8cdaf29f59034938ae4efd</code></p>
+<h1 id="srm-50"><a href="#srm-50" class="headerlink" title="srm-50"></a>srm-50</h1><p>对每个字符进行了约束</p>
+<p><code>CZ9dmq4c8g9G7bAX</code></p>
+<h1 id="IgniteMe"><a href="#IgniteMe" class="headerlink" title="IgniteMe"></a>IgniteMe</h1><p>先大小写互换然后异或运算等 一步步逆回去即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s=[0x0D, 0x13, 0x17, 0x11, 0x02, 0x01, 0x20, 0x1D, 0x0C, 0x02, 0x19, 0x2F, 0x17, 0x2B, 0x24, 0x1F, 0x1E, 0x16, 0x09, 0x0F, 0x15, 0x27, 0x13, 0x26, 0x0A, 0x2F, 0x1E, 0x1A, 0x2D, 0x0C, 0x22, 0x04]</span><br><span class="line">f=&quot;GONDPHyGjPEKruv&#123;&#123;pj]X@rF&quot;</span><br><span class="line">tmp=[]</span><br><span class="line">for i in range(len(f)):</span><br><span class="line">	tmp.append(ord(f[i])^s[i])</span><br><span class="line">print &apos;&apos;.join([chr(0x55^(tmp[i])-72) for i in range(len(tmp))])</span><br></pre></td></tr></table></figure>
+<p><code>EIS{wadx_tdgk_aihc_ihkn_pjlm}</code></p>
+<h1 id="ReverseMe-120"><a href="#ReverseMe-120" class="headerlink" title="ReverseMe-120"></a>ReverseMe-120</h1><p>先每位异或0x25，再base64encode得到flag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">s=&quot;you_know_how_to_remove_junk_code&quot;</span><br><span class="line">print base64.b64encode(&apos;&apos;.join([chr(ord(i)^0x25) for i in s]))</span><br></pre></td></tr></table></figure>
+<p><code>XEpQek5LSlJ6TUpSelFKeldASEpTQHpPUEtOekZKQUA=</code></p>
+<h1 id="Reversing-x64Elf-100"><a href="#Reversing-x64Elf-100" class="headerlink" title="Reversing-x64Elf-100"></a>Reversing-x64Elf-100</h1><p>angr跑一发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import angr </span><br><span class="line">p = angr.Project(&quot;./r100&quot;) </span><br><span class="line">state=p.factory.entry_state(args=[&apos;./r100&apos;])</span><br><span class="line">simgr=p.factory.simgr(state)</span><br><span class="line">simgr.explore(find=0x400844,avoid=0x400855)</span><br><span class="line">print simgr.found[0].posix.dumps(0)</span><br></pre></td></tr></table></figure>
+<p><code>Code_Talkers</code></p>
+<h1 id="tt3441810"><a href="#tt3441810" class="headerlink" title="tt3441810"></a>tt3441810</h1><p>给了一段机器码，汇编是如下形式的重复：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">push      6C66h</span><br><span class="line">mov       rdi, 1h</span><br><span class="line">lea       rsi, qword ptr ss:[rsp]</span><br><span class="line">mov       rdx, 2h</span><br><span class="line">mov       rax, 1h</span><br><span class="line">syscall</span><br></pre></td></tr></table></figure>
+<p>64位下系统调用号1是write，这段汇编就是每次输出两个字符。</p>
+<p>拼接得到flag：</p>
+<p><code>flag{poppopret}</code></p>
+<h1 id="zorropub"><a href="#zorropub" class="headerlink" title="zorropub"></a>zorropub</h1><p>md5查不到</p>
+<p>如果我们输入1杯酒，那么只需要对第二次输入的ids就行爆破就可以了</p>
+<p>学习了一波subprocess：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import subprocesss=[]for i in range(17,65535):	v9=0	tmp=i	while i:		v9+=1		i=i&amp;(i-1)	if v9==10:		s.append(tmp)for i in s:    proc = subprocess.Popen([&apos;./3ab716004ef04c018451860b94b52af7.dms&apos;], stdin=subprocess.PIPE, stdout=subprocess.PIPE)    out = proc.communicate((&apos;1\n%s\n&apos; % i).encode(&apos;utf-8&apos;))[0]    if &quot;nullcon&quot;.encode(&apos;utf-8&apos;) in out:      print out</span><br></pre></td></tr></table></figure>
+<p>基本照抄，首先生成一个list，存放所有可能的输入，然后一个个尝试就可以了。</p>
+<h1 id="catch-me"><a href="#catch-me" class="headerlink" title="catch-me"></a>catch-me</h1><p>首先是要求<code>sub_400820</code>的返回值，这是个固定值，通过调试可以直接获取。</p>
+<p>其次是取环境变量<code>ASIS</code>和<code>CTF</code>，对其进行了约束，随后如果<code>ASIS</code>的值是正确的，那么输出的flag就是正确的。</p>
+<p>不怎么会设置环境变量，所以使用了动态调试过程中修改寄存器值的方法修改<code>ASIS</code>的值。</p>
+<p><code>Flag: ASIS{600d_j0b_y0u_4r3_63771n6_574r73d}</code></p>
 
       
     </div>

