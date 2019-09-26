@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
+<meta name="description" content="FSOP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KCTF2019Q3-卧薪尝胆">
 <meta property="og:url" content="http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
+<meta property="og:description" content="FSOP">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-26T07:50:43.509Z">
+<meta property="og:updated_time" content="2019-09-26T08:54:25.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KCTF2019Q3-卧薪尝胆">
-<meta name="twitter:description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
+<meta name="twitter:description" content="FSOP">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -236,7 +236,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
+        <p>FSOP</p>
+<a id="more"></a>
 <p>malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。</p>
 <p>看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。</p>
 <p>尝试往<code>malloc_hook</code>写了onegadget，然而一直没卵用，才知道原来是程序替换了<code>malloc_hook</code>。</p>
@@ -253,7 +254,7 @@
         <p><span>本文标题:</span><a href="/2019/09/26/KCTF2019Q3-卧薪尝胆/">KCTF2019Q3-卧薪尝胆</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
         <p><span>发布时间:</span>2019-09-26, 15:46:59</p>
-        <p><span>最后更新:</span>2019-09-26, 15:50:43</p>
+        <p><span>最后更新:</span>2019-09-26, 16:54:25</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/09/26/KCTF2019Q3-卧薪尝胆/" title="KCTF2019Q3-卧薪尝胆">http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

