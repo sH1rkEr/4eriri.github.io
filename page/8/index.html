@@ -203,6 +203,69 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-sus-ccc" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/26/sus-ccc/" class="article-date">
+      <time datetime="2018-09-26T14:52:35.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/26/sus-ccc/">sus-ccc</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://sus.njnet6.edu.cn/challenges#ccc" target="_blank" rel="noopener">题目地址</a></p>
+<p>主函数很简单，直接看验证函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v6 = 0;</span><br><span class="line">if ( a2 != 42 )</span><br><span class="line">  return 0;</span><br><span class="line">for ( i = 3; i &lt;= 42; i += 3 )</span><br><span class="line">&#123;</span><br><span class="line">  v3 = crc32(0, (_BYTE *)a1, i);</span><br><span class="line">  v4 = v6++;</span><br><span class="line">  if ( v3 != hashes[v4] )</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">return 1;</span><br></pre></td></tr></table></figure>
+<p>输入一共42位，1-3，1-6，1-9一直到1-42循环经过crc32函数处理后与hashes值进行比对，一共比对14次。crc32函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v6 = a2;</span><br><span class="line">  for ( i = ~a1; ; i = (i &gt;&gt; 8) ^ crc32_tab[(unsigned __int8)(i ^ *v3)] )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = a3--;</span><br><span class="line">    if ( !v4 )</span><br><span class="line">      break;</span><br><span class="line">    v3 = v6++;</span><br><span class="line">  &#125;</span><br><span class="line">  return ~i;</span><br></pre></td></tr></table></figure>
+<p>然而不管是写爆破脚本还是逆运算脚本都没能得到flag……觉得自己对函数的理解没有错误，百度了一下python中~0=-1,c语言中~0=1，所以出了问题。看了大佬的writeup发现python里可以使用crc32函数，于是爆破脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">import string</span><br><span class="line">import binascii</span><br><span class="line">hashes=[0xD641596F,0x80A3E990,0xC98D5C9B,0xD05AFAF,0x1372A12D,0x5D5F117B,0x4001FBFD,0xA7D2D56B,0x7D04FB7E,0x2E42895E,0x61C97EB3,0x84AB43C3,0x9FC129DD,0xF4592F4D]</span><br><span class="line">flag=&apos;&apos;</span><br><span class="line">for n in hashes:</span><br><span class="line">	for i in string.printable:</span><br><span class="line">		for j in string.printable:</span><br><span class="line">			for k in string.printable:</span><br><span class="line">				temp=i+j+k</span><br><span class="line">				if binascii.crc32(flag+temp)&amp;0xffffffff == n:</span><br><span class="line">					flag+=temp</span><br><span class="line">					break;</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<p><strong><em>flag get</em></strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-sus-accumulator" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

